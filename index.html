@@ -22,11 +22,9 @@
             position: relative;
             overflow: hidden;
             
-            /* Эффект рыбьего глаза (искажение краев) */
-            /* Если эффект слишком сильный, уменьши значения scale */
-            transform: scale(1.1); 
-            border-radius: 50% / 10%; /* Слегка скругляет углы для эффекта ЭЛТ */
-            box-shadow: inset 0 0 100px rgba(0,0,0,1); /* Виньетка по краям */
+            /* Слегка скругляем углы для эффекта ЭЛТ, но не сильно, чтобы не резать края */
+            border-radius: 3% / 5%; 
+            box-shadow: inset 0 0 150px rgba(0,0,0,0.9); /* Виньетка */
         }
 
         /* --- ВИДЕО-ФОН --- */
@@ -38,18 +36,18 @@
             height: 100vh;
             object-fit: cover; 
             z-index: -3; 
-            filter: brightness(0.5) contrast(1.2) saturate(1.5); /* Усиливаем контраст и цвет */
+            filter: brightness(0.5) contrast(1.2) saturate(1.5);
         }
 
-        /* --- СИНИЙ VHS СЛОЙ (как на фото) --- */
+        /* --- СИНИЙ VHS СЛОЙ --- */
         .vhs-blue-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(180deg, rgba(0, 0, 255, 0.4) 0%, rgba(75, 0, 130, 0.5) 100%);
-            mix-blend-mode: color; /* Смешивает синий цвет с видео */
+            background: linear-gradient(180deg, rgba(0, 0, 255, 0.3) 0%, rgba(75, 0, 130, 0.4) 100%);
+            mix-blend-mode: color; 
             z-index: -2;
             pointer-events: none;
         }
@@ -74,7 +72,7 @@
             animation: flicker 0.1s infinite;
         }
 
-        /* --- ТЕКСТОВЫЙ ИНТЕРФЕЙС VHS (PLAY, SP, ТАЙМКОД) --- */
+        /* --- ТЕКСТОВЫЙ ИНТЕРФЕЙС VHS --- */
         .vhs-ui {
             position: absolute;
             top: 0;
@@ -82,51 +80,52 @@
             width: 100%;
             height: 100%;
             z-index: 10;
-            pointer-events: none; /* Чтобы текст не мешал кликать по логотипу */
-            padding: 40px;
+            pointer-events: none; 
+            
+            /* Уменьшили отступы, чтобы текст не улетал за край */
+            padding: 20px 40px; 
             box-sizing: border-box;
             color: #ffffff;
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
-            font-size: 2rem;
+            font-size: 1.5rem; /* Уменьшили размер шрифта интерфейса */
             text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
         }
 
         .vhs-ui .top-left {
             position: absolute;
-            top: 40px;
+            top: 20px;
             left: 40px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
-        /* Иконка Play (треугольник) */
         .play-icon {
             width: 0;
             height: 0;
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            border-left: 25px solid #ffffff;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 15px solid #ffffff;
         }
 
         .vhs-ui .top-right {
             position: absolute;
-            top: 40px;
+            top: 20px;
             right: 40px;
         }
 
         .vhs-ui .bottom-right {
             position: absolute;
-            bottom: 40px;
+            bottom: 20px;
             right: 40px;
             text-align: right;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
         }
 
         .vhs-ui .timecode {
             display: block;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         /* --- АНИМАЦИИ --- */
@@ -181,7 +180,7 @@
 
         .email-text {
             position: absolute;
-            bottom: 30px; 
+            bottom: 20px; 
             left: 50%;
             transform: translateX(-50%); 
             font-size: 0.85rem;
