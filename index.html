@@ -15,16 +15,23 @@
             font-family: 'Space Mono', monospace;
         }
 
-        /* --- ГЛАВНЫЙ КОНТЕЙНЕР С ЭФФЕКТОМ FISHEYE --- */
-        .fisheye-wrapper {
+        /* --- КОНТЕЙНЕР ДЛЯ ЭФФЕКТА ЛИНЗЫ --- */
+        .lens-container {
             width: 100vw;
             height: 100vh;
             position: relative;
             overflow: hidden;
             
-            /* Слегка скругляем углы для эффекта ЭЛТ, но не сильно, чтобы не резать края */
-            border-radius: 3% / 5%; 
-            box-shadow: inset 0 0 150px rgba(0,0,0,0.9); /* Виньетка */
+            /* Круглая маска, чтобы скрыть углы */
+            clip-path: circle(50% at 50% 50%); 
+            
+            /* Если хочешь, чтобы круг был меньше (как на фото), уменьши 50% до 40% */
+            
+            /* Применяем SVG-фильтр искажения */
+            filter: url(#fisheye);
+            
+            /* Увеличиваем масштаб, чтобы края круга не обрезались слишком сильно */
+            transform: scale(1.2); 
         }
 
         /* --- ВИДЕО-ФОН --- */
@@ -32,8 +39,8 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             object-fit: cover; 
             z-index: -3; 
             filter: brightness(0.5) contrast(1.2) saturate(1.5);
@@ -44,9 +51,9 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(180deg, rgba(0, 0, 255, 0.3) 0%, rgba(75, 0, 130, 0.4) 100%);
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0, 0, 255, 0.4) 0%, rgba(75, 0, 130, 0.5) 100%);
             mix-blend-mode: color; 
             z-index: -2;
             pointer-events: none;
@@ -57,8 +64,8 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             z-index: -1;
             pointer-events: none;
             background: repeating-linear-gradient(
@@ -81,14 +88,12 @@
             height: 100%;
             z-index: 10;
             pointer-events: none; 
-            
-            /* Уменьшили отступы, чтобы текст не улетал за край */
             padding: 20px 40px; 
             box-sizing: border-box;
             color: #ffffff;
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
-            font-size: 1.5rem; /* Уменьшили размер шрифта интерфейса */
+            font-size: 1.5rem; 
             text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
         }
 
@@ -137,8 +142,8 @@
 
         /* --- КОНТЕНТ --- */
         .main-container {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -197,7 +202,15 @@
 </head>
 <body>
 
-    <div class="fisheye-wrapper">
+    <!-- SVG ФИЛЬТР ДЛЯ ИСКАЖЕНИЯ (FISHEYE) -->
+    <svg width="0" height="0" style="position: absolute;">
+        <filter id="fisheye">
+            <feImage result="img" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxyYWRpYWxHcmFkaWVudCBpZD0iZyIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNTAlIiBmeD0iNTAlIiBmeT0iNTAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmZmIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDAwIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNnKSIvPjwvc3ZnPg==" />
+            <feDisplacementMap in="SourceGraphic" in2="img" scale="150" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+    </svg>
+
+    <div class="lens-container">
         <!-- ВИДЕО-ФОН -->
         <video id="bg-video" autoplay muted playsinline preload="auto">
             <source src="bg.mp4" type="video/mp4">
