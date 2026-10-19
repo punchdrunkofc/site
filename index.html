@@ -15,7 +15,6 @@
             font-family: 'Space Mono', monospace;
         }
 
-        /* --- КОНТЕЙНЕР ДЛЯ ВСЕГО ЭКРАНА --- */
         .lens-container {
             width: 100vw;
             height: 100vh;
@@ -23,7 +22,7 @@
             overflow: hidden;
         }
 
-        /* --- ВИДЕО-ФОН С ИСКАЖЕНИЕМ --- */
+        /* --- ВИДЕО-ФОН (БЕЗ ИСКАЖЕНИЙ) --- */
         #bg-video {
             position: absolute;
             top: 0;
@@ -32,9 +31,7 @@
             height: 100%;
             object-fit: cover; 
             z-index: -3; 
-            filter: brightness(0.5) contrast(1.2) saturate(1.5) url(#fisheye);
-            /* Масштаб, чтобы скрыть края после искажения */
-            transform: scale(1.3); 
+            filter: brightness(0.5) contrast(1.2) saturate(1.5);
         }
 
         /* --- СИНИЙ VHS СЛОЙ --- */
@@ -193,15 +190,6 @@
 </head>
 <body>
 
-    <!-- SVG ФИЛЬТР ДЛЯ ИСКАЖЕНИЯ (FISHEYE) -->
-    <svg width="0" height="0" style="position: absolute;">
-        <filter id="fisheye">
-            <feImage result="img" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxyYWRpYWxHcmFkaWVudCBpZD0iZyIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNTAlIiBmeD0iNTAlIiBmeT0iNTAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmZmIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDAwIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNnKSIvPjwvc3ZnPg==" />
-            <!-- scale="100" - это сила искажения. Чем больше, тем сильнее выгибает -->
-            <feDisplacementMap in="SourceGraphic" in2="img" scale="80" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-    </svg>
-
     <div class="lens-container">
         <!-- ВИДЕО-ФОН -->
         <video id="bg-video" autoplay muted playsinline preload="auto">
@@ -265,7 +253,7 @@
             timecodeElement.textContent = `${h}:${m}:${s}`;
         }, 1000);
 
-        // --- 3D ТЕКСТ (ВОЗВРАЩАЕМ СКОРОСТЬ) ---
+        // --- 3D ТЕКСТ ---
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
         
@@ -307,7 +295,7 @@
 
             function animate() {
                 requestAnimationFrame(animate);
-                group.rotation.y += 0.015; // Вернули нормальную скорость
+                group.rotation.y += 0.015; 
                 renderer.render(scene, camera);
             }
             animate();
