@@ -12,16 +12,130 @@
             padding: 0;
             background-color: #000000;
             color: #ffffff;
-            overflow-x: hidden;
+            overflow-x: hidden; 
             font-family: 'Space Mono', monospace;
         }
 
+        .lens-container {
+            width: 100vw;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* --- ВИДЕО-ФОН --- */
+        #bg-video {
+            position: fixed; /* Фиксируем, чтобы не скроллилось */
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover; 
+            z-index: -3; 
+            filter: brightness(0.4) contrast(1.2) saturate(1.5); /* Чуть темнее, чтобы читать текст */
+        }
+
+        /* --- СИНИЙ VHS СЛОЙ --- */
+        .vhs-blue-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(0, 0, 255, 0.3) 0%, rgba(75, 0, 130, 0.4) 100%);
+            mix-blend-mode: color; 
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* --- ШУМ И СКАНЛАЙНЫ --- */
+        .vhs-noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.3),
+                rgba(0, 0, 0, 0.3) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            opacity: 0.8;
+            animation: flicker 0.1s infinite;
+        }
+
+        /* --- ТЕКСТОВЫЙ ИНТЕРФЕЙС VHS --- */
+        .vhs-ui {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none; 
+            padding: 20px 40px; 
+            box-sizing: border-box;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 1.5rem; 
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+        }
+
+        .vhs-ui .top-left {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 15px solid #ffffff;
+        }
+
+        .vhs-ui .top-right {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+        }
+
+        .vhs-ui .bottom-right {
+            position: absolute;
+            bottom: 20px;
+            right: 40px;
+            text-align: right;
+            font-size: 1.2rem;
+        }
+
+        .vhs-ui .timecode {
+            display: block;
+            margin-top: 5px;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+
+        /* --- ОСНОВНОЙ КОНТЕНТ --- */
         .page-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            padding: 40px 20px;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
         }
 
         #3d-text-container {
@@ -42,6 +156,10 @@
             font-size: 1rem;
             color: #dddddd;
             text-align: left;
+            background: rgba(0, 0, 0, 0.6); /* Полупрозрачная подложка для читаемости */
+            padding: 30px;
+            border-radius: 8px;
+            backdrop-filter: blur(2px);
         }
 
         .text-content h2 {
@@ -69,7 +187,6 @@
             text-decoration: underline;
         }
 
-        /* Обновленные стили для кнопки BACK TO HOME (без эффектов при наведении) */
         .back-link {
             margin-top: 50px;
             margin-bottom: 30px;
@@ -79,11 +196,36 @@
             font-size: 1.5rem;
             font-family: 'Courier New', Courier, monospace; 
             letter-spacing: 2px; 
-            /* Убрали transition и hover эффекты */
+            position: relative;
+            z-index: 2;
         }
     </style>
 </head>
 <body>
+
+    <!-- ВИДЕО-ФОН -->
+    <video id="bg-video" autoplay muted playsinline preload="auto">
+        <source src="bg.mp4" type="video/mp4">
+    </video>
+
+    <!-- СЛОИ ДЛЯ VHS ЭФФЕКТА -->
+    <div class="vhs-blue-overlay"></div>
+    <div class="vhs-noise"></div>
+
+    <!-- ИНТЕРФЕЙС VHS -->
+    <div class="vhs-ui">
+        <div class="top-left">
+            <span>PLAY</span>
+            <div class="play-icon"></div>
+        </div>
+        <div class="top-right">
+            <span>SP</span>
+        </div>
+        <div class="bottom-right">
+            <span>--/--/--</span>
+            <span class="timecode" id="timecode">00:00:00</span>
+        </div>
+    </div>
 
     <div class="page-container">
         
@@ -97,7 +239,6 @@
             <h2>Who—or what—is PunchDrunk?</h2>
             <p>Let’s clarify one thing: I won’t be describing individual tracks here, as you can find all that information on my YouTube channel. Instead, I’ll talk about the project itself.</p>
             
-            <!-- Ссылка на трек Epsyle - Couture -->
             <p>I launched this project on August 2, 2023—not with a specific goal in mind, but simply for myself, as an online archive to preserve my musical work forever. The initial spark came from a track that left a lasting mark on my musical taste: <a href="https://www.youtube.com/watch?v=FcemYs0wObE&list=RDFcemYs0wObE&start_radio=1" target="_blank" class="track-link">Epsyle - Couture</a>. Once the first 1,000 people subscribed, I began to evolve the project—moving beyond the scope of a mere hobbyist musician and developing it into a full-fledged creative endeavor. This site gathers information on all the characters created under the PunchDrunk banner, including those developed by other contributors who have since joined the project.</p>
             
             <p>So, what exactly is PunchDrunk? Honestly, even we don’t know for sure. Everyone defines PunchDrunk in their own way: for some, it’s a heavy, hardcore act that conjures an atmosphere of chaos; for others, it’s a dance-oriented house project built entirely around high-energy movement. As for my own take... PunchDrunk is my soul, poured into every single piece of work. It’s not music for everyone, yet it resonates with many.</p>
@@ -110,10 +251,31 @@
 
     </div>
 
-    <!-- Подключаем Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script>
+        // --- БЕСШОВНЫЙ ЦИКЛ ВИДЕО ---
+        const video = document.getElementById('bg-video');
+        video.addEventListener('loadeddata', () => { video.play(); });
+        video.addEventListener('timeupdate', () => {
+            if (video.duration - video.currentTime < 0.2) {
+                video.currentTime = 0;
+                video.play();
+            }
+        });
+
+        // --- ТАЙМКОД ДЛЯ VHS ИНТЕРФЕЙСА ---
+        const timecodeElement = document.getElementById('timecode');
+        let seconds = 0;
+        setInterval(() => {
+            seconds++;
+            let h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+            let m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            let s = (seconds % 60).toString().padStart(2, '0');
+            timecodeElement.textContent = `${h}:${m}:${s}`;
+        }, 1000);
+
+        // --- 3D ТЕКСТ WELCOME ---
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
         
