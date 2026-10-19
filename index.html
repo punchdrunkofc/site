@@ -15,94 +15,125 @@
             font-family: 'Space Mono', monospace;
         }
 
+        /* --- ГЛАВНЫЙ КОНТЕЙНЕР С ЭФФЕКТОМ FISHEYE --- */
+        .fisheye-wrapper {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            
+            /* Эффект рыбьего глаза (искажение краев) */
+            /* Если эффект слишком сильный, уменьши значения scale */
+            transform: scale(1.1); 
+            border-radius: 50% / 10%; /* Слегка скругляет углы для эффекта ЭЛТ */
+            box-shadow: inset 0 0 100px rgba(0,0,0,1); /* Виньетка по краям */
+        }
+
         /* --- ВИДЕО-ФОН --- */
         #bg-video {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             object-fit: cover; 
-            z-index: -3; /* Уводим на самый задний план */
-            
-            /* Немного уменьшаем яркость, чтобы текст читался */
-            filter: brightness(0.6) contrast(1.1); 
+            z-index: -3; 
+            filter: brightness(0.5) contrast(1.2) saturate(1.5); /* Усиливаем контраст и цвет */
         }
 
-        /* --- СЛОЙ С ШУМОМ (SCANLINES) --- */
-        .vhs-overlay {
-            position: fixed;
+        /* --- СИНИЙ VHS СЛОЙ (как на фото) --- */
+        .vhs-blue-overlay {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
+            background: linear-gradient(180deg, rgba(0, 0, 255, 0.4) 0%, rgba(75, 0, 130, 0.5) 100%);
+            mix-blend-mode: color; /* Смешивает синий цвет с видео */
             z-index: -2;
             pointer-events: none;
-            
-            /* Создаем эффект полос (scanlines) через градиент */
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.15),
-                rgba(0, 0, 0, 0.15) 1px,
-                transparent 1px,
-                transparent 2px
-            );
-            
-            /* Анимация легкого мерцания */
-            animation: flicker 0.15s infinite;
         }
 
-        /* --- СЛОЙ С ХРОМАТИЧЕСКОЙ АБЕРРАЦИЕЙ (GLITCH) --- */
-        .vhs-glitch {
-            position: fixed;
+        /* --- ШУМ И СКАНЛАЙНЫ --- */
+        .vhs-noise {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-            mix-blend-mode: screen; /* Смешивает цвета */
-            opacity: 0.3;
-            
-            /* Создаем цветную сетку для эффекта глитча */
-            background: linear-gradient(
-                90deg,
-                rgba(255, 0, 0, 0.1) 0%,
-                transparent 20%,
-                rgba(0, 0, 255, 0.1) 80%,
-                transparent 100%
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.3),
+                rgba(0, 0, 0, 0.3) 1px,
+                transparent 1px,
+                transparent 3px
             );
-            
-            /* Легкое дергание */
-            animation: glitch-shift 0.1s infinite;
+            opacity: 0.8;
+            animation: flicker 0.1s infinite;
         }
 
-        /* --- ЗАТЕМНЯЮЩИЙ СЛОЙ (для текста) --- */
-        .bg-overlay {
-            position: fixed;
+        /* --- ТЕКСТОВЫЙ ИНТЕРФЕЙС VHS (PLAY, SP, ТАЙМКОД) --- */
+        .vhs-ui {
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.3); 
-            z-index: 0;
-            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none; /* Чтобы текст не мешал кликать по логотипу */
+            padding: 40px;
+            box-sizing: border-box;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 2rem;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
         }
 
-        /* --- АНИМАЦИИ VHS --- */
+        .vhs-ui .top-left {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Иконка Play (треугольник) */
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 25px solid #ffffff;
+        }
+
+        .vhs-ui .top-right {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+        }
+
+        .vhs-ui .bottom-right {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            text-align: right;
+            font-size: 1.5rem;
+        }
+
+        .vhs-ui .timecode {
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* --- АНИМАЦИИ --- */
         @keyframes flicker {
             0% { opacity: 0.8; }
-            50% { opacity: 0.9; }
+            50% { opacity: 1; }
             100% { opacity: 0.8; }
-        }
-
-        @keyframes glitch-shift {
-            0% { transform: translateX(0); }
-            20% { transform: translateX(-2px); }
-            40% { transform: translateX(2px); }
-            60% { transform: translateX(-1px); }
-            80% { transform: translateX(1px); }
-            100% { transform: translateX(0); }
         }
 
         /* --- КОНТЕНТ --- */
@@ -135,8 +166,7 @@
         .main-logo {
             width: clamp(150px, 20vw, 250px); 
             height: auto;
-            /* Легкое свечение логотипа */
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
         }
 
         #3d-text-container {
@@ -145,7 +175,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); 
+            filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.9)); 
             overflow: hidden; 
         }
 
@@ -168,26 +198,43 @@
 </head>
 <body>
 
-    <!-- ВИДЕО-ФОН -->
-    <video id="bg-video" autoplay muted playsinline preload="auto">
-        <source src="bg.mp4" type="video/mp4">
-    </video>
+    <div class="fisheye-wrapper">
+        <!-- ВИДЕО-ФОН -->
+        <video id="bg-video" autoplay muted playsinline preload="auto">
+            <source src="bg.mp4" type="video/mp4">
+        </video>
 
-    <!-- СЛОИ ДЛЯ VHS ЭФФЕКТА -->
-    <div class="vhs-overlay"></div>
-    <div class="vhs-glitch"></div>
-    <div class="bg-overlay"></div>
+        <!-- СЛОИ ДЛЯ VHS ЭФФЕКТА -->
+        <div class="vhs-blue-overlay"></div>
+        <div class="vhs-noise"></div>
 
-    <div class="main-container">
-        <main class="center-content">
-            <a href="welcome.html" class="logo-link">
-                <img src="logo.png" alt="Logo" class="main-logo">
-            </a>
-            
-            <div id="3d-text-container"></div>
-        </main>
+        <!-- ИНТЕРФЕЙС VHS -->
+        <div class="vhs-ui">
+            <div class="top-left">
+                <span>PLAY</span>
+                <div class="play-icon"></div>
+            </div>
+            <div class="top-right">
+                <span>SP</span>
+            </div>
+            <div class="bottom-right">
+                <span>--/--/--</span>
+                <span class="timecode" id="timecode">00:00:00</span>
+            </div>
+        </div>
 
-        <p class="email-text">punchdrunk69ofc@gmail.com</p>
+        <!-- ОСНОВНОЙ КОНТЕНТ -->
+        <div class="main-container">
+            <main class="center-content">
+                <a href="welcome.html" class="logo-link">
+                    <img src="logo.png" alt="Logo" class="main-logo">
+                </a>
+                
+                <div id="3d-text-container"></div>
+            </main>
+
+            <p class="email-text">punchdrunk69ofc@gmail.com</p>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -202,6 +249,17 @@
                 video.play();
             }
         });
+
+        // --- ТАЙМКОД ДЛЯ VHS ИНТЕРФЕЙСА ---
+        const timecodeElement = document.getElementById('timecode');
+        let seconds = 0;
+        setInterval(() => {
+            seconds++;
+            let h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+            let m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            let s = (seconds % 60).toString().padStart(2, '0');
+            timecodeElement.textContent = `${h}:${m}:${s}`;
+        }, 1000);
 
         // --- 3D ТЕКСТ ---
         const container = document.getElementById('3d-text-container');
