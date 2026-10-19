@@ -11,23 +11,34 @@
             margin: 0;
             padding: 0;
             background-color: #000000;
-            overflow: hidden; /* Убираем скролл */
+            overflow: hidden; 
             font-family: 'Space Mono', monospace;
         }
 
-        /* --- НАСТРОЙКИ ВИДЕО-ФОНА --- */
+        /* --- ВИДЕО-ФОН --- */
         #bg-video {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            object-fit: cover; /* Заполняет весь экран без искажений */
-            z-index: -2; /* Уводит видео на самый задний план */
+            object-fit: cover; 
+            z-index: -2; 
             
-            /* Затемнение и размытие, чтобы текст читался. 
-               Если видео само по себе темное, можешь убрать filter или изменить цифры */
-            filter: brightness(0.3) blur(2px); 
+            /* Если видео слишком яркое, уменьши brightness до 0.5 или 0.4 */
+            filter: brightness(0.6); 
+        }
+
+        /* Затемняющий слой (чтобы текст читался) */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.4); /* 40% черного */
+            z-index: -1;
+            pointer-events: none; /* Пропускает клики сквозь себя */
         }
 
         .main-container {
@@ -38,7 +49,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            z-index: 1; /* Контент поверх видео */
+            z-index: 1; 
         }
 
         .center-content {
@@ -89,10 +100,13 @@
 </head>
 <body>
 
-    <!-- ВИДЕО-ФОН -->
-    <video id="bg-video" autoplay loop muted playsinline>
+    <!-- ВИДЕО-ФОН (убрали атрибут loop, его заменит JS) -->
+    <video id="bg-video" autoplay muted playsinline preload="auto">
         <source src="bg.mp4" type="video/mp4">
     </video>
+
+    <!-- Затемняющий слой -->
+    <div class="bg-overlay"></div>
 
     <div class="main-container">
         <main class="center-content">
@@ -109,6 +123,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script>
+        // --- СКРИПТ ДЛЯ БЕСШОВНОГО ЦИКЛА ВИДЕО ---
+        const video = document.getElementById('bg-video');
+        
+        // Запускаем видео при загрузке
+        video.addEventListener('loadeddata', () => {
+            video.play();
+        });
+
+        // Следим за временем
+        video.addEventListener('timeupdate', () => {
+            // Если до конца осталось меньше 0.2 секунды — перезапускаем
+            // Это скрывает микро-паузу браузера
+            if (video.duration - video.currentTime < 0.2) {
+                video.currentTime = 0;
+                video.play();
+            }
+        });
+
+        // --- 3D ТЕКСТ ---
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
         
