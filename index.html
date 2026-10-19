@@ -15,7 +15,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Свечение вокруг всего текста */
             filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.8)); 
         }
         .main-title {
@@ -45,10 +44,6 @@
             <p class="email-text">punchdrunk69ofc@gmail.com</p>
         </main>
 
-        <footer class="bottom-text">
-            <p>( Made with Card )</p>
-        </footer>
-
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -58,7 +53,7 @@
         const scene = new THREE.Scene();
         
         const camera = new THREE.PerspectiveCamera(50, window.innerWidth / 120, 0.1, 1000);
-        camera.position.z = 15; // Придвинули камеру чуть ближе, чтобы текст был крупнее
+        camera.position.z = 15; 
 
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setSize(window.innerWidth, 120); 
@@ -66,52 +61,37 @@
 
         const loader = new THREE.FontLoader();
         
-        // Загружаем шрифт
         loader.load('./home-video.typeface.json', function (font) {
             
             const textOptions = {
                 font: font,
-                size: 2.2,       // Размер текста
-                height: 0.8,     // Толщина 3D-букв
+                size: 2.2,
+                height: 0.8,
                 curveSegments: 12,
-                bevelEnabled: false // Отключаем скругление краев для четкости обводки
+                bevelEnabled: false
             };
 
             const geometry = new THREE.TextGeometry("punchdrunk", textOptions);
             geometry.center();
 
-            // 1. Создаем БЕЛУЮ заливку текста
-            // Используем MeshBasicMaterial, чтобы он не зависел от освещения и всегда был белым
             const materialFront = new THREE.MeshBasicMaterial({ color: 0xffffff });
             const textMesh = new THREE.Mesh(geometry, materialFront);
 
-            // 2. Создаем ФИОЛЕТОВЫЙ КОНТУР
-            // EdgesGeometry берет грани текста и превращает их в линии
             const edges = new THREE.EdgesGeometry(geometry);
-            // LineBasicMaterial рисует эти линии фиолетовым цветом
             const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ 
-                color: 0x8a2be2, // Фиолетовый
-                linewidth: 2 // Толщина линии (работает не во всех браузерах, но задает стиль)
+                color: 0x8a2be2,
+                linewidth: 2
             }));
 
-            // 3. Группируем белый текст и контур вместе
             const group = new THREE.Group();
-            group.add(textMesh); // Сначала белая основа
-            group.add(line);     // Сверху контур
+            group.add(textMesh);
+            group.add(line);
 
-            // Немного уменьшаем масштаб, если нужно
-            group.scale.set(1, 1, 1);
-            
             scene.add(group);
 
-            // Анимация
             function animate() {
                 requestAnimationFrame(animate);
-                
-                // Вращение ровно на 360 градусов
-                // 0.015 - скорость. Если хочешь медленнее - ставь 0.008
                 group.rotation.y += 0.015; 
-                
                 renderer.render(scene, camera);
             }
             animate();
