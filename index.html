@@ -7,22 +7,25 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* Настройки для контейнера с 3D-текстом */
         #3d-text-container {
             width: 100%;
-            height: 160px; /* Увеличили высоту, так как текст стал больше */
-            margin-top: -10px; /* Подтягиваем текст чуть ближе к логотипу */
-            margin-bottom: 20px;
+            height: 120px; /* Уменьшили высоту контейнера */
+            margin-top: -10px; 
+            margin-bottom: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
+            
+            /* ВОТ ГЛАВНЫЙ ФИКС: скрываем всё, что выходит за края контейнера */
+            overflow: hidden; 
+            
+            /* Свечение */
             filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); 
         }
         .main-title {
             display: none;
         }
         
-        /* Немного подправим отступы, чтобы всё смотрелось ровно */
         .center-content {
             display: flex;
             flex-direction: column;
@@ -31,7 +34,7 @@
         }
         
         .logo-link {
-            margin-bottom: 0; /* Убираем лишний отступ под логотипом */
+            margin-bottom: 0; 
         }
     </style>
 </head>
@@ -48,15 +51,13 @@
         </header>
 
         <main class="center-content">
-            <!-- Логотип теперь сверху -->
             <a href="#" class="logo-link">
                 <img src="logo.png" alt="Logo" class="main-logo">
             </a>
             
-            <!-- 3D текст теперь под логотипом -->
+            <!-- 3D текст под логотипом -->
             <div id="3d-text-container"></div>
 
-            <!-- Кнопка CLICK ME! и почта -->
             <h2 class="click-text">CLICK ME!</h2>
             <p class="email-text">punchdrunk69ofc@gmail.com</p>
         </main>
@@ -69,11 +70,11 @@
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
         
-        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / 160, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / 120, 0.1, 1000);
         camera.position.z = 15; 
 
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, 160); 
+        renderer.setSize(window.innerWidth, 120); 
         container.appendChild(renderer.domElement);
 
         const loader = new THREE.FontLoader();
@@ -82,7 +83,7 @@
             
             const textOptions = {
                 font: font,
-                size: 3.2,       // УВЕЛИЧИЛИ РАЗМЕР ТЕКСТА (было 2.2)
+                size: 2.5,       // УМЕНЬШИЛИ РАЗМЕР (было 3.2)
                 height: 0.8,
                 curveSegments: 12,
                 bevelEnabled: false
@@ -91,14 +92,12 @@
             const geometry = new THREE.TextGeometry("punchdrunk", textOptions);
             geometry.center();
 
-            // Белая заливка
             const materialWhite = new THREE.MeshBasicMaterial({ color: 0xffffff });
             const whiteText = new THREE.Mesh(geometry, materialWhite);
 
-            // Фиолетовая обводка (сделана чуть больше)
             const materialPurple = new THREE.MeshBasicMaterial({ color: 0x8a2be2 });
             const purpleText = new THREE.Mesh(geometry, materialPurple);
-            purpleText.scale.set(1.08, 1.08, 1.08); // Чуть толще обводка
+            purpleText.scale.set(1.08, 1.08, 1.08); 
             purpleText.position.z = -0.2; 
 
             const group = new THREE.Group();
@@ -116,9 +115,9 @@
         });
 
         window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / 160;
+            camera.aspect = window.innerWidth / 120;
             camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, 160);
+            renderer.setSize(window.innerWidth, 120);
         });
     </script>
 </body>
