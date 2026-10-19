@@ -69,20 +69,17 @@
             overflow: hidden;
         }
 
-        /* Заглушка для обложки (если нет картинки) */
-        .plugin-placeholder {
-            font-family: 'Home Video', 'Courier New', monospace;
-            font-size: 3rem;
-            color: rgba(138, 43, 226, 0.4);
-            text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
-            letter-spacing: 5px;
-            transition: all 0.3s ease;
+        .plugin-screenshot {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            filter: grayscale(20%) contrast(1.1);
         }
 
-        .plugin-card:hover .plugin-placeholder {
-            color: #ffffff;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-            transform: scale(1.1);
+        .plugin-card:hover .plugin-screenshot {
+            transform: scale(1.05);
+            filter: grayscale(0%) contrast(1.2);
         }
 
         .plugin-info {
@@ -152,10 +149,9 @@
             
             <!-- KICKER VHS -->
             <div class="plugin-card">
-                <!-- Если есть скриншот плагина, раскомментируй img и удали div с классом plugin-placeholder -->
-                <!-- <img src="kicker_vhs_screenshot.png" alt="KICKER VHS" style="width:100%; height:100%; object-fit:cover;"> -->
                 <div class="plugin-image-container">
-                    <div class="plugin-placeholder">VST3</div>
+                    <!-- Загруженная тобой картинка -->
+                    <img src="kicker_screenshot.png" alt="KICKER VHS Interface" class="plugin-screenshot" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'font-family: Home Video; font-size: 3rem; color: rgba(138, 43, 226, 0.4);\'>VST3</div>';">
                 </div>
                 <div class="plugin-info">
                     <h2 class="plugin-title">KICKER VHS</h2>
