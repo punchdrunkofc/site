@@ -7,34 +7,76 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        #3d-text-container {
-            width: 100%;
-            height: 120px; /* Уменьшили высоту контейнера */
-            margin-top: -10px; 
-            margin-bottom: 10px;
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            overflow: hidden; /* Убираем скролл, чтобы всё было на одном экране */
+        }
+
+        .main-container {
+            width: 100vw;
+            height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            
-            /* ВОТ ГЛАВНЫЙ ФИКС: скрываем всё, что выходит за края контейнера */
-            overflow: hidden; 
-            
-            /* Свечение */
-            filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); 
+            flex-direction: column;
+            justify-content: center; /* Центрируем всё по вертикали */
+            align-items: center;     /* Центрируем всё по горизонтали */
+            position: relative;
         }
-        .main-title {
-            display: none;
-        }
-        
+
+        /* Блок с логотипом и текстом */
         .center-content {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 20px;
+            justify-content: center;
+            margin-top: -50px; /* Чуть поднимаем вверх, чтобы визуально было по центру */
         }
-        
+
         .logo-link {
-            margin-bottom: 0; 
+            margin-bottom: 20px; 
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-logo {
+            width: clamp(150px, 20vw, 250px); 
+            height: auto;
+        }
+
+        /* Контейнер для 3D текста */
+        #3d-text-container {
+            width: 100%;
+            height: 150px; 
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Центрируем canvas по вертикали */
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); 
+            overflow: hidden; 
+        }
+
+        /* Стили для кнопки и почты */
+        .click-text {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+        }
+
+        .email-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            color: #cccccc;
+            margin: 0;
+        }
+
+        .main-title {
+            display: none;
         }
     </style>
 </head>
@@ -42,22 +84,18 @@
 
     <div class="main-container">
         
-        <header class="top-nav">
-            <a href="#" class="nav-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-            <a href="#" class="nav-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 14.5c0-.6.4-1 1-1s1 .4 1 1v3c0 .6-.4 1-1 1s-1-.4-1-1v-3zm3 1c0-.6.4-1 1-1s1 .4 1 1v2c0 .6-.4 1-1 1s-1-.4-1-1v-2zm3-1.5c0-.6.4-1 1-1s1 .4 1 1v3.5c0 .6-.4 1-1 1s-1-.4-1-1v-3.5zm3-2c0-.6.4-1 1-1s1 .4 1 1v5.5c0 .6-.4 1-1 1s-1-.4-1-1v-5.5zm3 0c0-.6.4-1 1-1s1 .4 1 1v5.5c0 .6-.4 1-1 1s-1-.4-1-1v-5.5zm3 0c0-.6.4-1 1-1s1 .4 1 1v5.5c0 .6-.4 1-1 1s-1-.4-1-1v-5.5zm3 1c0-.6.4-1 1-1s1 .4 1 1v4.5c0 .6-.4 1-1 1s-1-.4-1-1v-4.5z"/></svg></a>
-            <a href="#" class="nav-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.24 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
-            <a href="#" class="nav-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
-            <a href="#" class="nav-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5zm-5.5 8C5.015 10 3.5 11.79 3.5 14c0 2.21 1.515 4 3 4s3-1.79 3-4c0-2.21-1.515-4-3-4zm11 0c-1.485 0-3 1.79-3 4 0 2.21 1.515 4 3 4s3-1.79 3-4c0-2.21-1.485-4-3-4zM12 14c-2.33 0-7 1.17-7 3.5V19h14v-1.5c0-2.33-4.67-3.5-7-3.5z"/></svg></a>
-        </header>
+        <!-- Верхнее меню (иконки) УДАЛЕНО -->
 
         <main class="center-content">
+            <!-- Логотип -->
             <a href="#" class="logo-link">
                 <img src="logo.png" alt="Logo" class="main-logo">
             </a>
             
-            <!-- 3D текст под логотипом -->
+            <!-- 3D текст -->
             <div id="3d-text-container"></div>
 
+            <!-- Кнопка и почта -->
             <h2 class="click-text">CLICK ME!</h2>
             <p class="email-text">punchdrunk69ofc@gmail.com</p>
         </main>
@@ -70,11 +108,12 @@
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
         
-        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / 120, 0.1, 1000);
-        camera.position.z = 15; 
+        // Настраиваем камеру под высоту контейнера (150px)
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / 150, 0.1, 1000);
+        camera.position.z = 18; // Отодвигаем камеру чуть дальше, чтобы текст влез
 
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, 120); 
+        renderer.setSize(window.innerWidth, 150); 
         container.appendChild(renderer.domElement);
 
         const loader = new THREE.FontLoader();
@@ -83,18 +122,20 @@
             
             const textOptions = {
                 font: font,
-                size: 2.5,       // УМЕНЬШИЛИ РАЗМЕР (было 3.2)
+                size: 2.8,       
                 height: 0.8,
                 curveSegments: 12,
                 bevelEnabled: false
             };
 
             const geometry = new THREE.TextGeometry("punchdrunk", textOptions);
-            geometry.center();
+            geometry.center(); // Центрируем геометрию
 
+            // Белая заливка
             const materialWhite = new THREE.MeshBasicMaterial({ color: 0xffffff });
             const whiteText = new THREE.Mesh(geometry, materialWhite);
 
+            // Фиолетовая обводка
             const materialPurple = new THREE.MeshBasicMaterial({ color: 0x8a2be2 });
             const purpleText = new THREE.Mesh(geometry, materialPurple);
             purpleText.scale.set(1.08, 1.08, 1.08); 
@@ -103,6 +144,9 @@
             const group = new THREE.Group();
             group.add(purpleText);
             group.add(whiteText);
+
+            // Центрируем группу внутри сцены
+            group.position.y = 0; 
 
             scene.add(group);
 
@@ -115,9 +159,9 @@
         });
 
         window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / 120;
+            camera.aspect = window.innerWidth / 150;
             camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, 120);
+            renderer.setSize(window.innerWidth, 150);
         });
     </script>
 </body>
