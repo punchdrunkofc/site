@@ -12,6 +12,22 @@
             padding: 0;
             background-color: #000000;
             overflow: hidden; /* Убираем скролл */
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* --- НАСТРОЙКИ ВИДЕО-ФОНА --- */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover; /* Заполняет весь экран без искажений */
+            z-index: -2; /* Уводит видео на самый задний план */
+            
+            /* Затемнение и размытие, чтобы текст читался. 
+               Если видео само по себе темное, можешь убрать filter или изменить цифры */
+            filter: brightness(0.3) blur(2px); 
         }
 
         .main-container {
@@ -19,25 +35,25 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Центрируем контент по вертикали */
-            align-items: center;     /* Центрируем контент по горизонтали */
+            justify-content: center;
+            align-items: center;
             position: relative;
+            z-index: 1; /* Контент поверх видео */
         }
 
-        /* Блок с логотипом и текстом */
         .center-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-top: -50px; /* Чуть поднимаем вверх для визуального баланса */
+            margin-top: -50px; 
         }
 
         .logo-link {
             margin-bottom: 20px; 
             display: flex;
             justify-content: center;
-            cursor: pointer; /* Курсор-рука при наведении */
+            cursor: pointer; 
         }
 
         .main-logo {
@@ -45,7 +61,6 @@
             height: auto;
         }
 
-        /* Контейнер для 3D текста */
         #3d-text-container {
             width: 100%;
             height: 150px; 
@@ -56,13 +71,11 @@
             overflow: hidden; 
         }
 
-        /* Почта в самом низу */
         .email-text {
             position: absolute;
-            bottom: 30px; /* Отступ от нижнего края */
+            bottom: 30px; 
             left: 50%;
-            transform: translateX(-50%); /* Центрируем по горизонтали */
-            font-family: 'Space Mono', monospace;
+            transform: translateX(-50%); 
             font-size: 0.85rem;
             letter-spacing: 0.1em;
             color: #cccccc;
@@ -76,21 +89,21 @@
 </head>
 <body>
 
+    <!-- ВИДЕО-ФОН -->
+    <video id="bg-video" autoplay loop muted playsinline>
+        <source src="bg.mp4" type="video/mp4">
+    </video>
+
     <div class="main-container">
-        
         <main class="center-content">
-            <!-- Логотип (теперь ведет на welcome.html) -->
             <a href="welcome.html" class="logo-link">
                 <img src="logo.png" alt="Logo" class="main-logo">
             </a>
             
-            <!-- 3D текст -->
             <div id="3d-text-container"></div>
         </main>
 
-        <!-- Почта в самом низу -->
         <p class="email-text">punchdrunk69ofc@gmail.com</p>
-
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
