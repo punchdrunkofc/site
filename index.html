@@ -13,47 +13,14 @@
             background-color: #000000;
             overflow: hidden; 
             font-family: 'Space Mono', monospace;
-            
-            /* Центрируем сцену */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
 
-        /* --- ОБОЛОЧКА С ЭФФЕКТОМ ВЫПУКЛОСТИ --- */
-        .crt-wrapper {
+        /* Обычный контейнер без искажений */
+        .lens-container {
             width: 100vw;
             height: 100vh;
             position: relative;
             overflow: hidden;
-            
-            /* 1. Создаем 3D-перспективу */
-            perspective: 800px;
-            
-            /* 2. Слегка скругляем углы (как у старого телевизора) */
-            border-radius: 2% / 4%;
-            
-            /* 3. Виньетка по краям для объема */
-            box-shadow: inset 0 0 150px rgba(0,0,0,0.9);
-        }
-
-        /* Внутренний контейнер, который мы выгибаем */
-        .crt-screen {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            
-            /* Вот магия: мы наклоняем экран, чтобы центр казался ближе */
-            transform: rotateX(2deg) rotateY(2deg) scale(1.05);
-            transform-style: preserve-3d;
-            
-            /* Искажаем углы с помощью clip-path (срезаем их) */
-            clip-path: polygon(
-                2% 2%, 98% 2%, 100% 98%, 0% 98%
-            );
         }
 
         /* --- ВИДЕО-ФОН --- */
@@ -224,49 +191,42 @@
 </head>
 <body>
 
-    <!-- Оболочка "телевизора" -->
-    <div class="crt-wrapper">
-        
-        <!-- Экран, который мы выгибаем -->
-        <div class="crt-screen">
-            
-            <!-- ВИДЕО-ФОН -->
-            <video id="bg-video" autoplay muted playsinline preload="auto">
-                <source src="bg.mp4" type="video/mp4">
-            </video>
+    <div class="lens-container">
+        <!-- ВИДЕО-ФОН -->
+        <video id="bg-video" autoplay muted playsinline preload="auto">
+            <source src="bg.mp4" type="video/mp4">
+        </video>
 
-            <!-- СЛОИ ДЛЯ VHS ЭФФЕКТА -->
-            <div class="vhs-blue-overlay"></div>
-            <div class="vhs-noise"></div>
+        <!-- СЛОИ ДЛЯ VHS ЭФФЕКТА -->
+        <div class="vhs-blue-overlay"></div>
+        <div class="vhs-noise"></div>
 
-            <!-- ИНТЕРФЕЙС VHS -->
-            <div class="vhs-ui">
-                <div class="top-left">
-                    <span>PLAY</span>
-                    <div class="play-icon"></div>
-                </div>
-                <div class="top-right">
-                    <span>SP</span>
-                </div>
-                <div class="bottom-right">
-                    <span>--/--/--</span>
-                    <span class="timecode" id="timecode">00:00:00</span>
-                </div>
+        <!-- ИНТЕРФЕЙС VHS -->
+        <div class="vhs-ui">
+            <div class="top-left">
+                <span>PLAY</span>
+                <div class="play-icon"></div>
             </div>
-
-            <!-- ОСНОВНОЙ КОНТЕНТ -->
-            <div class="main-container">
-                <main class="center-content">
-                    <a href="welcome.html" class="logo-link">
-                        <img src="logo.png" alt="Logo" class="main-logo">
-                    </a>
-                    
-                    <div id="3d-text-container"></div>
-                </main>
-
-                <p class="email-text">punchdrunk69ofc@gmail.com</p>
+            <div class="top-right">
+                <span>SP</span>
             </div>
+            <div class="bottom-right">
+                <span>--/--/--</span>
+                <span class="timecode" id="timecode">00:00:00</span>
+            </div>
+        </div>
 
+        <!-- ОСНОВНОЙ КОНТЕНТ -->
+        <div class="main-container">
+            <main class="center-content">
+                <a href="welcome.html" class="logo-link">
+                    <img src="logo.png" alt="Logo" class="main-logo">
+                </a>
+                
+                <div id="3d-text-container"></div>
+            </main>
+
+            <p class="email-text">punchdrunk69ofc@gmail.com</p>
         </div>
     </div>
 
@@ -294,7 +254,7 @@
             timecodeElement.textContent = `${h}:${m}:${s}`;
         }, 1000);
 
-        // --- 3D ТЕКСТ (РАБОТАЕТ БЫСТРО) ---
+        // --- 3D ТЕКСТ ---
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
         
