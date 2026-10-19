@@ -15,7 +15,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.8)); 
+            /* Добавляем общее неоновое свечение контейнеру */
+            filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); 
         }
         .main-title {
             display: none;
@@ -71,24 +72,33 @@
                 bevelEnabled: false
             };
 
+            // 1. Создаем основную геометрию
             const geometry = new THREE.TextGeometry("punchdrunk", textOptions);
             geometry.center();
 
-            const materialFront = new THREE.MeshBasicMaterial({ color: 0xffffff });
-            const textMesh = new THREE.Mesh(geometry, materialFront);
+            // Создаем БЕЛЫЙ текст
+            const materialWhite = new THREE.MeshBasicMaterial({ color: 0xffffff });
+            const whiteText = new THREE.Mesh(geometry, materialWhite);
 
-            const edges = new THREE.EdgesGeometry(geometry);
-            const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ 
-                color: 0x8a2be2,
-                linewidth: 2
-            }));
+            // 2. Создаем ФИОЛЕТОВЫЙ текст для обводки
+            const materialPurple = new THREE.MeshBasicMaterial({ color: 0x8a2be2 });
+            const purpleText = new THREE.Mesh(geometry, materialPurple);
 
+            // Делаем фиолетовый текст чуть больше белого (на 6%)
+            // Из-за этого он будет выступать по краям, создавая толстую обводку
+            purpleText.scale.set(1.06, 1.06, 1.06); 
+            
+            // Слегка сдвигаем фиолетовый текст назад, чтобы он не перекрывал белый спереди
+            purpleText.position.z = -0.2; 
+
+            // 3. Группируем
             const group = new THREE.Group();
-            group.add(textMesh);
-            group.add(line);
+            group.add(purpleText); // Фиолетовый позади
+            group.add(whiteText);  // Белый спереди
 
             scene.add(group);
 
+            // Анимация вращения
             function animate() {
                 requestAnimationFrame(animate);
                 group.rotation.y += 0.015; 
