@@ -31,7 +31,7 @@
             width: 100vw; 
             height: 100vh;
             object-fit: cover; 
-            z-index: 0; /* Жестко на задний план */
+            z-index: 0; 
             filter: brightness(0.3) contrast(1.2) saturate(1.5); 
         }
 
@@ -94,7 +94,7 @@
             margin: 0 auto;
             padding: 100px 20px 60px 20px;
             position: relative;
-            z-index: 10; /* Поверх всех слоев */
+            z-index: 10; 
         }
 
         .page-title {
@@ -114,7 +114,6 @@
         }
 
         .character-card {
-            /* Убрали backdrop-filter, он ломал фон. Сделали просто плотную подложку */
             background: rgba(10, 10, 10, 0.85); 
             border: 1px solid rgba(138, 43, 226, 0.3);
             border-radius: 8px;
@@ -143,34 +142,9 @@
             filter: grayscale(0%) contrast(1.2);
         }
 
+        /* Скрываем заглушки полностью */
         .no-image-placeholder {
-            width: 100%;
-            height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(45deg, #111, #222);
-            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
-            color: #555;
-            font-family: 'Home Video', monospace;
-            font-size: 1.5rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .no-image-placeholder::after {
-            content: "NO SIGNAL";
-            position: absolute;
-            animation: glitch-text 2s infinite;
-        }
-
-        @keyframes glitch-text {
-            0% { opacity: 0.5; transform: translate(0); }
-            20% { opacity: 1; transform: translate(-2px, 2px); color: #8a2be2; }
-            40% { opacity: 0.5; transform: translate(2px, -2px); }
-            60% { opacity: 1; transform: translate(0); }
-            100% { opacity: 0.5; transform: translate(0); }
+            display: none !important; 
         }
 
         .character-info {
@@ -257,8 +231,7 @@
             
             <!-- Kenny -->
             <div class="character-card">
-                <img src="kenny.png" alt="Kenny" class="character-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="no-image-placeholder" style="display:none;">IMAGE NOT FOUND</div>
+                <img src="kenny.png" alt="Kenny" class="character-image" onerror="this.style.display='none';">
                 <div class="character-info">
                     <h2 class="character-name">Kenny</h2>
                     <div class="character-role">The First Character / Face of the Project</div>
@@ -270,8 +243,7 @@
 
             <!-- Rixi -->
             <div class="character-card">
-                <img src="rixi.jpg" alt="Rixi" class="character-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="no-image-placeholder" style="display:none;">IMAGE NOT FOUND</div>
+                <img src="rixi.jpg" alt="Rixi" class="character-image" onerror="this.style.display='none';">
                 <div class="character-info">
                     <h2 class="character-name">Rixi</h2>
                     <div class="character-role">Cat / Character</div>
@@ -283,8 +255,7 @@
 
             <!-- PurPiePloop -->
             <div class="character-card">
-                <img src="purpieploop.jpg" alt="PurPiePloop" class="character-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="no-image-placeholder" style="display:none;">IMAGE NOT FOUND</div>
+                <img src="purpieploop.jpg" alt="PurPiePloop" class="character-image" onerror="this.style.display='none';">
                 <div class="character-info">
                     <h2 class="character-name">PurPiePloop</h2>
                     <div class="character-role">Experimental Archetype</div>
@@ -296,8 +267,7 @@
 
             <!-- 5H17P057 M4CH1N3 -->
             <div class="character-card">
-                <img src="shitpost_machine.png" alt="5H17P057 M4CH1N3" class="character-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="no-image-placeholder" style="display:none;">IMAGE NOT FOUND</div>
+                <img src="shitpost_machine.png" alt="5H17P057 M4CH1N3" class="character-image" onerror="this.style.display='none';">
                 <div class="character-info">
                     <h2 class="character-name">5H17P057 M4CH1N3</h2>
                     <div class="character-role">Meme / Joke Character</div>
@@ -307,9 +277,8 @@
                 </div>
             </div>
 
-            <!-- SickRaveKids -->
+            <!-- SickRaveKids (Без картинки и без пустого блока) -->
             <div class="character-card">
-                <div class="no-image-placeholder">NO VISUAL REFERENCE</div>
                 <div class="character-info">
                     <h2 class="character-name">SickRaveKids</h2>
                     <div class="character-role">Abstract Concept / Entity</div>
@@ -321,8 +290,7 @@
 
             <!-- Fubar -->
             <div class="character-card">
-                <img src="fubar.jpg" alt="Fubar" class="character-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="no-image-placeholder" style="display:none;">IMAGE NOT FOUND</div>
+                <img src="fubar.jpg" alt="Fubar" class="character-image" onerror="this.style.display='none';">
                 <div class="character-info">
                     <h2 class="character-name">Fubar</h2>
                     <div class="character-role">Project Member / Artist & Moderator</div>
@@ -334,8 +302,7 @@
 
             <!-- Licorice -->
             <div class="character-card">
-                <img src="licorice.jpg" alt="Licorice" class="character-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="no-image-placeholder" style="display:none;">IMAGE NOT FOUND</div>
+                <img src="licorice.jpg" alt="Licorice" class="character-image" onerror="this.style.display='none';">
                 <div class="character-info">
                     <h2 class="character-name">Licorice</h2>
                     <div class="character-role">Former Artist / Best Friend</div>
