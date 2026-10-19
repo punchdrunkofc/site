@@ -13,6 +13,8 @@
             background-color: #000000;
             overflow: hidden; 
             font-family: 'Space Mono', monospace;
+            /* Убираем черные поля */
+            background: #000; 
         }
 
         /* --- КОНТЕЙНЕР ДЛЯ ЭФФЕКТА ЛИНЗЫ --- */
@@ -22,16 +24,15 @@
             position: relative;
             overflow: hidden;
             
-            /* Круглая маска, чтобы скрыть углы */
-            clip-path: circle(50% at 50% 50%); 
-            
-            /* Если хочешь, чтобы круг был меньше (как на фото), уменьши 50% до 40% */
-            
-            /* Применяем SVG-фильтр искажения */
-            filter: url(#fisheye);
-            
-            /* Увеличиваем масштаб, чтобы края круга не обрезались слишком сильно */
-            transform: scale(1.2); 
+            /* Иллюзия выпуклости: приближаем центр и отдаляем края */
+            transform: scale(1.05) perspective(1000px) rotateX(0deg);
+            transform-origin: center center;
+        }
+
+        /* Чтобы убрать черные поля, мы растянем видео и контент на чуть больше, чем экран */
+        .lens-container > * {
+            width: 100%;
+            height: 100%;
         }
 
         /* --- ВИДЕО-ФОН --- */
@@ -202,14 +203,6 @@
 </head>
 <body>
 
-    <!-- SVG ФИЛЬТР ДЛЯ ИСКАЖЕНИЯ (FISHEYE) -->
-    <svg width="0" height="0" style="position: absolute;">
-        <filter id="fisheye">
-            <feImage result="img" xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxyYWRpYWxHcmFkaWVudCBpZD0iZyIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNTAlIiBmeD0iNTAlIiBmeT0iNTAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmZmIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDAwIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNnKSIvPjwvc3ZnPg==" />
-            <feDisplacementMap in="SourceGraphic" in2="img" scale="150" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-    </svg>
-
     <div class="lens-container">
         <!-- ВИДЕО-ФОН -->
         <video id="bg-video" autoplay muted playsinline preload="auto">
@@ -315,7 +308,8 @@
 
             function animate() {
                 requestAnimationFrame(animate);
-                group.rotation.y += 0.015; 
+                // Возвращаем нормальную скорость вращения
+                group.rotation.y += 0.02; 
                 renderer.render(scene, camera);
             }
             animate();
