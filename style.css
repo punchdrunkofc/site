@@ -1,130 +1,19 @@
-/* Сброс стилей */
-* {
+/* --- ГЛОБАЛЬНЫЙ СБРОС СТИЛЕЙ И СКРОЛЛ --- */
+html, body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #000000; /* Черный фон, поверх которого будет видео */
+    background-color: #000000;
     color: #ffffff;
-    font-family: 'Space Mono', monospace; /* Моноширинный шрифт для мелкого текста */
-    height: 100vh;
-    overflow: hidden; /* Скрываем скролл, т.к. это вступительный экран */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-/* Если будешь добавлять видео, оно должно быть на заднем плане */
-/*
-#bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
-*/
-
-.main-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 40px 20px;
-    position: relative;
-    z-index: 1; /* Чтобы контент был поверх видео */
-}
-
-/* --- ВЕРХНЕЕ МЕНЮ --- */
-.top-nav {
-    display: flex;
-    gap: 40px;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.nav-icon {
-    color: #ffffff;
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.nav-icon:hover {
-    transform: scale(1.1);
-    opacity: 0.7;
-}
-
-.nav-icon svg {
-    width: 100%;
-    height: 100%;
-}
-
-/* --- ГЛАВНЫЙ ЗАГОЛОВОК --- */
-.main-title {
-    font-family: 'Syncopate', sans-serif; /* Широкий шрифт, похожий на оригинал */
-    font-size: clamp(2rem, 6vw, 5rem); /* Адаптивный размер */
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-top: -50px; /* Слегка подтягиваем вверх */
-}
-
-/* --- ЦЕНТРАЛЬНЫЙ БЛОК --- */
-.center-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.logo-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: #ffffff;
-}
-
-.main-logo {
-    width: clamp(150px, 20vw, 250px); /* Размер логотипа */
+    font-family: 'Space Mono', monospace;
+    
+    /* РАЗРЕШАЕМ ПРОКРУТКУ ВНИЗ */
+    overflow-x: hidden; /* Запрещаем только горизонтальный скролл */
+    overflow-y: auto;   /* Разрешаем вертикальный */
     height: auto;
-    margin-bottom: 20px;
-    transition: transform 0.3s ease;
+    min-height: 100vh;
 }
 
-/* Эффект при наведении на логотип */
-.logo-link:hover .main-logo {
-    transform: scale(1.05);
-}
-
-.click-text {
-    font-family: 'Syncopate', sans-serif;
-    font-size: clamp(1.5rem, 4vw, 3rem);
-    letter-spacing: 0.15em;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-.email-text {
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    color: #cccccc;
-    margin-top: 10px;
-}
-
-/* --- ФУТЕР --- */
-.bottom-text {
-    font-size: 0.7rem;
-    color: #777777; /* Тусклый серый */
-    letter-spacing: 0.05em;
-    margin-bottom: 20px;
+/* Убираем стандартные отступы у всех элементов */
+* {
+    box-sizing: border-box;
 }
