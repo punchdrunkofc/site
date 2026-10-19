@@ -10,6 +10,11 @@ This repository contains the source code for the main page of the website.
 * CSS3
 * GitHub Pages (for hosting)
 
+## Links
+* [YouTube](https://www.youtube.com/@PUNCHDRUNKwav/featured)
+* [Telegram](https://t.me/LONGTAILSTRAXX)
+* [Discord](https://discord.com/invite/Pcs42mGGD7)
+* [SampleFocus](https://samplefocus.com/users/punchdrunk-official)
+
 ## Contact
 * Email: punchdrunk69ofc@gmail.com
-* Social media links: (to be added later)
