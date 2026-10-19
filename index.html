@@ -10,18 +10,13 @@
     <link href="https://fonts.cdnfonts.com/css/home-video" rel="stylesheet">
     
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #000000;
-            overflow: hidden; 
-            font-family: 'Space Mono', monospace;
-        }
-
+        /* Главный контейнер для главной страницы (фиксируем на весь экран, чтобы не было скролла) */
         .lens-container {
             width: 100vw;
             height: 100vh;
-            position: relative;
+            position: fixed; /* Фиксируем, чтобы не скроллилось */
+            top: 0;
+            left: 0;
             overflow: hidden;
         }
 
@@ -80,10 +75,7 @@
             z-index: 10;
             pointer-events: none; 
             padding: 20px 40px; 
-            box-sizing: border-box;
             color: #ffffff;
-            
-            /* ПРИМЕНЯЕМ ШРИФТ HOME VIDEO */
             font-family: 'Home Video', 'Courier New', Courier, monospace; 
             font-weight: bold;
             font-size: 1.5rem; 
