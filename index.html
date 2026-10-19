@@ -7,19 +7,31 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
+        /* Настройки для контейнера с 3D-текстом */
         #3d-text-container {
             width: 100%;
-            height: 120px;
-            margin-top: 20px;
+            height: 160px; /* Увеличили высоту, так как текст стал больше */
+            margin-top: -10px; /* Подтягиваем текст чуть ближе к логотипу */
             margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Добавляем общее неоновое свечение контейнеру */
             filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); 
         }
         .main-title {
             display: none;
+        }
+        
+        /* Немного подправим отступы, чтобы всё смотрелось ровно */
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .logo-link {
+            margin-bottom: 0; /* Убираем лишний отступ под логотипом */
         }
     </style>
 </head>
@@ -35,13 +47,17 @@
             <a href="#" class="nav-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5zm-5.5 8C5.015 10 3.5 11.79 3.5 14c0 2.21 1.515 4 3 4s3-1.79 3-4c0-2.21-1.515-4-3-4zm11 0c-1.485 0-3 1.79-3 4 0 2.21 1.515 4 3 4s3-1.79 3-4c0-2.21-1.485-4-3-4zM12 14c-2.33 0-7 1.17-7 3.5V19h14v-1.5c0-2.33-4.67-3.5-7-3.5z"/></svg></a>
         </header>
 
-        <div id="3d-text-container"></div>
-
         <main class="center-content">
+            <!-- Логотип теперь сверху -->
             <a href="#" class="logo-link">
                 <img src="logo.png" alt="Logo" class="main-logo">
-                <h2 class="click-text">CLICK ME!</h2>
             </a>
+            
+            <!-- 3D текст теперь под логотипом -->
+            <div id="3d-text-container"></div>
+
+            <!-- Кнопка CLICK ME! и почта -->
+            <h2 class="click-text">CLICK ME!</h2>
             <p class="email-text">punchdrunk69ofc@gmail.com</p>
         </main>
 
@@ -53,11 +69,11 @@
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
         
-        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / 120, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / 160, 0.1, 1000);
         camera.position.z = 15; 
 
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, 120); 
+        renderer.setSize(window.innerWidth, 160); 
         container.appendChild(renderer.domElement);
 
         const loader = new THREE.FontLoader();
@@ -66,39 +82,31 @@
             
             const textOptions = {
                 font: font,
-                size: 2.2,
+                size: 3.2,       // УВЕЛИЧИЛИ РАЗМЕР ТЕКСТА (было 2.2)
                 height: 0.8,
                 curveSegments: 12,
                 bevelEnabled: false
             };
 
-            // 1. Создаем основную геометрию
             const geometry = new THREE.TextGeometry("punchdrunk", textOptions);
             geometry.center();
 
-            // Создаем БЕЛЫЙ текст
+            // Белая заливка
             const materialWhite = new THREE.MeshBasicMaterial({ color: 0xffffff });
             const whiteText = new THREE.Mesh(geometry, materialWhite);
 
-            // 2. Создаем ФИОЛЕТОВЫЙ текст для обводки
+            // Фиолетовая обводка (сделана чуть больше)
             const materialPurple = new THREE.MeshBasicMaterial({ color: 0x8a2be2 });
             const purpleText = new THREE.Mesh(geometry, materialPurple);
-
-            // Делаем фиолетовый текст чуть больше белого (на 6%)
-            // Из-за этого он будет выступать по краям, создавая толстую обводку
-            purpleText.scale.set(1.06, 1.06, 1.06); 
-            
-            // Слегка сдвигаем фиолетовый текст назад, чтобы он не перекрывал белый спереди
+            purpleText.scale.set(1.08, 1.08, 1.08); // Чуть толще обводка
             purpleText.position.z = -0.2; 
 
-            // 3. Группируем
             const group = new THREE.Group();
-            group.add(purpleText); // Фиолетовый позади
-            group.add(whiteText);  // Белый спереди
+            group.add(purpleText);
+            group.add(whiteText);
 
             scene.add(group);
 
-            // Анимация вращения
             function animate() {
                 requestAnimationFrame(animate);
                 group.rotation.y += 0.015; 
@@ -108,9 +116,9 @@
         });
 
         window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / 120;
+            camera.aspect = window.innerWidth / 160;
             camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, 120);
+            renderer.setSize(window.innerWidth, 160);
         });
     </script>
 </body>
