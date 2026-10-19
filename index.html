@@ -23,24 +23,89 @@
             width: 100vw;
             height: 100vh;
             object-fit: cover; 
-            z-index: -2; 
+            z-index: -3; /* Уводим на самый задний план */
             
-            /* Если видео слишком яркое, уменьши brightness до 0.5 или 0.4 */
-            filter: brightness(0.6); 
+            /* Немного уменьшаем яркость, чтобы текст читался */
+            filter: brightness(0.6) contrast(1.1); 
         }
 
-        /* Затемняющий слой (чтобы текст читался) */
+        /* --- СЛОЙ С ШУМОМ (SCANLINES) --- */
+        .vhs-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            pointer-events: none;
+            
+            /* Создаем эффект полос (scanlines) через градиент */
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            
+            /* Анимация легкого мерцания */
+            animation: flicker 0.15s infinite;
+        }
+
+        /* --- СЛОЙ С ХРОМАТИЧЕСКОЙ АБЕРРАЦИЕЙ (GLITCH) --- */
+        .vhs-glitch {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            mix-blend-mode: screen; /* Смешивает цвета */
+            opacity: 0.3;
+            
+            /* Создаем цветную сетку для эффекта глитча */
+            background: linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.1) 0%,
+                transparent 20%,
+                rgba(0, 0, 255, 0.1) 80%,
+                transparent 100%
+            );
+            
+            /* Легкое дергание */
+            animation: glitch-shift 0.1s infinite;
+        }
+
+        /* --- ЗАТЕМНЯЮЩИЙ СЛОЙ (для текста) --- */
         .bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(0, 0, 0, 0.4); /* 40% черного */
-            z-index: -1;
-            pointer-events: none; /* Пропускает клики сквозь себя */
+            background-color: rgba(0, 0, 0, 0.3); 
+            z-index: 0;
+            pointer-events: none;
         }
 
+        /* --- АНИМАЦИИ VHS --- */
+        @keyframes flicker {
+            0% { opacity: 0.8; }
+            50% { opacity: 0.9; }
+            100% { opacity: 0.8; }
+        }
+
+        @keyframes glitch-shift {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-2px); }
+            40% { transform: translateX(2px); }
+            60% { transform: translateX(-1px); }
+            80% { transform: translateX(1px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* --- КОНТЕНТ --- */
         .main-container {
             width: 100vw;
             height: 100vh;
@@ -70,6 +135,8 @@
         .main-logo {
             width: clamp(150px, 20vw, 250px); 
             height: auto;
+            /* Легкое свечение логотипа */
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
         }
 
         #3d-text-container {
@@ -91,6 +158,7 @@
             letter-spacing: 0.1em;
             color: #cccccc;
             margin: 0;
+            z-index: 2;
         }
 
         .main-title, .click-text {
@@ -100,12 +168,14 @@
 </head>
 <body>
 
-    <!-- ВИДЕО-ФОН (убрали атрибут loop, его заменит JS) -->
+    <!-- ВИДЕО-ФОН -->
     <video id="bg-video" autoplay muted playsinline preload="auto">
         <source src="bg.mp4" type="video/mp4">
     </video>
 
-    <!-- Затемняющий слой -->
+    <!-- СЛОИ ДЛЯ VHS ЭФФЕКТА -->
+    <div class="vhs-overlay"></div>
+    <div class="vhs-glitch"></div>
     <div class="bg-overlay"></div>
 
     <div class="main-container">
@@ -123,18 +193,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script>
-        // --- СКРИПТ ДЛЯ БЕСШОВНОГО ЦИКЛА ВИДЕО ---
+        // --- БЕСШОВНЫЙ ЦИКЛ ВИДЕО ---
         const video = document.getElementById('bg-video');
-        
-        // Запускаем видео при загрузке
-        video.addEventListener('loadeddata', () => {
-            video.play();
-        });
-
-        // Следим за временем
+        video.addEventListener('loadeddata', () => { video.play(); });
         video.addEventListener('timeupdate', () => {
-            // Если до конца осталось меньше 0.2 секунды — перезапускаем
-            // Это скрывает микро-паузу браузера
             if (video.duration - video.currentTime < 0.2) {
                 video.currentTime = 0;
                 video.play();
