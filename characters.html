@@ -5,15 +5,334 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Characters - PUNCHDRUNK</title>
     <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.cdnfonts.com/css/home-video" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
     <style>
-        body { background: #000; color: #fff; font-family: 'Space Mono', monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        h1 { font-family: 'Courier New', monospace; font-size: 3rem; }
-        a { color: #8a2be2; text-decoration: none; margin-top: 20px; font-size: 1.2rem; }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden; 
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* --- ВИДЕО-ФОН --- */
+        #bg-video {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            object-fit: cover; z-index: -3; filter: brightness(0.3) contrast(1.2) saturate(1.5); 
+        }
+
+        /* --- СИНИЙ VHS СЛОЙ --- */
+        .vhs-blue-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(180deg, rgba(0, 0, 255, 0.2) 0%, rgba(75, 0, 130, 0.3) 100%);
+            mix-blend-mode: color; z-index: -2; pointer-events: none;
+        }
+
+        /* --- ШУМ И СКАНЛАЙНЫ --- */
+        .vhs-noise {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1; pointer-events: none;
+            background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) 1px, transparent 1px, transparent 3px);
+            opacity: 0.8; animation: flicker 0.1s infinite;
+        }
+
+        @keyframes flicker { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
+
+        /* --- VHS ИНТЕРФЕЙС --- */
+        .vhs-ui {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10; pointer-events: none; padding: 20px 40px; box-sizing: border-box;
+            color: #ffffff; font-family: 'Home Video', 'Courier New', Courier, monospace; 
+            font-weight: bold; font-size: 1.5rem; text-shadow: 2px 2px 0px rgba(0,0,0,0.5); letter-spacing: 1px;
+        }
+        .vhs-ui .top-left { position: absolute; top: 20px; left: 40px; display: flex; align-items: center; gap: 10px; }
+        .play-icon { width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 15px solid #ffffff; }
+        .vhs-ui .top-right { position: absolute; top: 20px; right: 40px; }
+        .vhs-ui .bottom-right { position: absolute; bottom: 20px; right: 40px; text-align: right; font-size: 1.2rem; }
+        .vhs-ui .timecode { display: block; margin-top: 5px; }
+
+        /* --- ОСНОВНОЙ КОНТЕНТ --- */
+        .page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px 60px 20px; /* Отступ сверху, чтобы не перекрывало VHS UI */
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-title {
+            font-family: 'Home Video', 'Courier New', monospace;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
+        }
+
+        /* --- СЕТКА ПЕРСОНАЖЕЙ --- */
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .character-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .character-card:hover {
+            border-color: #8a2be2;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .character-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            filter: grayscale(20%) contrast(1.1);
+            transition: filter 0.3s ease;
+        }
+
+        .character-card:hover .character-image {
+            filter: grayscale(0%) contrast(1.2);
+        }
+
+        /* Заглушка для персонажа без фото */
+        .no-image-placeholder {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #111, #222);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            color: #555;
+            font-family: 'Home Video', monospace;
+            font-size: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .no-image-placeholder::after {
+            content: "NO SIGNAL";
+            position: absolute;
+            animation: glitch-text 2s infinite;
+        }
+
+        @keyframes glitch-text {
+            0% { opacity: 0.5; transform: translate(0); }
+            20% { opacity: 1; transform: translate(-2px, 2px); color: #8a2be2; }
+            40% { opacity: 0.5; transform: translate(2px, -2px); }
+            60% { opacity: 1; transform: translate(0); }
+            100% { opacity: 0.5; transform: translate(0); }
+        }
+
+        .character-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .character-name {
+            font-family: 'Home Video', 'Courier New', monospace;
+            font-size: 1.8rem;
+            color: #8a2be2;
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.5);
+        }
+
+        .character-role {
+            font-size: 0.9rem;
+            color: #aaaaaa;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .character-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #dddddd;
+            flex-grow: 1;
+        }
+
+        /* --- КНОПКА НАЗАД --- */
+        .back-container {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #8a2be2;
+            color: #ffffff;
+            padding: 12px 24px;
+            font-family: 'Home Video', 'Courier New', monospace;
+            font-size: 1.2rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .back-btn:hover {
+            background: #8a2be2;
+            color: #000;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
+        }
     </style>
 </head>
 <body>
-    <h1>CHARACTERS</h1>
-    <p>Information about characters will be here soon.</p>
-    <a href="welcome.html">← BACK TO MENU</a>
+
+    <video id="bg-video" autoplay muted playsinline preload="auto">
+        <source src="bg.mp4" type="video/mp4">
+    </video>
+
+    <div class="vhs-blue-overlay"></div>
+    <div class="vhs-noise"></div>
+
+    <div class="vhs-ui">
+        <div class="top-left"><span>PLAY</span><div class="play-icon"></div></div>
+        <div class="top-right"><span>SP</span></div>
+        <div class="bottom-right"><span>--/--/--</span><span class="timecode" id="timecode">00:00:00</span></div>
+    </div>
+
+    <div class="page-container">
+        
+        <h1 class="page-title">CHARACTERS</h1>
+
+        <div class="characters-grid">
+            
+            <!-- Kenny -->
+            <div class="character-card">
+                <img src="kenny.png" alt="Kenny" class="character-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="no-image-placeholder" style="display:none;">IMAGE NOT FOUND</div>
+                <div class="character-info">
+                    <h2 class="character-name">Kenny</h2>
+                    <div class="character-role">The First Character / Face of the Project</div>
+                    <div class="character-desc">
+                        A cat and the very first character of the project. Initially didn't have a specific genre, combining all of them. Later, he became the face for Hardcore, Digital Hardcore, and Bass House. Currently, he is used only for Hardcore and Digital Hardcore.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rixi -->
+            <div class="character-card">
+                <img src="rixi.jpg" alt="Rixi" class="character-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="no-image-placeholder" style="display:none;">IMAGE NOT FOUND</div>
+                <div class="character-info">
+                    <h2 class="character-name">Rixi</h2>
+                    <div class="character-role">Cat / Character</div>
+                    <div class="character-desc">
+                        A cat created as a new character during a difficult period for the project. Originally intended for Digital Hardcore, Experimental, and Electro genres. Later abandoned upon returning to the main PunchDrunk project.
+                    </div>
+                </div>
+            </div>
+
+            <!-- PurPiePloop -->
+            <div class="character-card">
+                <img src="purpieploop.jpg" alt="PurPiePloop" class="character-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="no-image-placeholder" style="display:none;">IMAGE NOT FOUND</div>
+                <div class="character-info">
+                    <h2 class="character-name">PurPiePloop</h2>
+                    <div class="character-role">Experimental Archetype</div>
+                    <div class="character-desc">
+                        Has no defined species or role. Created for more experimental genres like Speedcore. Currently unused for a long time as the author experienced burnout with this genre of music.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5H17P057 M4CH1N3 -->
+            <div class="character-card">
+                <img src="shitpost_machine.png" alt="5H17P057 M4CH1N3" class="character-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="no-image-placeholder" style="display:none;">IMAGE NOT FOUND</div>
+                <div class="character-info">
+                    <h2 class="character-name">5H17P057 M4CH1N3</h2>
+                    <div class="character-role">Meme / Joke Character</div>
+                    <div class="character-desc">
+                        A cat created for pure fun and chaos. His purpose is to use goofy cartoonish meme sounds. Never used as a serious character. Even the cover art is always redrawn from existing references (with credits given if necessary).
+                    </div>
+                </div>
+            </div>
+
+            <!-- SickRaveKids -->
+            <div class="character-card">
+                <div class="no-image-placeholder">NO VISUAL REFERENCE</div>
+                <div class="character-info">
+                    <h2 class="character-name">SickRaveKids</h2>
+                    <div class="character-role">Abstract Concept / Entity</div>
+                    <div class="character-desc">
+                        Has no visual reference or distinct character design. It just exists. Honestly, we have no idea what its deal is. It's just there.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fubar -->
+            <div class="character-card">
+                <img src="fubar.jpg" alt="Fubar" class="character-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="no-image-placeholder" style="display:none;">IMAGE NOT FOUND</div>
+                <div class="character-info">
+                    <h2 class="character-name">Fubar</h2>
+                    <div class="character-role">Project Member / Artist & Moderator</div>
+                    <div class="character-desc">
+                        One of the project's key members. Not a musician, but actively involved in the project's life. He draws cover art for tracks and handles moderation across all project services. Just a cool guy. He is Kenny's partner and also a partner of the project's creator.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Licorice -->
+            <div class="character-card">
+                <img src="licorice.jpg" alt="Licorice" class="character-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="no-image-placeholder" style="display:none;">IMAGE NOT FOUND</div>
+                <div class="character-info">
+                    <h2 class="character-name">Licorice</h2>
+                    <div class="character-role">Former Artist / Best Friend</div>
+                    <div class="character-desc">
+                        The project creator's best friend and a former artist for the old covers. Currently, does absolutely nothing—just sends memes in the Telegram channel.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="back-container">
+            <a href="welcome.html" class="back-btn">← BACK TO MENU</a>
+        </div>
+
+    </div>
+
+    <script>
+        const video = document.getElementById('bg-video');
+        video.addEventListener('loadeddata', () => { video.play(); });
+        video.addEventListener('timeupdate', () => {
+            if (video.duration - video.currentTime < 0.2) { video.currentTime = 0; video.play(); }
+        });
+
+        const timecodeElement = document.getElementById('timecode');
+        let seconds = 0;
+        setInterval(() => {
+            seconds++;
+            let h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+            let m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            let s = (seconds % 60).toString().padStart(2, '0');
+            timecodeElement.textContent = `${h}:${m}:${s}`;
+        }, 1000);
+    </script>
 </body>
 </html>
