@@ -142,9 +142,22 @@
             filter: grayscale(0%) contrast(1.2);
         }
 
-        /* Скрываем заглушки полностью */
-        .no-image-placeholder {
-            display: none !important; 
+        /* --- ЗАГЛУШКА ДЛЯ ПЕРСОНАЖЕЙ БЕЗ ФОТО --- */
+        .empty-photo {
+            width: 100%;
+            height: 250px;
+            background-color: #000000;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8a2be2;
+            font-family: 'Home Video', 'Courier New', monospace;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.5);
+            opacity: 0.7;
         }
 
         .character-info {
@@ -277,8 +290,9 @@
                 </div>
             </div>
 
-            <!-- SickRaveKids (Без картинки и без пустого блока) -->
+            <!-- SickRaveKids (С заглушкой) -->
             <div class="character-card">
+                <div class="empty-photo">ТУТ НИЧЕГО НЕТ</div>
                 <div class="character-info">
                     <h2 class="character-name">SickRaveKids</h2>
                     <div class="character-role">Abstract Concept / Entity</div>
