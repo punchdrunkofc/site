@@ -21,6 +21,7 @@
             min-height: 100vh;
         }
 
+        /* --- ФОН --- */
         #bg-video {
             position: fixed; top: 0; left: 0;
             width: 100vw; height: 100vh;
@@ -50,6 +51,7 @@
 
         @keyframes flicker { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
 
+        /* --- ИНТЕРФЕЙС --- */
         .vhs-ui {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
@@ -66,6 +68,7 @@
         .top-right { position: absolute; top: 20px; right: 40px; }
         .bottom-right { position: absolute; bottom: 20px; right: 40px; font-size: 1.2rem; }
 
+        /* --- КОНТЕНТ --- */
         .page-container {
             position: relative;
             z-index: 5;
@@ -73,7 +76,7 @@
             flex-direction: column;
             align-items: center;
             padding: 80px 20px 60px 20px; 
-            max-width: 1200px;
+            max-width: 1400px; /* Сделал чуть шире для кладки */
             margin: 0 auto;
         }
 
@@ -108,22 +111,22 @@
             box-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
         }
 
-        /* --- СЕТКА ГАЛЕРЕИ --- */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
+        /* --- КЛАДКА (MASONRY LAYOUT) --- */
+        .gallery-masonry {
+            column-count: 4; /* Количество колонок на ПК */
+            column-gap: 20px; /* Расстояние между колонками */
             width: 100%;
             margin-bottom: 60px;
         }
 
         .gallery-item {
+            break-inside: avoid; /* Запрещает разрыв карточки между колонками */
+            margin-bottom: 20px; /* Отступ снизу */
             position: relative;
             border: 2px solid rgba(138, 43, 226, 0.5);
             border-radius: 8px;
             overflow: hidden;
             background: #050505;
-            aspect-ratio: 1 / 1;
             transition: all 0.3s ease;
             cursor: pointer;
         }
@@ -131,14 +134,13 @@
         .gallery-item:hover {
             border-color: #8a2be2;
             box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-            transform: scale(1.05);
+            transform: scale(1.03);
             z-index: 10;
         }
 
         .gallery-item img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto; /* Автоматическая высота сохраняет пропорции */
             display: block;
             transition: filter 0.3s ease;
             filter: grayscale(20%) contrast(1.1);
@@ -148,16 +150,15 @@
             filter: grayscale(0%) contrast(1.2);
         }
 
-        .empty-slot {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Home Video', monospace;
-            color: rgba(138, 43, 226, 0.3); 
-            font-size: 1.2rem;
-            text-align: center;
-            pointer-events: none;
-            width: 100%;
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 1200px) {
+            .gallery-masonry { column-count: 3; }
+        }
+        @media (max-width: 800px) {
+            .gallery-masonry { column-count: 2; }
+        }
+        @media (max-width: 500px) {
+            .gallery-masonry { column-count: 1; }
         }
     </style>
 </head>
@@ -177,9 +178,10 @@
         <div id="3d-text-container"></div>
         <a href="welcome.html" class="top-back-btn">← BACK TO MENU</a>
 
-        <div class="gallery-grid">
+        <!-- НОВАЯ КЛАДКА -->
+        <div class="gallery-masonry">
             
-            <!-- 1. КРАСИВЫЕ АРТЫ (1-9) -->
+            <!-- 1-9 (Красивые) -->
             <div class="gallery-item"><img src="art1.jpg" alt="Art 1"></div>
             <div class="gallery-item"><img src="art2.jpg" alt="Art 2"></div>
             <div class="gallery-item"><img src="art3.jpg" alt="Art 3"></div>
@@ -190,7 +192,7 @@
             <div class="gallery-item"><img src="art8.jpg" alt="Art 8"></div>
             <div class="gallery-item"><img src="art9.jpg" alt="Art 9"></div>
 
-            <!-- 2. СМЕШНЫЕ / МЕМНЫЕ АРТЫ (10-18) -->
+            <!-- 10-18 (Смешные) -->
             <div class="gallery-item"><img src="art10.jpg" alt="Art 10"></div>
             <div class="gallery-item"><img src="art11.jpg" alt="Art 11"></div>
             <div class="gallery-item"><img src="art12.jpg" alt="Art 12"></div>
@@ -201,7 +203,7 @@
             <div class="gallery-item"><img src="art17.jpg" alt="Art 17"></div>
             <div class="gallery-item"><img src="art18.jpg" alt="Art 18"></div>
 
-            <!-- 3. КРИВЫЕ / СКЕТЧИ (19-27) -->
+            <!-- 19-27 (Кривые) -->
             <div class="gallery-item"><img src="art19.jpg" alt="Art 19"></div>
             <div class="gallery-item"><img src="art20.jpg" alt="Art 20"></div>
             <div class="gallery-item"><img src="art21.jpg" alt="Art 21"></div>
@@ -217,6 +219,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
+        // --- ВИДЕО И ТАЙМКОД ---
         const video = document.getElementById('bg-video');
         video.addEventListener('loadeddata', () => { video.play(); });
         video.addEventListener('timeupdate', () => { if (video.duration - video.currentTime < 0.2) { video.currentTime = 0; video.play(); } });
@@ -225,6 +228,7 @@
         let seconds = 0;
         setInterval(() => { seconds++; timecodeElement.textContent = `${Math.floor(seconds / 3600).toString().padStart(2, '0')}:${Math.floor((seconds % 3600) / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`; }, 1000);
 
+        // --- 3D ТЕКСТ ---
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(45, 800 / 200, 0.1, 1000);
