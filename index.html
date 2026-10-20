@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to PUNCHDRUNK</title>
+    <title>Releases - PUNCHDRUNK</title>
     
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="style.css">
@@ -12,9 +12,9 @@
 
     <style>
         html, body { margin: 0; padding: 0; background-color: #000000; color: #ffffff; font-family: 'Space Mono', monospace; overflow-x: hidden; overflow-y: auto; height: auto; min-height: 100vh; }
-        #bg-video { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; filter: brightness(0.4) contrast(1.2) saturate(1.5); }
-        .vhs-blue-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(180deg, rgba(0, 0, 255, 0.3) 0%, rgba(75, 0, 130, 0.4) 100%); mix-blend-mode: color; z-index: 1; pointer-events: none; }
-        .vhs-noise { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) 1px, transparent 1px, transparent 3px); opacity: 0.8; animation: flicker 0.1s infinite; }
+        #bg-video { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; filter: brightness(0.3) contrast(1.2) saturate(1.5); }
+        .vhs-blue-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(180deg, rgba(0, 0, 255, 0.2) 0%, rgba(75, 0, 130, 0.3) 100%); mix-blend-mode: color; z-index: 1; pointer-events: none; }
+        .vhs-noise { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) 1px, transparent 1px, transparent 3px); opacity: 0.8; animation: flicker 0.1s infinite; }
         @keyframes flicker { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
         
         .vhs-ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; padding: 20px 40px; box-sizing: border-box; color: #ffffff; font-family: 'Home Video', 'Courier New', Courier, monospace; font-weight: bold; font-size: 1.5rem; text-shadow: 2px 2px 0px rgba(0,0,0,0.5); letter-spacing: 1px; }
@@ -24,30 +24,141 @@
         .vhs-ui .bottom-right { position: absolute; bottom: 20px; right: 40px; text-align: right; font-size: 1.2rem; }
         .vhs-ui .timecode { display: block; margin-top: 5px; }
 
-        .page-container { display: flex; flex-direction: column; align-items: center; padding: 60px 20px; position: relative; z-index: 10; max-width: 1000px; margin: 0 auto; }
+        .page-container { max-width: 1200px; margin: 0 auto; padding: 60px 20px 60px 20px; position: relative; z-index: 10; }
 
         #3d-text-container {
             width: 100%; height: 150px; display: flex; justify-content: center; align-items: center;
             filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); overflow: hidden; 
             margin-bottom: 40px; margin-top: 50px;
+            position: relative; margin-left: auto; margin-right: auto;
         }
 
-        .text-content {
-            max-width: 800px; line-height: 1.8; font-size: 1rem; color: #dddddd; text-align: left;
-            background: rgba(0, 0, 0, 0.7); padding: 30px; border-radius: 8px;
+        .releases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 30px;
         }
 
-        .text-content h2 { color: #ffffff; font-size: 1.5rem; margin-top: 30px; margin-bottom: 15px; font-weight: bold; }
-        .text-content p { margin-bottom: 15px; }
+        .release-card {
+            background: rgba(10, 10, 10, 0.85);
+            border: 2px solid #8a2be2;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+            position: relative;
+        }
 
-        .track-link { color: #8a2be2; text-decoration: none; font-weight: bold; transition: color 0.3s, text-shadow 0.3s; }
-        .track-link:hover { color: #ffffff; text-shadow: 0 0 10px rgba(138, 43, 226, 0.8); text-decoration: underline; }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+            border-bottom: 2px solid rgba(138, 43, 226, 0.5);
+        }
 
-        .nav-menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 40px; margin-bottom: 20px; max-width: 800px; }
-        .nav-btn { background: rgba(0, 0, 0, 0.8); border: 2px solid #8a2be2; color: #ffffff; padding: 12px 24px; font-family: 'Home Video', 'Courier New', monospace; font-size: 1.2rem; text-decoration: none; text-transform: uppercase; transition: all 0.3s ease; border-radius: 4px; }
-        .nav-btn:hover { background: #8a2be2; color: #000; box-shadow: 0 0 15px rgba(138, 43, 226, 0.8); }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%; border: none;
+        }
 
-        .back-link { margin-top: 50px; margin-bottom: 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 1.5rem; font-family: 'Home Video', 'Courier New', Courier, monospace; letter-spacing: 2px; position: relative; z-index: 10; }
+        .video-placeholder {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            background: #000; cursor: pointer; z-index: 2;
+        }
+
+        .video-placeholder img {
+            width: 100%; height: 100%; object-fit: cover;
+            opacity: 0.6; transition: opacity 0.3s;
+        }
+
+        .video-placeholder:hover img { opacity: 0.9; }
+
+        .play-overlay {
+            position: absolute;
+            font-family: 'Home Video', monospace;
+            font-size: 5rem;
+            color: #ffffff;
+            text-shadow: 0 0 20px #8a2be2;
+            z-index: 3;
+            pointer-events: none;
+            line-height: 1;
+            transition: transform 0.3s;
+        }
+
+        .video-placeholder:hover .play-overlay { transform: scale(1.2); }
+
+        .release-info { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
+
+        .release-title {
+            font-family: 'Home Video', 'Courier New', monospace;
+            font-size: 1.6rem;
+            color: #8a2be2;
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.5);
+            line-height: 1.3;
+        }
+
+        .release-desc { font-size: 0.95rem; line-height: 1.6; color: #dddddd; }
+
+        /* --- ИНДИВИДУАЛЬНЫЕ СТИЛИ (ОБНОВЛЕНЫ) --- */
+        
+        /* 1. HARDCORE (Желто-красный) */
+        .theme-hardcore { border-color: #ffcc00; box-shadow: 0 0 15px rgba(255, 204, 0, 0.3); }
+        .theme-hardcore:hover { box-shadow: 0 0 30px rgba(255, 204, 0, 0.7); }
+        .theme-hardcore .release-title { color: #ffcc00; text-shadow: 0 0 5px rgba(255, 204, 0, 0.5); }
+        .theme-hardcore .video-container { border-bottom-color: rgba(255, 204, 0, 0.5); }
+        .theme-hardcore .play-overlay { text-shadow: 0 0 20px #ffcc00; }
+
+        /* 2. NO MORE DAYS (Кислотно-зеленый) */
+        .theme-gabber { border-color: #39ff14; box-shadow: 0 0 15px rgba(57, 255, 20, 0.3); }
+        .theme-gabber:hover { box-shadow: 0 0 30px rgba(57, 255, 20, 0.7); }
+        .theme-gabber .release-title { color: #39ff14; text-shadow: 0 0 5px rgba(57, 255, 20, 0.5); }
+        .theme-gabber .video-container { border-bottom-color: rgba(57, 255, 20, 0.5); }
+        .theme-gabber .play-overlay { text-shadow: 0 0 20px #39ff14; }
+
+        /* 3. QUESTIONS PART 2 (Малиновый/Ярко-розовый) */
+        .theme-questions { border-color: #ff0055; box-shadow: 0 0 15px rgba(255, 0, 85, 0.3); }
+        .theme-questions:hover { box-shadow: 0 0 30px rgba(255, 0, 85, 0.7); }
+        .theme-questions .release-title { color: #ff0055; text-shadow: 0 0 5px rgba(255, 0, 85, 0.5); }
+        .theme-questions .video-container { border-bottom-color: rgba(255, 0, 85, 0.5); }
+        .theme-questions .play-overlay { text-shadow: 0 0 20px #ff0055; }
+
+        /* 4. OUT (Темно-фиолетовый/Индиго) */
+        .theme-out { border-color: #4b0082; box-shadow: 0 0 15px rgba(75, 0, 130, 0.5); }
+        .theme-out:hover { box-shadow: 0 0 30px rgba(75, 0, 130, 0.9); }
+        .theme-out .release-title { color: #8a2be2; text-shadow: 0 0 5px rgba(75, 0, 130, 0.5); }
+        .theme-out .video-container { border-bottom-color: rgba(75, 0, 130, 0.5); }
+        .theme-out .play-overlay { text-shadow: 0 0 20px #4b0082; }
+
+        /* 5. GABOOM (Ярко-зеленый) */
+        .theme-gaboom { border-color: #7fff00; box-shadow: 0 0 15px rgba(127, 255, 0, 0.3); }
+        .theme-gaboom:hover { box-shadow: 0 0 30px rgba(127, 255, 0, 0.7); }
+        .theme-gaboom .release-title { color: #7fff00; text-shadow: 0 0 5px rgba(127, 255, 0, 0.5); }
+        .theme-gaboom .video-container { border-bottom-color: rgba(127, 255, 0, 0.5); }
+        .theme-gaboom .play-overlay { text-shadow: 0 0 20px #7fff00; }
+
+        /* 6. ATTENTION! (Неоново-розовый) */
+        .theme-attention { border-color: #ff00ff; box-shadow: 0 0 15px rgba(255, 0, 255, 0.3); }
+        .theme-attention:hover { box-shadow: 0 0 30px rgba(255, 0, 255, 0.7); }
+        .theme-attention .release-title { color: #ff00ff; text-shadow: 0 0 5px rgba(255, 0, 255, 0.5); }
+        .theme-attention .video-container { border-bottom-color: rgba(255, 0, 255, 0.5); }
+        .theme-attention .play-overlay { text-shadow: 0 0 20px #ff00ff; }
+
+        /* 7. BASSQUAKE (Голубой/Циан) */
+        .theme-bassquake { border-color: #00ffff; box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
+        .theme-bassquake:hover { box-shadow: 0 0 30px rgba(0, 255, 255, 0.7); }
+        .theme-bassquake .release-title { color: #00ffff; text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); }
+        .theme-bassquake .video-container { border-bottom-color: rgba(0, 255, 255, 0.5); }
+        .theme-bassquake .play-overlay { text-shadow: 0 0 20px #00ffff; }
+
+        .back-container { text-align: center; margin-top: 60px; }
+        .back-btn { display: inline-block; background: rgba(0, 0, 0, 0.9); border: 2px solid #8a2be2; color: #ffffff; padding: 12px 24px; font-family: 'Home Video', 'Courier New', monospace; font-size: 1.2rem; text-decoration: none; text-transform: uppercase; transition: all 0.3s ease; border-radius: 4px; }
+        .back-btn:hover { background: #8a2be2; color: #000; box-shadow: 0 0 15px rgba(138, 43, 226, 0.8); }
     </style>
 </head>
 <body>
@@ -62,28 +173,61 @@
 
     <div class="page-container">
         <div id="3d-text-container"></div>
+        
+        <div class="releases-grid">
+            
+            <div class="release-card theme-hardcore">
+                <div class="video-container" id="video-1"><div class="video-placeholder" onclick="loadVideo('video-1', 'iRelUiysL5I')"><img src="https://img.youtube.com/vi/iRelUiysL5I/maxresdefault.jpg" alt="HARDCORE"><div class="play-overlay">▶</div></div></div>
+                <div class="release-info"><h2 class="release-title">HARDCORE ft. rubenswim</h2><div class="release-desc">Official Happy Hardcore Music Video.</div></div>
+            </div>
 
-        <div class="text-content">
-            <p>Here you will find a wealth of useful material related to PunchDrunk.</p>
-            <h2>Who—or what—is PunchDrunk?</h2>
-            <p>Let’s clarify one thing: I won’t be describing individual tracks here, as you can find all that information on my YouTube channel. Instead, I’ll talk about the project itself.</p>
-            <p>I launched this project on August 2, 2023—not with a specific goal in mind, but simply for myself, as an online archive to preserve my musical work forever. The initial spark came from a track that left a lasting mark on my musical taste: <a href="https://www.youtube.com/watch?v=FcemYs0wObE&list=RDFcemYs0wObE&start_radio=1" target="_blank" class="track-link">Epsyle - Couture</a>. Once the first 1,000 people subscribed, I began to evolve the project—moving beyond the scope of a mere hobbyist musician and developing it into a full-fledged creative endeavor. This site gathers information on all the characters created under the PunchDrunk banner, including those developed by other contributors who have since joined the project.</p>
-            <p>So, what exactly is PunchDrunk? Honestly, even we don’t know for sure. Everyone defines PunchDrunk in their own way: for some, it’s a heavy, hardcore act that conjures an atmosphere of chaos; for others, it’s a dance-oriented house project built entirely around high-energy movement. As for my own take... PunchDrunk is my soul, poured into every single piece of work. It’s not music for everyone, yet it resonates with many.</p>
-            <p>Think about what PunchDrunk means to you.</p>
+            <div class="release-card theme-gabber">
+                <div class="video-container" id="video-2"><div class="video-placeholder" onclick="loadVideo('video-2', 'EuJbRQFxy3w')"><img src="https://img.youtube.com/vi/EuJbRQFxy3w/maxresdefault.jpg" alt="NO MORE DAYS"><div class="play-overlay">▶</div></div></div>
+                <div class="release-info"><h2 class="release-title">NO MORE DAYS WITHOUT GABBER ft. CYANBOY</h2><div class="release-desc">Official Gabber Music Video.</div></div>
+            </div>
+
+            <div class="release-card theme-questions">
+                <div class="video-container" id="video-3"><div class="video-placeholder" onclick="loadVideo('video-3', 'jGtiMrqr_s4')"><img src="https://img.youtube.com/vi/jGtiMrqr_s4/maxresdefault.jpg" alt="QUESTIONS PART 2"><div class="play-overlay">▶</div></div></div>
+                <div class="release-info"><h2 class="release-title">QUESTIONS PART 2</h2><div class="release-desc">Official Full Album Music Video.</div></div>
+            </div>
+
+            <div class="release-card theme-out">
+                <div class="video-container" id="video-4"><div class="video-placeholder" onclick="loadVideo('video-4', '7hDuMXJ2_mE')"><img src="https://img.youtube.com/vi/7hDuMXJ2_mE/maxresdefault.jpg" alt="OUT"><div class="play-overlay">▶</div></div></div>
+                <div class="release-info"><h2 class="release-title">OUT</h2><div class="release-desc">Official Lyric Digital Hardcore Music Video.</div></div>
+            </div>
+
+            <div class="release-card theme-gaboom">
+                <div class="video-container" id="video-5"><div class="video-placeholder" onclick="loadVideo('video-5', '5ygNimEywAM')"><img src="https://img.youtube.com/vi/5ygNimEywAM/maxresdefault.jpg" alt="GABOOM"><div class="play-overlay">▶</div></div></div>
+                <div class="release-info"><h2 class="release-title">GABOOM</h2><div class="release-desc">Official Gabber Music Video.</div></div>
+            </div>
+
+            <div class="release-card theme-attention">
+                <div class="video-container" id="video-6"><div class="video-placeholder" onclick="loadVideo('video-6', 'wLnAyywLTm8')"><img src="https://img.youtube.com/vi/wLnAyywLTm8/maxresdefault.jpg" alt="ATTENTION!"><div class="play-overlay">▶</div></div></div>
+                <div class="release-info"><h2 class="release-title">ATTENTION!</h2><div class="release-desc">Official Gabber Music Video.</div></div>
+            </div>
+
+            <div class="release-card theme-bassquake">
+                <div class="video-container" id="video-7"><div class="video-placeholder" onclick="loadVideo('video-7', 'U2wcmrzvpM8')"><img src="https://img.youtube.com/vi/U2wcmrzvpM8/maxresdefault.jpg" alt="BASSQUAKE"><div class="play-overlay">▶</div></div></div>
+                <div class="release-info"><h2 class="release-title">BASSQUAKE ft. CYANBOY</h2><div class="release-desc">Official Gabber Music Video.</div></div>
+            </div>
+
         </div>
 
-        <div class="nav-menu">
-            <a href="characters.html" class="nav-btn">Characters</a>
-            <a href="releases.html" class="nav-btn">Releases</a>
-            <a href="plugins.html" class="nav-btn">Plugins</a>
-            <a href="samplepacks.html" class="nav-btn">Sample Packs</a>
-        </div>
-
-        <a href="index.html" class="back-link">← BACK TO HOME</a>
+        <div class="back-container"><a href="welcome.html" class="back-btn">← BACK TO MENU</a></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
+        function loadVideo(containerId, videoId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = ''; 
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+            iframe.allowFullscreen = true;
+            container.appendChild(iframe);
+        }
+
         const video = document.getElementById('bg-video');
         video.addEventListener('loadeddata', () => { video.play(); });
         video.addEventListener('timeupdate', () => { if (video.duration - video.currentTime < 0.2) { video.currentTime = 0; video.play(); } });
@@ -103,7 +247,7 @@
         
         loader.load('./home-video.typeface.json', function (font) {
             const textOptions = { font: font, size: 2.8, height: 0.8, curveSegments: 12, bevelEnabled: false };
-            const geometry = new THREE.TextGeometry("WELCOME", textOptions);
+            const geometry = new THREE.TextGeometry("RELEASES", textOptions);
             geometry.center(); 
             const materialWhite = new THREE.MeshBasicMaterial({ color: 0xffffff });
             const whiteText = new THREE.Mesh(geometry, materialWhite);
