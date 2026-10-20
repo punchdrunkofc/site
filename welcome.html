@@ -43,62 +43,11 @@
         .track-link { color: #8a2be2; text-decoration: none; font-weight: bold; transition: color 0.3s, text-shadow 0.3s; }
         .track-link:hover { color: #ffffff; text-shadow: 0 0 10px rgba(138, 43, 226, 0.8); text-decoration: underline; }
 
-        .nav-menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 40px; margin-bottom: 40px; max-width: 800px; }
+        .nav-menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 40px; margin-bottom: 20px; max-width: 800px; }
         .nav-btn { background: rgba(0, 0, 0, 0.8); border: 2px solid #8a2be2; color: #ffffff; padding: 12px 24px; font-family: 'Home Video', 'Courier New', monospace; font-size: 1.2rem; text-decoration: none; text-transform: uppercase; transition: all 0.3s ease; border-radius: 4px; }
         .nav-btn:hover { background: #8a2be2; color: #000; box-shadow: 0 0 15px rgba(138, 43, 226, 0.8); }
 
-        /* --- СТИЛИ ДЛЯ ВРАЩАЮЩЕГОСЯ CD --- */
-        .cd-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 30px 0;
-            position: relative;
-            z-index: 10;
-        }
-
-        .cd-disc {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            /* Создаем эффект радужного блика CD */
-            background: radial-gradient(circle at 30% 30%, #555, #111, #333, #0a0a0a, #222, #000);
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5), inset 0 0 20px rgba(0,0,0,0.8);
-            /* Анимация вращения */
-            animation: spin 5s linear infinite;
-        }
-
-        /* Внутреннее отверстие CD */
-        .cd-disc::after {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: #000; /* Цвет фона сайта */
-            border-radius: 50%;
-            border: 2px solid #333;
-            z-index: 2;
-        }
-
-        /* Логотип в центре */
-        .cd-logo {
-            width: 60px; /* Размер логотипа */
-            height: auto;
-            position: absolute;
-            z-index: 1;
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .back-link { margin-top: 20px; margin-bottom: 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 1.5rem; font-family: 'Home Video', 'Courier New', Courier, monospace; letter-spacing: 2px; position: relative; z-index: 10; }
+        .back-link { margin-top: 50px; margin-bottom: 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 1.5rem; font-family: 'Home Video', 'Courier New', Courier, monospace; letter-spacing: 2px; position: relative; z-index: 10; }
     </style>
 </head>
 <body>
@@ -128,13 +77,6 @@
             <a href="releases.html" class="nav-btn">Releases</a>
             <a href="plugins.html" class="nav-btn">Plugins</a>
             <a href="samplepacks.html" class="nav-btn">Sample Packs</a>
-        </div>
-
-        <!-- ВРАЩАЮЩИЙСЯ CD-ДИСК С ЛОГОТИПОМ -->
-        <div class="cd-container">
-            <div class="cd-disc">
-                <img src="logo.png" alt="Logo" class="cd-logo">
-            </div>
         </div>
 
         <a href="index.html" class="back-link">← BACK TO HOME</a>
