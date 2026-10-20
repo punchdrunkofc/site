@@ -83,14 +83,36 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 10px; /* Уменьшили отступ до кнопки */
             position: relative;
+        }
+
+        /* КНОПКА НАЗАД (ТЕПЕРЬ СВЕРХУ) */
+        .top-back-btn {
+            display: inline-block;
+            color: #fff; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 1.2rem; 
+            font-family: 'Home Video', 'Courier New', monospace; 
+            letter-spacing: 2px; 
+            margin-bottom: 40px;
+            padding: 10px 20px;
+            border: 2px solid #8a2be2;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.7);
+            transition: all 0.3s;
+        }
+        .top-back-btn:hover {
+            background: #8a2be2;
+            color: #000;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
         }
 
         /* --- СЕТКА ГАЛЕРЕИ --- */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Чуть меньше размер, чтобы больше влезло */
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 15px;
             width: 100%;
             margin-bottom: 60px;
@@ -98,7 +120,7 @@
 
         .gallery-item {
             position: relative;
-            border: 2px solid rgba(138, 43, 226, 0.3); /* Тусклая рамка для пустых слотов */
+            border: 2px solid rgba(138, 43, 226, 0.3);
             border-radius: 8px;
             overflow: hidden;
             background: #050505;
@@ -106,7 +128,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Эффект при наведении только если есть картинка (класс has-image) */
         .gallery-item.has-image {
             border-color: rgba(138, 43, 226, 0.5);
             cursor: pointer;
@@ -131,30 +152,16 @@
             filter: grayscale(0%) contrast(1.2);
         }
 
-        /* Скрытая заглушка (отображается, если нет картинки) */
         .empty-slot {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             font-family: 'Home Video', monospace;
-            color: rgba(138, 43, 226, 0.2); /* Очень тусклый текст */
+            color: rgba(138, 43, 226, 0.2); 
             font-size: 1rem;
             text-align: center;
             pointer-events: none;
             width: 100%;
-        }
-
-        .back-link { 
-            color: #fff; text-decoration: none; font-weight: bold; font-size: 1.5rem; 
-            font-family: 'Home Video', 'Courier New', monospace; letter-spacing: 2px; 
-            margin-bottom: 40px;
-            padding: 10px 20px;
-            border: 2px solid transparent;
-            transition: all 0.3s;
-        }
-        .back-link:hover {
-            border-color: #8a2be2;
-            color: #8a2be2;
         }
     </style>
 </head>
@@ -173,11 +180,12 @@
     <div class="page-container">
         <div id="3d-text-container"></div>
 
+        <!-- КНОПКА ПЕРЕМЕЩЕНА СЮДА -->
+        <a href="welcome.html" class="top-back-btn">← BACK TO MENU</a>
+
         <div class="gallery-grid" id="gallery-grid">
             <!-- СЮДА БУДЕТ ВСТАВЛЕН КОД 50 СЛОТОВ -->
         </div>
-
-        <a href="welcome.html" class="back-link">← BACK TO MENU</a>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -185,25 +193,21 @@
         // --- ГЕНЕРАТОР 50 СЛОТОВ ---
         const grid = document.getElementById('gallery-grid');
         for (let i = 1; i <= 50; i++) {
-            // Создаем контейнер
             const div = document.createElement('div');
             div.className = 'gallery-item';
             
-            // Создаем картинку (пока невидимую)
             const img = document.createElement('img');
-            img.src = `art${i}.jpg`; // Ожидаемое имя файла
+            img.src = `art${i}.jpg`; 
             img.alt = `Art ${i}`;
-            img.style.display = 'none'; // Скрываем по умолчанию
+            img.style.display = 'none'; 
             
-            // Если картинка загрузилась (файл существует), показываем её
             img.onload = function() {
                 div.classList.add('has-image');
                 img.style.display = 'block';
                 const emptyDiv = div.querySelector('.empty-slot');
-                if (emptyDiv) emptyDiv.style.display = 'none'; // Прячем заглушку
+                if (emptyDiv) emptyDiv.style.display = 'none';
             };
             
-            // Заглушка на случай, если картинки нет
             const emptyDiv = document.createElement('div');
             emptyDiv.className = 'empty-slot';
             emptyDiv.innerHTML = `SLOT ${i}`;
