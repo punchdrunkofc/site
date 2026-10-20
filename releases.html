@@ -83,14 +83,21 @@
 
         .video-placeholder:hover img { opacity: 0.9; }
 
+        /* ИЗМЕНЕНО: Оставлен только треугольник */
         .play-overlay {
             position: absolute;
             font-family: 'Home Video', monospace;
-            font-size: 3rem;
+            font-size: 5rem; /* Увеличен размер для акцента */
             color: #ffffff;
-            text-shadow: 0 0 15px #8a2be2;
+            text-shadow: 0 0 20px #8a2be2;
             z-index: 3;
             pointer-events: none;
+            line-height: 1;
+            transition: transform 0.3s;
+        }
+
+        .video-placeholder:hover .play-overlay {
+            transform: scale(1.2);
         }
 
         .release-info {
@@ -140,7 +147,7 @@
                 <div class="video-container" id="video-1">
                     <div class="video-placeholder" onclick="loadVideo('video-1', 'iRelUiysL5I')">
                         <img src="https://img.youtube.com/vi/iRelUiysL5I/maxresdefault.jpg" alt="HARDCORE">
-                        <div class="play-overlay">▶ PLAY</div>
+                        <div class="play-overlay">▶</div>
                     </div>
                 </div>
                 <div class="release-info">
@@ -154,7 +161,7 @@
                 <div class="video-container" id="video-2">
                     <div class="video-placeholder" onclick="loadVideo('video-2', 'EuJbRQFxy3w')">
                         <img src="https://img.youtube.com/vi/EuJbRQFxy3w/maxresdefault.jpg" alt="NO MORE DAYS WITHOUT GABBER">
-                        <div class="play-overlay">▶ PLAY</div>
+                        <div class="play-overlay">▶</div>
                     </div>
                 </div>
                 <div class="release-info">
@@ -168,7 +175,7 @@
                 <div class="video-container" id="video-3">
                     <div class="video-placeholder" onclick="loadVideo('video-3', 'jGtiMrqr_s4')">
                         <img src="https://img.youtube.com/vi/jGtiMrqr_s4/maxresdefault.jpg" alt="QUESTIONS PART 2">
-                        <div class="play-overlay">▶ PLAY</div>
+                        <div class="play-overlay">▶</div>
                     </div>
                 </div>
                 <div class="release-info">
@@ -182,7 +189,7 @@
                 <div class="video-container" id="video-4">
                     <div class="video-placeholder" onclick="loadVideo('video-4', '7hDuMXJ2_mE')">
                         <img src="https://img.youtube.com/vi/7hDuMXJ2_mE/maxresdefault.jpg" alt="OUT">
-                        <div class="play-overlay">▶ PLAY</div>
+                        <div class="play-overlay">▶</div>
                     </div>
                 </div>
                 <div class="release-info">
@@ -196,7 +203,7 @@
                 <div class="video-container" id="video-5">
                     <div class="video-placeholder" onclick="loadVideo('video-5', '5ygNimEywAM')">
                         <img src="https://img.youtube.com/vi/5ygNimEywAM/maxresdefault.jpg" alt="GABOOM">
-                        <div class="play-overlay">▶ PLAY</div>
+                        <div class="play-overlay">▶</div>
                     </div>
                 </div>
                 <div class="release-info">
@@ -210,7 +217,7 @@
                 <div class="video-container" id="video-6">
                     <div class="video-placeholder" onclick="loadVideo('video-6', 'wLnAyywLTm8')">
                         <img src="https://img.youtube.com/vi/wLnAyywLTm8/maxresdefault.jpg" alt="ATTENTION!">
-                        <div class="play-overlay">▶ PLAY</div>
+                        <div class="play-overlay">▶</div>
                     </div>
                 </div>
                 <div class="release-info">
@@ -224,7 +231,7 @@
                 <div class="video-container" id="video-7">
                     <div class="video-placeholder" onclick="loadVideo('video-7', 'U2wcmrzvpM8')">
                         <img src="https://img.youtube.com/vi/U2wcmrzvpM8/maxresdefault.jpg" alt="BASSQUAKE">
-                        <div class="play-overlay">▶ PLAY</div>
+                        <div class="play-overlay">▶</div>
                     </div>
                 </div>
                 <div class="release-info">
@@ -243,9 +250,8 @@
         // --- ЛОГИКА ЗАГРУЗКИ ВИДЕО ---
         function loadVideo(containerId, videoId) {
             const container = document.getElementById(containerId);
-            container.innerHTML = ''; // Очищаем заглушку
+            container.innerHTML = ''; 
             const iframe = document.createElement('iframe');
-            // autoplay=1 заставит видео играть сразу после клика
             iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
             iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
             iframe.allowFullscreen = true;
