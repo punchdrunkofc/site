@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.cdnfonts.com/css/home-video" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
         html, body { margin: 0; padding: 0; background-color: #000000; color: #ffffff; font-family: 'Space Mono', monospace; overflow-x: hidden; overflow-y: auto; height: auto; min-height: 100vh; }
@@ -23,14 +24,95 @@
         .vhs-ui .bottom-right { position: absolute; bottom: 20px; right: 40px; text-align: right; font-size: 1.2rem; }
         .vhs-ui .timecode { display: block; margin-top: 5px; }
 
-        .page-container { max-width: 1200px; margin: 0 auto; padding: 60px 20px 60px 20px; position: relative; z-index: 10; text-align: center; }
+        .page-container { max-width: 1200px; margin: 0 auto; padding: 60px 20px 60px 20px; position: relative; z-index: 10; }
 
-        /* --- ИСПРАВЛЕННЫЙ 3D ЗАГОЛОВОК --- */
         #3d-text-container {
             width: 100%; height: 150px; display: flex; justify-content: center; align-items: center;
             filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); overflow: hidden; 
             margin-bottom: 40px; margin-top: 50px;
             position: relative; margin-left: auto; margin-right: auto;
+        }
+
+        .releases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 30px;
+        }
+
+        .release-card {
+            background: rgba(10, 10, 10, 0.85);
+            border: 2px solid #8a2be2;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+            position: relative;
+        }
+
+        .release-card:hover {
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.8);
+            transform: translateY(-5px);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+            border-bottom: 2px solid rgba(138, 43, 226, 0.5);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%; border: none;
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            background: #000; cursor: pointer; z-index: 2;
+        }
+
+        .video-placeholder img {
+            width: 100%; height: 100%; object-fit: cover;
+            opacity: 0.6; transition: opacity 0.3s;
+        }
+
+        .video-placeholder:hover img { opacity: 0.9; }
+
+        .play-overlay {
+            position: absolute;
+            font-family: 'Home Video', monospace;
+            font-size: 3rem;
+            color: #ffffff;
+            text-shadow: 0 0 15px #8a2be2;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .release-info {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .release-title {
+            font-family: 'Home Video', 'Courier New', monospace;
+            font-size: 1.6rem;
+            color: #8a2be2;
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.5);
+            line-height: 1.3;
+        }
+
+        .release-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #dddddd;
         }
 
         .back-container { text-align: center; margin-top: 60px; }
@@ -50,12 +132,127 @@
 
     <div class="page-container">
         <div id="3d-text-container"></div>
-        <p style="color: #8a2be2; font-family: 'Home Video'; font-size: 2rem;">COMING SOON...</p>
+        
+        <div class="releases-grid">
+            
+            <!-- 1. HARDCORE ft. rubenswim -->
+            <div class="release-card">
+                <div class="video-container" id="video-1">
+                    <div class="video-placeholder" onclick="loadVideo('video-1', 'iRelUiysL5I')">
+                        <img src="https://img.youtube.com/vi/iRelUiysL5I/maxresdefault.jpg" alt="HARDCORE">
+                        <div class="play-overlay">▶ PLAY</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">HARDCORE ft. rubenswim</h2>
+                    <div class="release-desc">Official Happy Hardcore Music Video.</div>
+                </div>
+            </div>
+
+            <!-- 2. NO MORE DAYS WITHOUT GABBER -->
+            <div class="release-card">
+                <div class="video-container" id="video-2">
+                    <div class="video-placeholder" onclick="loadVideo('video-2', 'EuJbRQFxy3w')">
+                        <img src="https://img.youtube.com/vi/EuJbRQFxy3w/maxresdefault.jpg" alt="NO MORE DAYS WITHOUT GABBER">
+                        <div class="play-overlay">▶ PLAY</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">NO MORE DAYS WITHOUT GABBER ft. CYANBOY</h2>
+                    <div class="release-desc">Official Gabber Music Video.</div>
+                </div>
+            </div>
+
+            <!-- 3. QUESTIONS PART 2 -->
+            <div class="release-card">
+                <div class="video-container" id="video-3">
+                    <div class="video-placeholder" onclick="loadVideo('video-3', 'jGtiMrqr_s4')">
+                        <img src="https://img.youtube.com/vi/jGtiMrqr_s4/maxresdefault.jpg" alt="QUESTIONS PART 2">
+                        <div class="play-overlay">▶ PLAY</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">QUESTIONS PART 2</h2>
+                    <div class="release-desc">Official Full Album Music Video. [Timecodes in description]</div>
+                </div>
+            </div>
+
+            <!-- 4. OUT -->
+            <div class="release-card">
+                <div class="video-container" id="video-4">
+                    <div class="video-placeholder" onclick="loadVideo('video-4', '7hDuMXJ2_mE')">
+                        <img src="https://img.youtube.com/vi/7hDuMXJ2_mE/maxresdefault.jpg" alt="OUT">
+                        <div class="play-overlay">▶ PLAY</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">OUT</h2>
+                    <div class="release-desc">Official Lyric Digital Hardcore Music Video.</div>
+                </div>
+            </div>
+
+            <!-- 5. GABOOM -->
+            <div class="release-card">
+                <div class="video-container" id="video-5">
+                    <div class="video-placeholder" onclick="loadVideo('video-5', '5ygNimEywAM')">
+                        <img src="https://img.youtube.com/vi/5ygNimEywAM/maxresdefault.jpg" alt="GABOOM">
+                        <div class="play-overlay">▶ PLAY</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">GABOOM</h2>
+                    <div class="release-desc">Official Gabber Music Video.</div>
+                </div>
+            </div>
+
+            <!-- 6. ATTENTION! -->
+            <div class="release-card">
+                <div class="video-container" id="video-6">
+                    <div class="video-placeholder" onclick="loadVideo('video-6', 'wLnAyywLTm8')">
+                        <img src="https://img.youtube.com/vi/wLnAyywLTm8/maxresdefault.jpg" alt="ATTENTION!">
+                        <div class="play-overlay">▶ PLAY</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">ATTENTION!</h2>
+                    <div class="release-desc">Official Gabber Music Video.</div>
+                </div>
+            </div>
+
+            <!-- 7. BASSQUAKE -->
+            <div class="release-card">
+                <div class="video-container" id="video-7">
+                    <div class="video-placeholder" onclick="loadVideo('video-7', 'U2wcmrzvpM8')">
+                        <img src="https://img.youtube.com/vi/U2wcmrzvpM8/maxresdefault.jpg" alt="BASSQUAKE">
+                        <div class="play-overlay">▶ PLAY</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">BASSQUAKE ft. CYANBOY</h2>
+                    <div class="release-desc">Official Gabber Music Video.</div>
+                </div>
+            </div>
+
+        </div>
+
         <div class="back-container"><a href="welcome.html" class="back-btn">← BACK TO MENU</a></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
+        // --- ЛОГИКА ЗАГРУЗКИ ВИДЕО ---
+        function loadVideo(containerId, videoId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = ''; // Очищаем заглушку
+            const iframe = document.createElement('iframe');
+            // autoplay=1 заставит видео играть сразу после клика
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+            iframe.allowFullscreen = true;
+            container.appendChild(iframe);
+        }
+
+        // --- БЕСШОВНЫЙ ЦИКЛ ВИДЕО-ФОНА ---
         const video = document.getElementById('bg-video');
         video.addEventListener('loadeddata', () => { video.play(); });
         video.addEventListener('timeupdate', () => { if (video.duration - video.currentTime < 0.2) { video.currentTime = 0; video.play(); } });
@@ -64,6 +261,7 @@
         let seconds = 0;
         setInterval(() => { seconds++; timecodeElement.textContent = `${Math.floor(seconds / 3600).toString().padStart(2, '0')}:${Math.floor((seconds % 3600) / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`; }, 1000);
 
+        // --- 3D ТЕКСТ ---
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(45, container.clientWidth / 150, 0.1, 1000);
