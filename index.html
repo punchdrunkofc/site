@@ -24,13 +24,13 @@
 
         .main-container { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 1; }
         
-        /* --- 3D ЛОГОТИП С ОБЪЕМОМ --- */
+        /* --- ЛОГОТИП (CSS 3D) --- */
         .logo-3d-wrapper {
             perspective: 1000px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: -20px; 
             cursor: pointer;
             position: relative;
             width: clamp(150px, 20vw, 250px);
@@ -49,50 +49,48 @@
         /* Базовый стиль для всех слоев */
         .logo-layer {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             object-fit: contain;
-            
-            /* Делаем слой ЧИСТО БЕЛЫМ (убираем любой исходный цвет) */
-            filter: brightness(0) invert(1); 
-            /* brightness(0) делает всё черным, invert(1) инвертирует в белый. 
-               Прозрачность сохраняется. */
         }
 
-        /* Верхний слой (лицевая сторона) */
+        /* Лицевая сторона (оригинальный цвет) */
         .logo-front {
-            z-index: 30; /* Самый высокий приоритет */
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6)); /* Легкое свечение */
-            /* Оставляем оригинальный цвет (если логотип не чисто белый, он будет как на картинке) */
-            filter: none; 
+            z-index: 30;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
         }
 
-        /* 19 слоев для создания толщины (шаг 0.5px) */
-        .logo-layer-1 { transform: translateZ(-0.5px); }
-        .logo-layer-2 { transform: translateZ(-1.0px); }
-        .logo-layer-3 { transform: translateZ(-1.5px); }
-        .logo-layer-4 { transform: translateZ(-2.0px); }
-        .logo-layer-5 { transform: translateZ(-2.5px); }
-        .logo-layer-6 { transform: translateZ(-3.0px); }
-        .logo-layer-7 { transform: translateZ(-3.5px); }
-        .logo-layer-8 { transform: translateZ(-4.0px); }
-        .logo-layer-9 { transform: translateZ(-4.5px); }
-        .logo-layer-10 { transform: translateZ(-5.0px); }
-        .logo-layer-11 { transform: translateZ(-5.5px); }
-        .logo-layer-12 { transform: translateZ(-6.0px); }
-        .logo-layer-13 { transform: translateZ(-6.5px); }
-        .logo-layer-14 { transform: translateZ(-7.0px); }
-        .logo-layer-15 { transform: translateZ(-7.5px); }
-        .logo-layer-16 { transform: translateZ(-8.0px); }
-        .logo-layer-17 { transform: translateZ(-8.5px); }
-        .logo-layer-18 { transform: translateZ(-9.0px); }
-        .logo-layer-19 { transform: translateZ(-9.5px); }
+        /* Задняя сторона (отзеркалена и видна при повороте) */
+        .logo-back {
+            z-index: -30; /* Уходит назад */
+            transform: rotateY(180deg) translateZ(0.1px); /* Отзеркалено */
+        }
+
+        /* Слои для толщины (без инверсии цвета, просто чуть темнее) */
+        .logo-layer-1 { transform: translateZ(-0.5px); filter: brightness(0.9); }
+        .logo-layer-2 { transform: translateZ(-1.0px); filter: brightness(0.8); }
+        .logo-layer-3 { transform: translateZ(-1.5px); filter: brightness(0.7); }
+        .logo-layer-4 { transform: translateZ(-2.0px); filter: brightness(0.6); }
+        .logo-layer-5 { transform: translateZ(-2.5px); filter: brightness(0.5); }
+        .logo-layer-6 { transform: translateZ(-3.0px); filter: brightness(0.4); }
+        .logo-layer-7 { transform: translateZ(-3.5px); filter: brightness(0.3); }
+        .logo-layer-8 { transform: translateZ(-4.0px); filter: brightness(0.2); }
+        .logo-layer-9 { transform: translateZ(-4.5px); filter: brightness(0.1); }
 
         @keyframes spin3d {
             0% { transform: rotateY(0deg); }
             100% { transform: rotateY(360deg); }
+        }
+
+        /* --- 3D ТЕКСТ --- */
+        #3d-text-container {
+            width: 100%;
+            height: 120px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.9)); 
+            overflow: hidden; 
+            margin-top: 10px;
         }
 
         .email-text { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 0.85rem; letter-spacing: 0.1em; color: #cccccc; margin: 0; z-index: 2; }
@@ -112,19 +110,13 @@
         </div>
 
         <div class="main-container">
+            <!-- Логотип -->
             <a href="welcome.html" class="logo-3d-wrapper">
                 <div class="logo-group">
-                    <!-- 19 слоев для объема (все белые) -->
-                    <img src="logo.png" alt="" class="logo-layer logo-layer-19">
-                    <img src="logo.png" alt="" class="logo-layer logo-layer-18">
-                    <img src="logo.png" alt="" class="logo-layer logo-layer-17">
-                    <img src="logo.png" alt="" class="logo-layer logo-layer-16">
-                    <img src="logo.png" alt="" class="logo-layer logo-layer-15">
-                    <img src="logo.png" alt="" class="logo-layer logo-layer-14">
-                    <img src="logo.png" alt="" class="logo-layer logo-layer-13">
-                    <img src="logo.png" alt="" class="logo-layer logo-layer-12">
-                    <img src="logo.png" alt="" class="logo-layer logo-layer-11">
-                    <img src="logo.png" alt="" class="logo-layer logo-layer-10">
+                    <!-- Задняя сторона (чтобы видеть рисунок сзади) -->
+                    <img src="logo.png" alt="Logo" class="logo-layer logo-back">
+                    
+                    <!-- Слои для создания толщины -->
                     <img src="logo.png" alt="" class="logo-layer logo-layer-9">
                     <img src="logo.png" alt="" class="logo-layer logo-layer-8">
                     <img src="logo.png" alt="" class="logo-layer logo-layer-7">
@@ -135,10 +127,13 @@
                     <img src="logo.png" alt="" class="logo-layer logo-layer-2">
                     <img src="logo.png" alt="" class="logo-layer logo-layer-1">
                     
-                    <!-- Лицевой слой -->
+                    <!-- Лицевая сторона -->
                     <img src="logo.png" alt="Logo" class="logo-layer logo-front">
                 </div>
             </a>
+
+            <!-- 3D Текст -->
+            <div id="3d-text-container"></div>
             
             <p class="email-text">punchdrunk69ofc@gmail.com</p>
         </div>
@@ -153,6 +148,39 @@
         const timecodeElement = document.getElementById('timecode');
         let seconds = 0;
         setInterval(() => { seconds++; timecodeElement.textContent = `${Math.floor(seconds / 3600).toString().padStart(2, '0')}:${Math.floor((seconds % 3600) / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`; }, 1000);
+
+        const container = document.getElementById('3d-text-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / 120, 0.1, 1000);
+        camera.position.z = 18; 
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(container.clientWidth, 120); 
+        container.appendChild(renderer.domElement);
+        const loader = new THREE.FontLoader();
+        
+        loader.load('./home-video.typeface.json', function (font) {
+            const textOptions = { font: font, size: 2.8, height: 0.8, curveSegments: 12, bevelEnabled: false };
+            const geometry = new THREE.TextGeometry("punchdrunk", textOptions);
+            geometry.center(); 
+            const materialWhite = new THREE.MeshBasicMaterial({ color: 0xffffff });
+            const whiteText = new THREE.Mesh(geometry, materialWhite);
+            const materialPurple = new THREE.MeshBasicMaterial({ color: 0x8a2be2 });
+            const purpleText = new THREE.Mesh(geometry, materialPurple);
+            purpleText.scale.set(1.08, 1.08, 1.08); 
+            purpleText.position.z = -0.2; 
+            const group = new THREE.Group();
+            group.add(purpleText);
+            group.add(whiteText);
+            scene.add(group);
+            function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
+            animate();
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / 120;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, 120);
+        });
     </script>
 </body>
 </html>
