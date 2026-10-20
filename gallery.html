@@ -83,11 +83,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 10px; /* Уменьшили отступ до кнопки */
+            margin-bottom: 10px; 
             position: relative;
         }
 
-        /* КНОПКА НАЗАД (ТЕПЕРЬ СВЕРХУ) */
         .top-back-btn {
             display: inline-block;
             color: #fff; 
@@ -112,27 +111,24 @@
         /* --- СЕТКА ГАЛЕРЕИ --- */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
             width: 100%;
             margin-bottom: 60px;
         }
 
         .gallery-item {
             position: relative;
-            border: 2px solid rgba(138, 43, 226, 0.3);
+            border: 2px solid rgba(138, 43, 226, 0.5);
             border-radius: 8px;
             overflow: hidden;
             background: #050505;
             aspect-ratio: 1 / 1;
             transition: all 0.3s ease;
-        }
-
-        .gallery-item.has-image {
-            border-color: rgba(138, 43, 226, 0.5);
             cursor: pointer;
         }
-        .gallery-item.has-image:hover {
+
+        .gallery-item:hover {
             border-color: #8a2be2;
             box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
             transform: scale(1.05);
@@ -148,17 +144,18 @@
             filter: grayscale(20%) contrast(1.1);
         }
 
-        .gallery-item.has-image:hover img {
+        .gallery-item:hover img {
             filter: grayscale(0%) contrast(1.2);
         }
 
+        /* Текст, если картинки нет */
         .empty-slot {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             font-family: 'Home Video', monospace;
-            color: rgba(138, 43, 226, 0.2); 
-            font-size: 1rem;
+            color: rgba(138, 43, 226, 0.3); 
+            font-size: 1.2rem;
             text-align: center;
             pointer-events: none;
             width: 100%;
@@ -179,45 +176,115 @@
 
     <div class="page-container">
         <div id="3d-text-container"></div>
-
-        <!-- КНОПКА ПЕРЕМЕЩЕНА СЮДА -->
         <a href="welcome.html" class="top-back-btn">← BACK TO MENU</a>
 
-        <div class="gallery-grid" id="gallery-grid">
-            <!-- СЮДА БУДЕТ ВСТАВЛЕН КОД 50 СЛОТОВ -->
+        <div class="gallery-grid">
+            
+            <!-- 1. Красивый арт (Неоновый портрет) -->
+            <div class="gallery-item">
+                <img src="art1.jpg" alt="Art 1">
+            </div>
+
+            <!-- 2. Красивый арт (Свитер с печеньем) -->
+            <div class="gallery-item">
+                <img src="art2.jpg" alt="Art 2">
+            </div>
+
+            <!-- 3. Красивый арт (Кот в костюме на стуле) -->
+            <div class="gallery-item">
+                <img src="art3.jpg" alt="Art 3">
+            </div>
+
+            <!-- 4. Красивый арт (Свитер с печеньем - версия 2) -->
+            <div class="gallery-item">
+                <img src="art4.jpg" alt="Art 4">
+            </div>
+
+            <!-- 5. Стильный скетч (Синий кот) -->
+            <div class="gallery-item">
+                <img src="art5.jpg" alt="Art 5">
+            </div>
+
+            <!-- 6. Смешной арт (Кот с сигаретой и демон) -->
+            <div class="gallery-item">
+                <img src="art6.jpg" alt="Art 6">
+            </div>
+
+            <!-- 7. Смешной арт (Кот в худи с надписью) -->
+            <div class="gallery-item">
+                <img src="art7.jpg" alt="Art 7">
+            </div>
+
+            <!-- 8. Смешной арт (Босс в розовом костюме) -->
+            <div class="gallery-item">
+                <img src="art8.jpg" alt="Art 8">
+            </div>
+
+            <!-- 9. Смешной арт (Кот с большой головой) -->
+            <div class="gallery-item">
+                <img src="art9.jpg" alt="Art 9">
+            </div>
+
+            <!-- 10. Смешной арт (Кот с большой головой - версия 2) -->
+            <div class="gallery-item">
+                <img src="art10.jpg" alt="Art 10">
+            </div>
+
+            <!-- 11. Смешной арт (Стикер-кот) -->
+            <div class="gallery-item">
+                <img src="art11.jpg" alt="Art 11">
+            </div>
+
+            <!-- 12. Смешной арт (Стикер-кот - версия 2) -->
+            <div class="gallery-item">
+                <img src="art12.jpg" alt="Art 12">
+            </div>
+
+            <!-- 13. Кривой арт (Мем с котом и человеком) -->
+            <div class="gallery-item">
+                <img src="art13.jpg" alt="Art 13">
+            </div>
+
+            <!-- 14. Кривой арт (Кот с глазами-мемами) -->
+            <div class="gallery-item">
+                <img src="art14.jpg" alt="Art 14">
+            </div>
+
+            <!-- 15. Кривой арт (Три персонажа) -->
+            <div class="gallery-item">
+                <img src="art15.jpg" alt="Art 15">
+            </div>
+
+            <!-- 16. Кривой арт (Кот с собакой и скетч) -->
+            <div class="gallery-item">
+                <img src="art16.jpg" alt="Art 16">
+            </div>
+
+            <!-- 17. Кривой арт (Два наброска) -->
+            <div class="gallery-item">
+                <img src="art17.jpg" alt="Art 17">
+            </div>
+
+            <!-- 18. Кривой арт (Еще два наброска) -->
+            <div class="gallery-item">
+                <img src="art18.jpg" alt="Art 18">
+            </div>
+
+            <!-- 19. Кривой арт (Два кривых наброска) -->
+            <div class="gallery-item">
+                <img src="art19.jpg" alt="Art 19">
+            </div>
+
+            <!-- 20. Кривой арт (Кот с человеком в рамке) -->
+            <div class="gallery-item">
+                <img src="art20.jpg" alt="Art 20">
+            </div>
+
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // --- ГЕНЕРАТОР 50 СЛОТОВ ---
-        const grid = document.getElementById('gallery-grid');
-        for (let i = 1; i <= 50; i++) {
-            const div = document.createElement('div');
-            div.className = 'gallery-item';
-            
-            const img = document.createElement('img');
-            img.src = `art${i}.jpg`; 
-            img.alt = `Art ${i}`;
-            img.style.display = 'none'; 
-            
-            img.onload = function() {
-                div.classList.add('has-image');
-                img.style.display = 'block';
-                const emptyDiv = div.querySelector('.empty-slot');
-                if (emptyDiv) emptyDiv.style.display = 'none';
-            };
-            
-            const emptyDiv = document.createElement('div');
-            emptyDiv.className = 'empty-slot';
-            emptyDiv.innerHTML = `SLOT ${i}`;
-            
-            div.appendChild(img);
-            div.appendChild(emptyDiv);
-            grid.appendChild(div);
-        }
-
-        // --- ВИДЕО И ТАЙМКОД ---
         const video = document.getElementById('bg-video');
         video.addEventListener('loadeddata', () => { video.play(); });
         video.addEventListener('timeupdate', () => { if (video.duration - video.currentTime < 0.2) { video.currentTime = 0; video.play(); } });
@@ -226,7 +293,6 @@
         let seconds = 0;
         setInterval(() => { seconds++; timecodeElement.textContent = `${Math.floor(seconds / 3600).toString().padStart(2, '0')}:${Math.floor((seconds % 3600) / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`; }, 1000);
 
-        // --- 3D ТЕКСТ ---
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(45, 800 / 200, 0.1, 1000);
