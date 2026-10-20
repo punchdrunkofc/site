@@ -24,22 +24,57 @@
 
         .main-container { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 1; }
         
-        /* --- СТИЛИ ДЛЯ 3D-ВРАЩЕНИЯ ЛОГОТИПА --- */
+        /* --- 3D ЛОГОТИП С ОБЪЕМОМ --- */
         .logo-3d-wrapper {
-            perspective: 1000px; /* Создает 3D-пространство */
+            perspective: 1000px;
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 20px;
+            cursor: pointer;
+            position: relative;
+            /* Размер контейнера равен размеру логотипа */
+            width: clamp(150px, 20vw, 250px);
+            height: clamp(150px, 20vw, 250px);
+            transform-style: preserve-3d; /* Важно для 3D-слоев */
         }
 
-        .main-logo {
-            width: clamp(150px, 20vw, 250px); 
-            height: auto;
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
-            /* Бесконечное вращение по оси Y (как 3D) */
-            animation: spin3d 6s linear infinite;
+        /* Общая анимация вращения для всей группы */
+        .logo-group {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            animation: spin3d 8s linear infinite; /* Вращение группы */
+            transform-style: preserve-3d;
         }
+
+        /* Базовый стиль для всех слоев */
+        .logo-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* Делаем слои темнее для создания эффекта глубины */
+            filter: brightness(0.2) sepia(1) hue-rotate(240deg) saturate(5); 
+            /* (Этот фильтр делает копии фиолетовыми) */
+        }
+
+        /* Верхний слой (лицевая сторона) - оригинальный цвет */
+        .logo-front {
+            z-index: 10;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+            /* Возвращаем оригинальный цвет */
+            filter: none; 
+        }
+
+        /* Слои, создающие толщину (бока) */
+        .logo-layer-1 { transform: translateZ(-2px); }
+        .logo-layer-2 { transform: translateZ(-4px); }
+        .logo-layer-3 { transform: translateZ(-6px); }
+        .logo-layer-4 { transform: translateZ(-8px); }
+        .logo-layer-5 { transform: translateZ(-10px); }
 
         @keyframes spin3d {
             0% { transform: rotateY(0deg); }
@@ -63,10 +98,19 @@
         </div>
 
         <div class="main-container">
-            <!-- Вращающийся логотип -->
-            <div class="logo-3d-wrapper">
-                <img src="logo.png" alt="Logo" class="main-logo">
-            </div>
+            <!-- Ссылка с 3D-логотипом -->
+            <a href="welcome.html" class="logo-3d-wrapper">
+                <div class="logo-group">
+                    <!-- Задние слои для объема (тонированные в фиолетовый) -->
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-5">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-4">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-3">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-2">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-1">
+                    <!-- Передний слой (оригинальный логотип) -->
+                    <img src="logo.png" alt="Logo" class="logo-layer logo-front">
+                </div>
+            </a>
             
             <p class="email-text">punchdrunk69ofc@gmail.com</p>
         </div>
