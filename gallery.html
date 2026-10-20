@@ -76,7 +76,7 @@
             flex-direction: column;
             align-items: center;
             padding: 80px 20px 60px 20px; 
-            max-width: 1400px; /* Сделал чуть шире для кладки */
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -113,15 +113,15 @@
 
         /* --- КЛАДКА (MASONRY LAYOUT) --- */
         .gallery-masonry {
-            column-count: 4; /* Количество колонок на ПК */
-            column-gap: 20px; /* Расстояние между колонками */
+            column-count: 4;
+            column-gap: 20px;
             width: 100%;
             margin-bottom: 60px;
         }
 
         .gallery-item {
-            break-inside: avoid; /* Запрещает разрыв карточки между колонками */
-            margin-bottom: 20px; /* Отступ снизу */
+            break-inside: avoid;
+            margin-bottom: 20px;
             position: relative;
             border: 2px solid rgba(138, 43, 226, 0.5);
             border-radius: 8px;
@@ -140,7 +140,7 @@
 
         .gallery-item img {
             width: 100%;
-            height: auto; /* Автоматическая высота сохраняет пропорции */
+            height: auto;
             display: block;
             transition: filter 0.3s ease;
             filter: grayscale(20%) contrast(1.1);
@@ -150,16 +150,10 @@
             filter: grayscale(0%) contrast(1.2);
         }
 
-        /* Адаптивность для мобильных устройств */
-        @media (max-width: 1200px) {
-            .gallery-masonry { column-count: 3; }
-        }
-        @media (max-width: 800px) {
-            .gallery-masonry { column-count: 2; }
-        }
-        @media (max-width: 500px) {
-            .gallery-masonry { column-count: 1; }
-        }
+        /* Адаптивность */
+        @media (max-width: 1200px) { .gallery-masonry { column-count: 3; } }
+        @media (max-width: 800px) { .gallery-masonry { column-count: 2; } }
+        @media (max-width: 500px) { .gallery-masonry { column-count: 1; } }
     </style>
 </head>
 <body>
@@ -178,41 +172,39 @@
         <div id="3d-text-container"></div>
         <a href="welcome.html" class="top-back-btn">← BACK TO MENU</a>
 
-        <!-- НОВАЯ КЛАДКА -->
+        <!-- КЛАДКА С ОБРАТНЫМ ПОРЯДКОМ -->
         <div class="gallery-masonry">
             
-            <!-- 1-9 (Красивые) -->
-            <div class="gallery-item"><img src="art1.jpg" alt="Art 1"></div>
-            <div class="gallery-item"><img src="art2.jpg" alt="Art 2"></div>
-            <div class="gallery-item"><img src="art3.jpg" alt="Art 3"></div>
-            <div class="gallery-item"><img src="art4.jpg" alt="Art 4"></div>
-            <div class="gallery-item"><img src="art5.jpg" alt="Art 5"></div>
-            <div class="gallery-item"><img src="art6.jpg" alt="Art 6"></div>
-            <div class="gallery-item"><img src="art7.jpg" alt="Art 7"></div>
-            <div class="gallery-item"><img src="art8.jpg" alt="Art 8"></div>
-            <div class="gallery-item"><img src="art9.jpg" alt="Art 9"></div>
-
-            <!-- 10-18 (Смешные) -->
-            <div class="gallery-item"><img src="art10.jpg" alt="Art 10"></div>
-            <div class="gallery-item"><img src="art11.jpg" alt="Art 11"></div>
-            <div class="gallery-item"><img src="art12.jpg" alt="Art 12"></div>
-            <div class="gallery-item"><img src="art13.jpg" alt="Art 13"></div>
-            <div class="gallery-item"><img src="art14.jpg" alt="Art 14"></div>
-            <div class="gallery-item"><img src="art15.jpg" alt="Art 15"></div>
-            <div class="gallery-item"><img src="art16.jpg" alt="Art 16"></div>
-            <div class="gallery-item"><img src="art17.jpg" alt="Art 17"></div>
-            <div class="gallery-item"><img src="art18.jpg" alt="Art 18"></div>
-
-            <!-- 19-27 (Кривые) -->
-            <div class="gallery-item"><img src="art19.jpg" alt="Art 19"></div>
-            <div class="gallery-item"><img src="art20.jpg" alt="Art 20"></div>
-            <div class="gallery-item"><img src="art21.jpg" alt="Art 21"></div>
-            <div class="gallery-item"><img src="art22.jpg" alt="Art 22"></div>
-            <div class="gallery-item"><img src="art23.jpg" alt="Art 23"></div>
-            <div class="gallery-item"><img src="art24.jpg" alt="Art 24"></div>
-            <div class="gallery-item"><img src="art25.jpg" alt="Art 25"></div>
-            <div class="gallery-item"><img src="art26.jpg" alt="Art 26"></div>
+            <!-- Начинаем с 27 и идем вниз до 1 -->
             <div class="gallery-item"><img src="art27.jpg" alt="Art 27"></div>
+            <div class="gallery-item"><img src="art26.jpg" alt="Art 26"></div>
+            <div class="gallery-item"><img src="art25.jpg" alt="Art 25"></div>
+            <div class="gallery-item"><img src="art24.jpg" alt="Art 24"></div>
+            <div class="gallery-item"><img src="art23.jpg" alt="Art 23"></div>
+            <div class="gallery-item"><img src="art22.jpg" alt="Art 22"></div>
+            <div class="gallery-item"><img src="art21.jpg" alt="Art 21"></div>
+            <div class="gallery-item"><img src="art20.jpg" alt="Art 20"></div>
+            <div class="gallery-item"><img src="art19.jpg" alt="Art 19"></div>
+            
+            <div class="gallery-item"><img src="art18.jpg" alt="Art 18"></div>
+            <div class="gallery-item"><img src="art17.jpg" alt="Art 17"></div>
+            <div class="gallery-item"><img src="art16.jpg" alt="Art 16"></div>
+            <div class="gallery-item"><img src="art15.jpg" alt="Art 15"></div>
+            <div class="gallery-item"><img src="art14.jpg" alt="Art 14"></div>
+            <div class="gallery-item"><img src="art13.jpg" alt="Art 13"></div>
+            <div class="gallery-item"><img src="art12.jpg" alt="Art 12"></div>
+            <div class="gallery-item"><img src="art11.jpg" alt="Art 11"></div>
+            <div class="gallery-item"><img src="art10.jpg" alt="Art 10"></div>
+            
+            <div class="gallery-item"><img src="art9.jpg" alt="Art 9"></div>
+            <div class="gallery-item"><img src="art8.jpg" alt="Art 8"></div>
+            <div class="gallery-item"><img src="art7.jpg" alt="Art 7"></div>
+            <div class="gallery-item"><img src="art6.jpg" alt="Art 6"></div>
+            <div class="gallery-item"><img src="art5.jpg" alt="Art 5"></div>
+            <div class="gallery-item"><img src="art4.jpg" alt="Art 4"></div>
+            <div class="gallery-item"><img src="art3.jpg" alt="Art 3"></div>
+            <div class="gallery-item"><img src="art2.jpg" alt="Art 2"></div>
+            <div class="gallery-item"><img src="art1.jpg" alt="Art 1"></div>
 
         </div>
     </div>
