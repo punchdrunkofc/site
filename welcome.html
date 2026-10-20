@@ -5,119 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to PUNCHDRUNK</title>
     
-    <!-- ИКОНКА САЙТА (PNG) -->
     <link rel="icon" type="image/png" href="logo.png">
-
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.cdnfonts.com/css/home-video" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            background-color: #000000;
-            color: #ffffff;
-            font-family: 'Space Mono', monospace;
-            overflow-x: hidden; 
-            overflow-y: auto;   
-            height: auto;
-            min-height: 100vh;
-        }
-
-        #bg-video {
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100vw; 
-            height: 100vh;
-            object-fit: cover; 
-            z-index: 0; 
-            filter: brightness(0.4) contrast(1.2) saturate(1.5); 
-        }
-
-        .vhs-blue-overlay {
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100vw; 
-            height: 100vh;
-            background: linear-gradient(180deg, rgba(0, 0, 255, 0.3) 0%, rgba(75, 0, 130, 0.4) 100%);
-            mix-blend-mode: color; 
-            z-index: 1; 
-            pointer-events: none;
-        }
-
-        .vhs-noise {
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100vw; 
-            height: 100vh;
-            z-index: 2; 
-            pointer-events: none;
-            background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) 1px, transparent 1px, transparent 3px);
-            opacity: 0.8; 
-            animation: flicker 0.1s infinite;
-        }
-
+        html, body { margin: 0; padding: 0; background-color: #000000; color: #ffffff; font-family: 'Space Mono', monospace; overflow-x: hidden; overflow-y: auto; height: auto; min-height: 100vh; }
+        #bg-video { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; filter: brightness(0.4) contrast(1.2) saturate(1.5); }
+        .vhs-blue-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(180deg, rgba(0, 0, 255, 0.3) 0%, rgba(75, 0, 130, 0.4) 100%); mix-blend-mode: color; z-index: 1; pointer-events: none; }
+        .vhs-noise { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) 1px, transparent 1px, transparent 3px); opacity: 0.8; animation: flicker 0.1s infinite; }
         @keyframes flicker { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
-
-        .vhs-ui {
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            z-index: 10; 
-            pointer-events: none; 
-            padding: 20px 40px; 
-            box-sizing: border-box;
-            color: #ffffff; 
-            font-family: 'Home Video', 'Courier New', Courier, monospace; 
-            font-weight: bold; 
-            font-size: 1.5rem; 
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.5); 
-            letter-spacing: 1px;
-        }
+        
+        .vhs-ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; padding: 20px 40px; box-sizing: border-box; color: #ffffff; font-family: 'Home Video', 'Courier New', Courier, monospace; font-weight: bold; font-size: 1.5rem; text-shadow: 2px 2px 0px rgba(0,0,0,0.5); letter-spacing: 1px; }
         .vhs-ui .top-left { position: absolute; top: 20px; left: 40px; display: flex; align-items: center; gap: 10px; }
         .play-icon { width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 15px solid #ffffff; }
         .vhs-ui .top-right { position: absolute; top: 20px; right: 40px; }
         .vhs-ui .bottom-right { position: absolute; bottom: 20px; right: 40px; text-align: right; font-size: 1.2rem; }
         .vhs-ui .timecode { display: block; margin-top: 5px; }
 
-        .page-container {
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
-            padding: 60px 20px; 
-            position: relative; 
-            z-index: 10; 
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+        .page-container { display: flex; flex-direction: column; align-items: center; padding: 60px 20px; position: relative; z-index: 10; max-width: 1000px; margin: 0 auto; }
 
         #3d-text-container {
-            width: 100%; 
-            height: 150px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); 
-            overflow: hidden; 
-            margin-bottom: 40px; 
-            margin-top: 50px;
+            width: 100%; height: 150px; display: flex; justify-content: center; align-items: center;
+            filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); overflow: hidden; 
+            margin-bottom: 40px; margin-top: 50px;
         }
 
         .text-content {
-            max-width: 800px; 
-            line-height: 1.8; 
-            font-size: 1rem; 
-            color: #dddddd; 
-            text-align: left;
-            background: rgba(0, 0, 0, 0.7); 
-            padding: 30px; 
-            border-radius: 8px; 
+            max-width: 800px; line-height: 1.8; font-size: 1rem; color: #dddddd; text-align: left;
+            background: rgba(0, 0, 0, 0.7); padding: 30px; border-radius: 8px;
         }
 
         .text-content h2 { color: #ffffff; font-size: 1.5rem; margin-top: 30px; margin-bottom: 15px; font-weight: bold; }
@@ -126,58 +43,68 @@
         .track-link { color: #8a2be2; text-decoration: none; font-weight: bold; transition: color 0.3s, text-shadow 0.3s; }
         .track-link:hover { color: #ffffff; text-shadow: 0 0 10px rgba(138, 43, 226, 0.8); text-decoration: underline; }
 
-        .nav-menu {
+        .nav-menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 40px; margin-bottom: 40px; max-width: 800px; }
+        .nav-btn { background: rgba(0, 0, 0, 0.8); border: 2px solid #8a2be2; color: #ffffff; padding: 12px 24px; font-family: 'Home Video', 'Courier New', monospace; font-size: 1.2rem; text-decoration: none; text-transform: uppercase; transition: all 0.3s ease; border-radius: 4px; }
+        .nav-btn:hover { background: #8a2be2; color: #000; box-shadow: 0 0 15px rgba(138, 43, 226, 0.8); }
+
+        /* --- СТИЛИ ДЛЯ ВРАЩАЮЩЕГОСЯ CD --- */
+        .cd-container {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            max-width: 800px;
-        }
-
-        .nav-btn {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #8a2be2;
-            color: #ffffff;
-            padding: 12px 24px;
-            font-family: 'Home Video', 'Courier New', monospace;
-            font-size: 1.2rem;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            border-radius: 4px;
-        }
-
-        .nav-btn:hover {
-            background: #8a2be2;
-            color: #000;
-            box-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
-        }
-
-        .back-link {
-            margin-top: 50px; 
-            margin-bottom: 30px; 
-            color: #ffffff; 
-            text-decoration: none;
-            font-weight: bold; 
-            font-size: 1.5rem; 
-            font-family: 'Home Video', 'Courier New', Courier, monospace; 
-            letter-spacing: 2px; 
-            position: relative; 
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
             z-index: 10;
         }
+
+        .cd-disc {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            /* Создаем эффект радужного блика CD */
+            background: radial-gradient(circle at 30% 30%, #555, #111, #333, #0a0a0a, #222, #000);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5), inset 0 0 20px rgba(0,0,0,0.8);
+            /* Анимация вращения */
+            animation: spin 5s linear infinite;
+        }
+
+        /* Внутреннее отверстие CD */
+        .cd-disc::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #000; /* Цвет фона сайта */
+            border-radius: 50%;
+            border: 2px solid #333;
+            z-index: 2;
+        }
+
+        /* Логотип в центре */
+        .cd-logo {
+            width: 60px; /* Размер логотипа */
+            height: auto;
+            position: absolute;
+            z-index: 1;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .back-link { margin-top: 20px; margin-bottom: 30px; color: #ffffff; text-decoration: none; font-weight: bold; font-size: 1.5rem; font-family: 'Home Video', 'Courier New', Courier, monospace; letter-spacing: 2px; position: relative; z-index: 10; }
     </style>
 </head>
 <body>
-
-    <video id="bg-video" autoplay muted playsinline preload="auto">
-        <source src="bg.mp4" type="video/mp4">
-    </video>
-
+    <video id="bg-video" autoplay muted playsinline preload="auto"><source src="bg.mp4" type="video/mp4"></video>
     <div class="vhs-blue-overlay"></div>
     <div class="vhs-noise"></div>
-
     <div class="vhs-ui">
         <div class="top-left"><span>PLAY</span><div class="play-icon"></div></div>
         <div class="top-right"><span>SP</span></div>
@@ -185,7 +112,6 @@
     </div>
 
     <div class="page-container">
-        
         <div id="3d-text-container"></div>
 
         <div class="text-content">
@@ -204,34 +130,32 @@
             <a href="samplepacks.html" class="nav-btn">Sample Packs</a>
         </div>
 
-        <a href="index.html" class="back-link">← BACK TO HOME</a>
+        <!-- ВРАЩАЮЩИЙСЯ CD-ДИСК С ЛОГОТИПОМ -->
+        <div class="cd-container">
+            <div class="cd-disc">
+                <img src="logo.png" alt="Logo" class="cd-logo">
+            </div>
+        </div>
 
+        <a href="index.html" class="back-link">← BACK TO HOME</a>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
         const video = document.getElementById('bg-video');
         video.addEventListener('loadeddata', () => { video.play(); });
-        video.addEventListener('timeupdate', () => {
-            if (video.duration - video.currentTime < 0.2) { video.currentTime = 0; video.play(); }
-        });
+        video.addEventListener('timeupdate', () => { if (video.duration - video.currentTime < 0.2) { video.currentTime = 0; video.play(); } });
 
         const timecodeElement = document.getElementById('timecode');
         let seconds = 0;
-        setInterval(() => {
-            seconds++;
-            let h = Math.floor(seconds / 3600).toString().padStart(2, '0');
-            let m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
-            let s = (seconds % 60).toString().padStart(2, '0');
-            timecodeElement.textContent = `${h}:${m}:${s}`;
-        }, 1000);
+        setInterval(() => { seconds++; timecodeElement.textContent = `${Math.floor(seconds / 3600).toString().padStart(2, '0')}:${Math.floor((seconds % 3600) / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`; }, 1000);
 
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / 150, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / 150, 0.1, 1000);
         camera.position.z = 18; 
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, 150); 
+        renderer.setSize(container.clientWidth, 150); 
         container.appendChild(renderer.domElement);
         const loader = new THREE.FontLoader();
         
@@ -249,19 +173,14 @@
             group.add(purpleText);
             group.add(whiteText);
             scene.add(group);
-
-            function animate() {
-                requestAnimationFrame(animate);
-                group.rotation.y += 0.015; 
-                renderer.render(scene, camera);
-            }
+            function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
             animate();
         });
 
         window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / 150;
+            camera.aspect = container.clientWidth / 150;
             camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, 150);
+            renderer.setSize(container.clientWidth, 150);
         });
     </script>
 </body>
