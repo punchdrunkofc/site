@@ -5,153 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PUNCHDRUNK</title>
     
-    <!-- ИКОНКА САЙТА (PNG) -->
     <link rel="icon" type="image/png" href="logo.png">
-    
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.cdnfonts.com/css/home-video" rel="stylesheet">
     
     <style>
-        .lens-container {
-            width: 100vw;
-            height: 100vh;
-            position: fixed; 
-            top: 0;
-            left: 0;
-            overflow: hidden;
-        }
-
-        #bg-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            z-index: -3; 
-            filter: brightness(0.5) contrast(1.2) saturate(1.5);
-        }
-
-        .vhs-blue-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(0, 0, 255, 0.4) 0%, rgba(75, 0, 130, 0.5) 100%);
-            mix-blend-mode: color; 
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        .vhs-noise {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.3),
-                rgba(0, 0, 0, 0.3) 1px,
-                transparent 1px,
-                transparent 3px
-            );
-            opacity: 0.8;
-            animation: flicker 0.1s infinite;
-        }
-
-        .vhs-ui {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-            pointer-events: none; 
-            padding: 20px 40px; 
-            color: #ffffff;
-            font-family: 'Home Video', 'Courier New', Courier, monospace; 
-            font-weight: bold;
-            font-size: 1.5rem; 
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
-            letter-spacing: 1px;
-        }
-
+        .lens-container { width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; overflow: hidden; }
+        #bg-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -3; filter: brightness(0.5) contrast(1.2) saturate(1.5); }
+        .vhs-blue-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0, 0, 255, 0.4) 0%, rgba(75, 0, 130, 0.5) 100%); mix-blend-mode: color; z-index: -2; pointer-events: none; }
+        .vhs-noise { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) 1px, transparent 1px, transparent 3px); opacity: 0.8; animation: flicker 0.1s infinite; }
+        .vhs-ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; padding: 20px 40px; color: #ffffff; font-family: 'Home Video', 'Courier New', Courier, monospace; font-weight: bold; font-size: 1.5rem; text-shadow: 2px 2px 0px rgba(0,0,0,0.5); letter-spacing: 1px; }
         .vhs-ui .top-left { position: absolute; top: 20px; left: 40px; display: flex; align-items: center; gap: 10px; }
         .play-icon { width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 15px solid #ffffff; }
         .vhs-ui .top-right { position: absolute; top: 20px; right: 40px; }
         .vhs-ui .bottom-right { position: absolute; bottom: 20px; right: 40px; text-align: right; font-size: 1.2rem; }
         .vhs-ui .timecode { display: block; margin-top: 5px; }
-
         @keyframes flicker { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
 
-        .main-container {
+        .main-container { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 1; }
+        
+        /* Контейнер для 3D логотипа */
+        #3d-logo-container {
             width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            z-index: 1; 
-        }
-
-        .center-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: -50px; 
-        }
-
-        .logo-link {
-            margin-bottom: 20px; 
-            display: flex;
-            justify-content: center;
-            cursor: pointer; 
-        }
-
-        .main-logo {
-            width: clamp(150px, 20vw, 250px); 
-            height: auto;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-        }
-
-        #3d-text-container {
-            width: 100%;
-            height: 150px; 
+            height: 300px; /* Высота зоны с логотипом */
             display: flex;
             justify-content: center;
             align-items: center;
-            filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.9)); 
-            overflow: hidden; 
+            filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.8)); 
         }
 
-        .email-text {
-            position: absolute;
-            bottom: 20px; 
-            left: 50%;
-            transform: translateX(-50%); 
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
-            color: #cccccc;
-            margin: 0;
-            z-index: 2;
-        }
-
-        .main-title, .click-text { display: none; }
+        .email-text { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 0.85rem; letter-spacing: 0.1em; color: #cccccc; margin: 0; z-index: 2; }
     </style>
 </head>
 <body>
 
     <div class="lens-container">
-        <video id="bg-video" autoplay muted playsinline preload="auto">
-            <source src="bg.mp4" type="video/mp4">
-        </video>
-
+        <video id="bg-video" autoplay muted playsinline preload="auto"><source src="bg.mp4" type="video/mp4"></video>
         <div class="vhs-blue-overlay"></div>
         <div class="vhs-noise"></div>
 
@@ -162,70 +51,77 @@
         </div>
 
         <div class="main-container">
-            <main class="center-content">
-                <a href="welcome.html" class="logo-link">
-                    <img src="logo.png" alt="Logo" class="main-logo">
-                </a>
-                <div id="3d-text-container"></div>
-            </main>
+            <!-- Сюда будет рендериться 3D логотип -->
+            <div id="3d-logo-container"></div>
             <p class="email-text">punchdrunk69ofc@gmail.com</p>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
+        // --- БЕСШОВНЫЙ ЦИКЛ ВИДЕО-ФОНА ---
         const video = document.getElementById('bg-video');
         video.addEventListener('loadeddata', () => { video.play(); });
-        video.addEventListener('timeupdate', () => {
-            if (video.duration - video.currentTime < 0.2) { video.currentTime = 0; video.play(); }
-        });
+        video.addEventListener('timeupdate', () => { if (video.duration - video.currentTime < 0.2) { video.currentTime = 0; video.play(); } });
 
         const timecodeElement = document.getElementById('timecode');
         let seconds = 0;
-        setInterval(() => {
-            seconds++;
-            let h = Math.floor(seconds / 3600).toString().padStart(2, '0');
-            let m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
-            let s = (seconds % 60).toString().padStart(2, '0');
-            timecodeElement.textContent = `${h}:${m}:${s}`;
-        }, 1000);
+        setInterval(() => { seconds++; timecodeElement.textContent = `${Math.floor(seconds / 3600).toString().padStart(2, '0')}:${Math.floor((seconds % 3600) / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`; }, 1000);
 
-        const container = document.getElementById('3d-text-container');
+        // --- 3D ВРАЩАЮЩИЙСЯ ЛОГОТИП ---
+        const container = document.getElementById('3d-logo-container');
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / 150, 0.1, 1000);
-        camera.position.z = 18; 
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, 150); 
-        container.appendChild(renderer.domElement);
-        const loader = new THREE.FontLoader();
         
-        loader.load('./home-video.typeface.json', function (font) {
-            const textOptions = { font: font, size: 2.8, height: 0.8, curveSegments: 12, bevelEnabled: false };
-            const geometry = new THREE.TextGeometry("punchdrunk", textOptions);
-            geometry.center(); 
-            const materialWhite = new THREE.MeshBasicMaterial({ color: 0xffffff });
-            const whiteText = new THREE.Mesh(geometry, materialWhite);
-            const materialPurple = new THREE.MeshBasicMaterial({ color: 0x8a2be2 });
-            const purpleText = new THREE.Mesh(geometry, materialPurple);
-            purpleText.scale.set(1.08, 1.08, 1.08); 
-            purpleText.position.z = -0.2; 
+        // Камера
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / 300, 0.1, 1000);
+        camera.position.z = 5; 
+
+        // Рендерер
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(container.clientWidth, 300); 
+        container.appendChild(renderer.domElement);
+
+        // Загружаем текстуру логотипа
+        const textureLoader = new THREE.TextureLoader();
+        textureLoader.load('./logo.png', function (texture) {
+            
+            // Создаем материал с прозрачностью (чтобы убрать черный фон)
+            const material = new THREE.MeshBasicMaterial({ 
+                map: texture, 
+                transparent: true,
+                alphaTest: 0.1, // Отсекает черный цвет, оставляя только белый логотип
+                side: THREE.DoubleSide // Видно с обеих сторон
+            });
+
+            // Создаем геометрию плоскости
+            // 3 по ширине, 3 по высоте (пропорции 1:1, так как логотип квадратный)
+            const geometry = new THREE.PlaneGeometry(3, 3);
+            const plane = new THREE.Mesh(geometry, material);
+
+            // Вторую плоскость кладем сзади вплотную, чтобы при повороте не было "плоской" картинки
+            const planeBack = new THREE.Mesh(geometry, material);
+            planeBack.position.z = -0.01; // Чуть-чуть сзади
+            planeBack.rotation.y = Math.PI; // Разворачиваем на 180 градусов
+
             const group = new THREE.Group();
-            group.add(purpleText);
-            group.add(whiteText);
+            group.add(plane);
+            group.add(planeBack);
             scene.add(group);
 
+            // Анимация вращения
             function animate() {
                 requestAnimationFrame(animate);
-                group.rotation.y += 0.015; 
+                group.rotation.y += 0.02; // Скорость вращения
                 renderer.render(scene, camera);
             }
             animate();
         });
 
+        // Адаптация под размер окна
         window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / 150;
+            camera.aspect = container.clientWidth / 300;
             camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, 150);
+            renderer.setSize(container.clientWidth, 300);
         });
     </script>
 </body>
