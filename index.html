@@ -33,18 +33,16 @@
             margin-bottom: 20px;
             cursor: pointer;
             position: relative;
-            /* Размер контейнера равен размеру логотипа */
             width: clamp(150px, 20vw, 250px);
             height: clamp(150px, 20vw, 250px);
-            transform-style: preserve-3d; /* Важно для 3D-слоев */
+            transform-style: preserve-3d;
         }
 
-        /* Общая анимация вращения для всей группы */
         .logo-group {
             width: 100%;
             height: 100%;
             position: relative;
-            animation: spin3d 8s linear infinite; /* Вращение группы */
+            animation: spin3d 8s linear infinite;
             transform-style: preserve-3d;
         }
 
@@ -56,25 +54,41 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            /* Делаем слои темнее для создания эффекта глубины */
-            filter: brightness(0.2) sepia(1) hue-rotate(240deg) saturate(5); 
-            /* (Этот фильтр делает копии фиолетовыми) */
+            
+            /* Делаем слой ЧИСТО БЕЛЫМ (убираем любой исходный цвет) */
+            filter: brightness(0) invert(1); 
+            /* brightness(0) делает всё черным, invert(1) инвертирует в белый. 
+               Прозрачность сохраняется. */
         }
 
-        /* Верхний слой (лицевая сторона) - оригинальный цвет */
+        /* Верхний слой (лицевая сторона) */
         .logo-front {
-            z-index: 10;
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
-            /* Возвращаем оригинальный цвет */
+            z-index: 30; /* Самый высокий приоритет */
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6)); /* Легкое свечение */
+            /* Оставляем оригинальный цвет (если логотип не чисто белый, он будет как на картинке) */
             filter: none; 
         }
 
-        /* Слои, создающие толщину (бока) */
-        .logo-layer-1 { transform: translateZ(-2px); }
-        .logo-layer-2 { transform: translateZ(-4px); }
-        .logo-layer-3 { transform: translateZ(-6px); }
-        .logo-layer-4 { transform: translateZ(-8px); }
-        .logo-layer-5 { transform: translateZ(-10px); }
+        /* 19 слоев для создания толщины (шаг 0.5px) */
+        .logo-layer-1 { transform: translateZ(-0.5px); }
+        .logo-layer-2 { transform: translateZ(-1.0px); }
+        .logo-layer-3 { transform: translateZ(-1.5px); }
+        .logo-layer-4 { transform: translateZ(-2.0px); }
+        .logo-layer-5 { transform: translateZ(-2.5px); }
+        .logo-layer-6 { transform: translateZ(-3.0px); }
+        .logo-layer-7 { transform: translateZ(-3.5px); }
+        .logo-layer-8 { transform: translateZ(-4.0px); }
+        .logo-layer-9 { transform: translateZ(-4.5px); }
+        .logo-layer-10 { transform: translateZ(-5.0px); }
+        .logo-layer-11 { transform: translateZ(-5.5px); }
+        .logo-layer-12 { transform: translateZ(-6.0px); }
+        .logo-layer-13 { transform: translateZ(-6.5px); }
+        .logo-layer-14 { transform: translateZ(-7.0px); }
+        .logo-layer-15 { transform: translateZ(-7.5px); }
+        .logo-layer-16 { transform: translateZ(-8.0px); }
+        .logo-layer-17 { transform: translateZ(-8.5px); }
+        .logo-layer-18 { transform: translateZ(-9.0px); }
+        .logo-layer-19 { transform: translateZ(-9.5px); }
 
         @keyframes spin3d {
             0% { transform: rotateY(0deg); }
@@ -98,16 +112,30 @@
         </div>
 
         <div class="main-container">
-            <!-- Ссылка с 3D-логотипом -->
             <a href="welcome.html" class="logo-3d-wrapper">
                 <div class="logo-group">
-                    <!-- Задние слои для объема (тонированные в фиолетовый) -->
+                    <!-- 19 слоев для объема (все белые) -->
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-19">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-18">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-17">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-16">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-15">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-14">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-13">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-12">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-11">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-10">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-9">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-8">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-7">
+                    <img src="logo.png" alt="" class="logo-layer logo-layer-6">
                     <img src="logo.png" alt="" class="logo-layer logo-layer-5">
                     <img src="logo.png" alt="" class="logo-layer logo-layer-4">
                     <img src="logo.png" alt="" class="logo-layer logo-layer-3">
                     <img src="logo.png" alt="" class="logo-layer logo-layer-2">
                     <img src="logo.png" alt="" class="logo-layer logo-layer-1">
-                    <!-- Передний слой (оригинальный логотип) -->
+                    
+                    <!-- Лицевой слой -->
                     <img src="logo.png" alt="Logo" class="logo-layer logo-front">
                 </div>
             </a>
