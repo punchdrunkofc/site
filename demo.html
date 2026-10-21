@@ -25,24 +25,17 @@
 
         .page-container { max-width: 1200px; margin: 0 auto; padding: 60px 20px 60px 20px; position: relative; z-index: 10; }
 
-        /* --- ИСПРАВЛЕНИЕ ЦЕНТРИРОВАНИЯ 3D ТЕКСТА --- */
+        /* --- 3D ТЕКСТ --- */
         #3d-text-container {
             width: 100%; 
-            height: 150px; 
+            height: 250px; 
             display: flex; 
-            justify-content: center; /* Центрируем canvas по горизонтали */
+            justify-content: center; 
             align-items: center;
             filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); 
             overflow: hidden; 
             margin-bottom: 40px; 
-            margin-top: 50px;
             position: relative;
-        }
-        
-        /* Жестко задаем размер canvas, чтобы он не растягивался */
-        #3d-text-container canvas {
-            width: 800px !important;
-            height: 150px !important;
         }
 
         .demo-grid {
@@ -136,12 +129,10 @@
     </div>
 
     <div class="page-container">
-        <!-- Контейнер для 3D текста -->
         <div id="3d-text-container"></div>
         
         <div class="demo-grid">
             
-            <!-- Демо 1 -->
             <div class="demo-card">
                 <div class="video-container" id="demo-1">
                     <div class="video-placeholder" onclick="loadVideo('demo-1', 'Vb8knhx6OtE')">
@@ -154,7 +145,6 @@
                 </div>
             </div>
 
-            <!-- Демо 2 -->
             <div class="demo-card">
                 <div class="video-container" id="demo-2">
                     <div class="video-placeholder" onclick="loadVideo('demo-2', 'FXzDlbBqYHM')">
@@ -196,15 +186,13 @@
 
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(45, 800 / 150, 0.1, 1000);
+        
+        // Камера
+        const camera = new THREE.PerspectiveCamera(45, 800 / 200, 0.1, 1000);
         camera.position.z = 18; 
+
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        
-        // Жестко фиксируем размер рендерера
-        renderer.setSize(800, 150); 
-        renderer.domElement.style.width = '800px';
-        renderer.domElement.style.height = '150px';
-        
+        renderer.setSize(800, 200); 
         container.appendChild(renderer.domElement);
         const loader = new THREE.FontLoader();
         
