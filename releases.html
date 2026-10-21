@@ -39,7 +39,6 @@
             position: relative;
         }
         
-        /* Убрали жесткое центрирование канваса, чтобы можно было двигать через JS */
         #3d-text-container canvas {
             width: 800px !important;
             height: 150px !important;
@@ -351,8 +350,8 @@
             scene.add(group);
             
             // --- СДВИГ ТЕКСТА ВПРАВО ---
-            // Меняй число, чтобы двигать текст (положительное = вправо, отрицательное = влево)
-            group.position.x = 8; 
+            // Увеличили с 8 до 14, чтобы сдвинуть сильнее
+            group.position.x = 14; 
             
             function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
             animate();
