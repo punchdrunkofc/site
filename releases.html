@@ -51,6 +51,11 @@
             position: relative;
         }
 
+        .release-card:hover {
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.8);
+            transform: translateY(-5px);
+        }
+
         .video-container {
             position: relative;
             width: 100%;
@@ -105,51 +110,58 @@
 
         .release-desc { font-size: 0.95rem; line-height: 1.6; color: #dddddd; }
 
-        /* --- ИНДИВИДУАЛЬНЫЕ СТИЛИ (ОБНОВЛЕНЫ) --- */
+        /* --- ИНДИВИДУАЛЬНЫЕ СТИЛИ --- */
         
-        /* 1. HARDCORE (Желто-красный) */
+        /* Новый релиз rixi.org (Зеленый) */
+        .theme-rixi { border-color: #39ff14; box-shadow: 0 0 15px rgba(57, 255, 20, 0.3); }
+        .theme-rixi:hover { box-shadow: 0 0 30px rgba(57, 255, 20, 0.7); }
+        .theme-rixi .release-title { color: #39ff14; text-shadow: 0 0 5px rgba(57, 255, 20, 0.5); }
+        .theme-rixi .video-container { border-bottom-color: rgba(57, 255, 20, 0.5); }
+        .theme-rixi .play-overlay { text-shadow: 0 0 20px #39ff14; }
+
+        /* HARDCORE (Желто-красный) */
         .theme-hardcore { border-color: #ffcc00; box-shadow: 0 0 15px rgba(255, 204, 0, 0.3); }
         .theme-hardcore:hover { box-shadow: 0 0 30px rgba(255, 204, 0, 0.7); }
         .theme-hardcore .release-title { color: #ffcc00; text-shadow: 0 0 5px rgba(255, 204, 0, 0.5); }
         .theme-hardcore .video-container { border-bottom-color: rgba(255, 204, 0, 0.5); }
         .theme-hardcore .play-overlay { text-shadow: 0 0 20px #ffcc00; }
 
-        /* 2. NO MORE DAYS (Кислотно-зеленый) */
+        /* NO MORE DAYS (Кислотно-зеленый) */
         .theme-gabber { border-color: #39ff14; box-shadow: 0 0 15px rgba(57, 255, 20, 0.3); }
         .theme-gabber:hover { box-shadow: 0 0 30px rgba(57, 255, 20, 0.7); }
         .theme-gabber .release-title { color: #39ff14; text-shadow: 0 0 5px rgba(57, 255, 20, 0.5); }
         .theme-gabber .video-container { border-bottom-color: rgba(57, 255, 20, 0.5); }
         .theme-gabber .play-overlay { text-shadow: 0 0 20px #39ff14; }
 
-        /* 3. QUESTIONS PART 2 (Малиновый/Ярко-розовый) */
+        /* QUESTIONS PART 2 (Малиновый) */
         .theme-questions { border-color: #ff0055; box-shadow: 0 0 15px rgba(255, 0, 85, 0.3); }
         .theme-questions:hover { box-shadow: 0 0 30px rgba(255, 0, 85, 0.7); }
         .theme-questions .release-title { color: #ff0055; text-shadow: 0 0 5px rgba(255, 0, 85, 0.5); }
         .theme-questions .video-container { border-bottom-color: rgba(255, 0, 85, 0.5); }
         .theme-questions .play-overlay { text-shadow: 0 0 20px #ff0055; }
 
-        /* 4. OUT (Темно-фиолетовый/Индиго) */
+        /* OUT (Темно-фиолетовый) */
         .theme-out { border-color: #4b0082; box-shadow: 0 0 15px rgba(75, 0, 130, 0.5); }
         .theme-out:hover { box-shadow: 0 0 30px rgba(75, 0, 130, 0.9); }
         .theme-out .release-title { color: #8a2be2; text-shadow: 0 0 5px rgba(75, 0, 130, 0.5); }
         .theme-out .video-container { border-bottom-color: rgba(75, 0, 130, 0.5); }
         .theme-out .play-overlay { text-shadow: 0 0 20px #4b0082; }
 
-        /* 5. GABOOM (Ярко-зеленый) */
+        /* GABOOM (Ярко-зеленый) */
         .theme-gaboom { border-color: #7fff00; box-shadow: 0 0 15px rgba(127, 255, 0, 0.3); }
         .theme-gaboom:hover { box-shadow: 0 0 30px rgba(127, 255, 0, 0.7); }
         .theme-gaboom .release-title { color: #7fff00; text-shadow: 0 0 5px rgba(127, 255, 0, 0.5); }
         .theme-gaboom .video-container { border-bottom-color: rgba(127, 255, 0, 0.5); }
         .theme-gaboom .play-overlay { text-shadow: 0 0 20px #7fff00; }
 
-        /* 6. ATTENTION! (Неоново-розовый) */
+        /* ATTENTION! (Неоново-розовый) */
         .theme-attention { border-color: #ff00ff; box-shadow: 0 0 15px rgba(255, 0, 255, 0.3); }
         .theme-attention:hover { box-shadow: 0 0 30px rgba(255, 0, 255, 0.7); }
         .theme-attention .release-title { color: #ff00ff; text-shadow: 0 0 5px rgba(255, 0, 255, 0.5); }
         .theme-attention .video-container { border-bottom-color: rgba(255, 0, 255, 0.5); }
         .theme-attention .play-overlay { text-shadow: 0 0 20px #ff00ff; }
 
-        /* 7. BASSQUAKE (Голубой/Циан) */
+        /* BASSQUAKE (Голубой) */
         .theme-bassquake { border-color: #00ffff; box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
         .theme-bassquake:hover { box-shadow: 0 0 30px rgba(0, 255, 255, 0.7); }
         .theme-bassquake .release-title { color: #00ffff; text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); }
@@ -176,39 +188,116 @@
         
         <div class="releases-grid">
             
+            <!-- НОВЫЙ РЕЛИЗ: rixi.org - C:/MUSH EP -->
+            <div class="release-card theme-rixi">
+                <div class="video-container" id="video-0">
+                    <div class="video-placeholder" onclick="loadVideo('video-0', 'h_OFQuqcdg4')">
+                        <img src="https://img.youtube.com/vi/h_OFQuqcdg4/maxresdefault.jpg" alt="C:/MUSH EP">
+                        <div class="play-overlay">▶</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">rixi.org - C:/MUSH EP</h2>
+                    <div class="release-desc">Official Jungle Music Video.</div>
+                </div>
+            </div>
+
+            <!-- 1. HARDCORE -->
             <div class="release-card theme-hardcore">
-                <div class="video-container" id="video-1"><div class="video-placeholder" onclick="loadVideo('video-1', 'iRelUiysL5I')"><img src="https://img.youtube.com/vi/iRelUiysL5I/maxresdefault.jpg" alt="HARDCORE"><div class="play-overlay">▶</div></div></div>
-                <div class="release-info"><h2 class="release-title">HARDCORE ft. rubenswim</h2><div class="release-desc">Official Happy Hardcore Music Video.</div></div>
+                <div class="video-container" id="video-1">
+                    <div class="video-placeholder" onclick="loadVideo('video-1', 'iRelUiysL5I')">
+                        <img src="https://img.youtube.com/vi/iRelUiysL5I/maxresdefault.jpg" alt="HARDCORE">
+                        <div class="play-overlay">▶</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">HARDCORE ft. rubenswim</h2>
+                    <div class="release-desc">Official Happy Hardcore Music Video.</div>
+                </div>
             </div>
 
+            <!-- 2. NO MORE DAYS WITHOUT GABBER -->
             <div class="release-card theme-gabber">
-                <div class="video-container" id="video-2"><div class="video-placeholder" onclick="loadVideo('video-2', 'EuJbRQFxy3w')"><img src="https://img.youtube.com/vi/EuJbRQFxy3w/maxresdefault.jpg" alt="NO MORE DAYS"><div class="play-overlay">▶</div></div></div>
-                <div class="release-info"><h2 class="release-title">NO MORE DAYS WITHOUT GABBER ft. CYANBOY</h2><div class="release-desc">Official Gabber Music Video.</div></div>
+                <div class="video-container" id="video-2">
+                    <div class="video-placeholder" onclick="loadVideo('video-2', 'EuJbRQFxy3w')">
+                        <img src="https://img.youtube.com/vi/EuJbRQFxy3w/maxresdefault.jpg" alt="NO MORE DAYS WITHOUT GABBER">
+                        <div class="play-overlay">▶</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">NO MORE DAYS WITHOUT GABBER ft. CYANBOY</h2>
+                    <div class="release-desc">Official Gabber Music Video.</div>
+                </div>
             </div>
 
+            <!-- 3. QUESTIONS PART 2 -->
             <div class="release-card theme-questions">
-                <div class="video-container" id="video-3"><div class="video-placeholder" onclick="loadVideo('video-3', 'jGtiMrqr_s4')"><img src="https://img.youtube.com/vi/jGtiMrqr_s4/maxresdefault.jpg" alt="QUESTIONS PART 2"><div class="play-overlay">▶</div></div></div>
-                <div class="release-info"><h2 class="release-title">QUESTIONS PART 2</h2><div class="release-desc">Official Full Album Music Video.</div></div>
+                <div class="video-container" id="video-3">
+                    <div class="video-placeholder" onclick="loadVideo('video-3', 'jGtiMrqr_s4')">
+                        <img src="https://img.youtube.com/vi/jGtiMrqr_s4/maxresdefault.jpg" alt="QUESTIONS PART 2">
+                        <div class="play-overlay">▶</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">QUESTIONS PART 2</h2>
+                    <div class="release-desc">Official Full Album Music Video.</div>
+                </div>
             </div>
 
+            <!-- 4. OUT -->
             <div class="release-card theme-out">
-                <div class="video-container" id="video-4"><div class="video-placeholder" onclick="loadVideo('video-4', '7hDuMXJ2_mE')"><img src="https://img.youtube.com/vi/7hDuMXJ2_mE/maxresdefault.jpg" alt="OUT"><div class="play-overlay">▶</div></div></div>
-                <div class="release-info"><h2 class="release-title">OUT</h2><div class="release-desc">Official Lyric Digital Hardcore Music Video.</div></div>
+                <div class="video-container" id="video-4">
+                    <div class="video-placeholder" onclick="loadVideo('video-4', '7hDuMXJ2_mE')">
+                        <img src="https://img.youtube.com/vi/7hDuMXJ2_mE/maxresdefault.jpg" alt="OUT">
+                        <div class="play-overlay">▶</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">OUT</h2>
+                    <div class="release-desc">Official Lyric Digital Hardcore Music Video.</div>
+                </div>
             </div>
 
+            <!-- 5. GABOOM -->
             <div class="release-card theme-gaboom">
-                <div class="video-container" id="video-5"><div class="video-placeholder" onclick="loadVideo('video-5', '5ygNimEywAM')"><img src="https://img.youtube.com/vi/5ygNimEywAM/maxresdefault.jpg" alt="GABOOM"><div class="play-overlay">▶</div></div></div>
-                <div class="release-info"><h2 class="release-title">GABOOM</h2><div class="release-desc">Official Gabber Music Video.</div></div>
+                <div class="video-container" id="video-5">
+                    <div class="video-placeholder" onclick="loadVideo('video-5', '5ygNimEywAM')">
+                        <img src="https://img.youtube.com/vi/5ygNimEywAM/maxresdefault.jpg" alt="GABOOM">
+                        <div class="play-overlay">▶</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">GABOOM</h2>
+                    <div class="release-desc">Official Gabber Music Video.</div>
+                </div>
             </div>
 
+            <!-- 6. ATTENTION! -->
             <div class="release-card theme-attention">
-                <div class="video-container" id="video-6"><div class="video-placeholder" onclick="loadVideo('video-6', 'wLnAyywLTm8')"><img src="https://img.youtube.com/vi/wLnAyywLTm8/maxresdefault.jpg" alt="ATTENTION!"><div class="play-overlay">▶</div></div></div>
-                <div class="release-info"><h2 class="release-title">ATTENTION!</h2><div class="release-desc">Official Gabber Music Video.</div></div>
+                <div class="video-container" id="video-6">
+                    <div class="video-placeholder" onclick="loadVideo('video-6', 'wLnAyywLTm8')">
+                        <img src="https://img.youtube.com/vi/wLnAyywLTm8/maxresdefault.jpg" alt="ATTENTION!">
+                        <div class="play-overlay">▶</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">ATTENTION!</h2>
+                    <div class="release-desc">Official Gabber Music Video.</div>
+                </div>
             </div>
 
+            <!-- 7. BASSQUAKE -->
             <div class="release-card theme-bassquake">
-                <div class="video-container" id="video-7"><div class="video-placeholder" onclick="loadVideo('video-7', 'U2wcmrzvpM8')"><img src="https://img.youtube.com/vi/U2wcmrzvpM8/maxresdefault.jpg" alt="BASSQUAKE"><div class="play-overlay">▶</div></div></div>
-                <div class="release-info"><h2 class="release-title">BASSQUAKE ft. CYANBOY</h2><div class="release-desc">Official Gabber Music Video.</div></div>
+                <div class="video-container" id="video-7">
+                    <div class="video-placeholder" onclick="loadVideo('video-7', 'U2wcmrzvpM8')">
+                        <img src="https://img.youtube.com/vi/U2wcmrzvpM8/maxresdefault.jpg" alt="BASSQUAKE">
+                        <div class="play-overlay">▶</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">BASSQUAKE ft. CYANBOY</h2>
+                    <div class="release-desc">Official Gabber Music Video.</div>
+                </div>
             </div>
 
         </div>
@@ -238,10 +327,10 @@
 
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / 150, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(45, 800 / 150, 0.1, 1000);
         camera.position.z = 18; 
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(container.clientWidth, 150); 
+        renderer.setSize(800, 150); 
         container.appendChild(renderer.domElement);
         const loader = new THREE.FontLoader();
         
@@ -261,12 +350,6 @@
             scene.add(group);
             function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
             animate();
-        });
-
-        window.addEventListener('resize', () => {
-            camera.aspect = container.clientWidth / 150;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, 150);
         });
     </script>
 </body>
