@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tickets - PUNCHDRUNK</title>
+    <title>Tour - PUNCHDRUNK</title>
     
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://fonts.cdnfonts.com/css/home-video" rel="stylesheet">
@@ -25,7 +25,6 @@
 
         .page-container { max-width: 1200px; margin: 0 auto; padding: 80px 20px 60px 20px; position: relative; z-index: 10; }
 
-        /* Жесткий контейнер для 3D текста */
         #3d-text-container {
             width: 100%; 
             height: 200px; 
@@ -38,7 +37,6 @@
             position: relative;
         }
 
-        /* Стили для сообщения */
         .message-box {
             background: rgba(10, 10, 10, 0.9);
             border: 2px solid #8a2be2;
@@ -50,13 +48,14 @@
             box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
         }
 
+        /* ПРИМЕНЯЕМ ШРИФТ HOME VIDEO И УБИРАЕМ СВЕЧЕНИЕ */
         .message-text {
-            font-family: 'Space Mono', monospace;
-            font-size: 1.5rem;
+            font-family: 'Home Video', 'Courier New', Courier, monospace;
+            font-size: 1.8rem; /* Чуть увеличили, так как пиксельный шрифт кажется меньше */
             line-height: 1.6;
             color: #ffffff;
             margin: 0;
-            text-shadow: 0 0 10px rgba(138, 43, 226, 0.8);
+            text-shadow: none; /* Убрали свечение */
         }
 
         .back-container { text-align: center; }
@@ -110,7 +109,7 @@
         
         loader.load('./home-video.typeface.json', function (font) {
             const textOptions = { font: font, size: 2.8, height: 0.8, curveSegments: 12, bevelEnabled: false };
-            const geometry = new THREE.TextGeometry("TICKETS", textOptions);
+            const geometry = new THREE.TextGeometry("TOUR", textOptions);
             geometry.center(); 
             const materialWhite = new THREE.MeshBasicMaterial({ color: 0xffffff });
             const whiteText = new THREE.Mesh(geometry, materialWhite);
@@ -123,7 +122,6 @@
             group.add(whiteText);
             scene.add(group);
             
-            // Сдвигаем камеру, чтобы текст встал по центру
             camera.position.x = -14; 
             
             function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
