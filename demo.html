@@ -127,11 +127,11 @@
         
         <div class="demo-grid">
             
-            <!-- Слот для демо 1 -->
+            <!-- Демо 1 -->
             <div class="demo-card">
                 <div class="video-container" id="demo-1">
-                    <div class="video-placeholder" onclick="loadVideo('demo-1', 'ВСТАВЬ_ID_ВИДЕО_1')">
-                        <img src="https://img.youtube.com/vi/ВСТАВЬ_ID_ВИДЕО_1/maxresdefault.jpg" alt="Demo 1">
+                    <div class="video-placeholder" onclick="loadVideo('demo-1', 'Vb8knhx6OtE')">
+                        <img src="https://img.youtube.com/vi/Vb8knhx6OtE/maxresdefault.jpg" alt="Demo 1">
                         <div class="play-overlay">▶</div>
                     </div>
                 </div>
@@ -140,29 +140,16 @@
                 </div>
             </div>
 
-            <!-- Слот для демо 2 -->
+            <!-- Демо 2 -->
             <div class="demo-card">
                 <div class="video-container" id="demo-2">
-                    <div class="video-placeholder" onclick="loadVideo('demo-2', 'ВСТАВЬ_ID_ВИДЕО_2')">
-                        <img src="https://img.youtube.com/vi/ВСТАВЬ_ID_ВИДЕО_2/maxresdefault.jpg" alt="Demo 2">
+                    <div class="video-placeholder" onclick="loadVideo('demo-2', 'FXzDlbBqYHM')">
+                        <img src="https://img.youtube.com/vi/FXzDlbBqYHM/maxresdefault.jpg" alt="Demo 2">
                         <div class="play-overlay">▶</div>
                     </div>
                 </div>
                 <div class="demo-info">
                     <h2 class="demo-title">DEMO 02</h2>
-                </div>
-            </div>
-
-            <!-- Слот для демо 3 -->
-            <div class="demo-card">
-                <div class="video-container" id="demo-3">
-                    <div class="video-placeholder" onclick="loadVideo('demo-3', 'ВСТАВЬ_ID_ВИДЕО_3')">
-                        <img src="https://img.youtube.com/vi/ВСТАВЬ_ID_ВИДЕО_3/maxresdefault.jpg" alt="Demo 3">
-                        <div class="play-overlay">▶</div>
-                    </div>
-                </div>
-                <div class="demo-info">
-                    <h2 class="demo-title">DEMO 03</h2>
                 </div>
             </div>
 
@@ -180,8 +167,7 @@
             container.innerHTML = ''; 
             const iframe = document.createElement('iframe');
             
-            // Добавляем параметры для скрытия интерфейса
-            // controls=0 (без кнопок), modestbranding=1 (минимум логотипа), rel=0 (без похожих видео)
+            // Параметры для скрытия интерфейса YouTube
             iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3`;
             
             iframe.allow = "autoplay; encrypted-media";
