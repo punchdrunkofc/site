@@ -133,8 +133,7 @@
                 group.add(whiteText);
                 scene.add(group);
                 
-                // Сдвиг для центровки
-                camera.position.x = -14; 
+                // УБРАЛИ СДВИГ КАМЕРЫ, ТЕПЕРЬ ТЕКСТ ПО ЦЕНТРУ
                 
                 function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
                 animate();
