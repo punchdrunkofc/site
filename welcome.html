@@ -80,14 +80,13 @@
             margin: 0 auto;
         }
 
-        /* ЖЕСТКИЙ КОНТЕЙНЕР ДЛЯ 3D ТЕКСТА */
         #3d-text-container {
             width: 800px;
             height: 200px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 20px; 
             position: relative;
         }
 
@@ -113,10 +112,33 @@
 
         /* Меню */
         .nav-menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 40px; width: 100%; }
-        .nav-btn { background: rgba(0, 0, 0, 0.8); border: 2px solid #8a2be2; color: #fff; padding: 12px 24px; font-family: 'Home Video', 'Courier New', monospace; font-size: 1.2rem; text-decoration: none; text-transform: uppercase; transition: all 0.3s ease; border-radius: 4px; }
-        .nav-btn:hover { background: #8a2be2; color: #000; box-shadow: 0 0 15px rgba(138, 43, 226, 0.8); }
+        .nav-btn { 
+            background: rgba(0, 0, 0, 0.8); 
+            border: 2px solid #8a2be2; 
+            color: #fff; 
+            padding: 12px 24px; 
+            font-family: 'Home Video', 'Courier New', monospace; 
+            font-size: 1.2rem; 
+            text-decoration: none; 
+            text-transform: uppercase; 
+            transition: all 0.3s ease; 
+            border-radius: 4px; 
+        }
+        .nav-btn:hover { 
+            background: #8a2be2; 
+            color: #000; 
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.8); 
+        }
 
-        .back-link { color: #fff; text-decoration: none; font-weight: bold; font-size: 1.5rem; font-family: 'Home Video', 'Courier New', monospace; letter-spacing: 2px; margin-bottom: 40px; }
+        .back-link { 
+            color: #fff; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 1.5rem; 
+            font-family: 'Home Video', 'Courier New', monospace; 
+            letter-spacing: 2px; 
+            margin-bottom: 40px; 
+        }
     </style>
 </head>
 <body>
@@ -145,12 +167,13 @@
         </div>
 
         <div class="nav-menu">
-          <a href="characters.html" class="nav-btn">Characters</a>
+            <a href="characters.html" class="nav-btn">Characters</a>
             <a href="releases.html" class="nav-btn">Releases</a>
             <a href="plugins.html" class="nav-btn">Plugins</a>
             <a href="samplepacks.html" class="nav-btn">Sample Packs</a>
-            <!-- ВОТ НОВАЯ КНОПКА -->
             <a href="gallery.html" class="nav-btn">Gallery</a>
+            <!-- НОВАЯ КНОПКА DEMO -->
+            <a href="demo.html" class="nav-btn">Demo</a>
         </div>
 
         <a href="index.html" class="back-link">← BACK TO HOME</a>
@@ -166,7 +189,7 @@
         let seconds = 0;
         setInterval(() => { seconds++; timecodeElement.textContent = `${Math.floor(seconds / 3600).toString().padStart(2, '0')}:${Math.floor((seconds % 3600) / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`; }, 1000);
 
-        // --- 3D ТЕКСТ WELCOME С ТВОИМ ШРИФТОМ ---
+        // --- 3D ТЕКСТ WELCOME ---
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
         
@@ -179,7 +202,6 @@
 
         const loader = new THREE.FontLoader();
         
-        // Загружаем твой шрифт
         loader.load('./home-video.typeface.json', function (font) {
             
             const textOptions = { font: font, size: 2.8, height: 0.8, curveSegments: 12, bevelEnabled: false };
@@ -203,7 +225,7 @@
             animate();
         }, undefined, function(error) {
             console.error("ОШИБКА ЗАГРУЗКИ ШРИФТА:", error);
-            container.innerHTML = "<h2 style='color:red; font-family:monospace; text-align:center;'>ШРИФТ НЕ НАЙДЕН</h2>";
+            container.innerHTML = "<h2 style='color:red; font-family:monospace; text-align:center;'>FONT NOT FOUND</h2>";
         });
     </script>
 </body>
