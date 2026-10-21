@@ -213,7 +213,7 @@
             // --- САМЫЙ ВАЖНЫЙ ФИКС ---
             // Сдвигаем камеру влево, чтобы текст визуально оказался по центру
             // Если текст улетел вправо, поменяй -8 на +8
-            camera.position.x = -8; 
+            camera.position.x = -14; 
             
             function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
             animate();
