@@ -25,11 +25,24 @@
 
         .page-container { max-width: 1200px; margin: 0 auto; padding: 60px 20px 60px 20px; position: relative; z-index: 10; }
 
+        /* --- ИСПРАВЛЕНИЕ ЦЕНТРИРОВАНИЯ 3D ТЕКСТА --- */
         #3d-text-container {
-            width: 100%; height: 150px; display: flex; justify-content: center; align-items: center;
-            filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); overflow: hidden; 
-            margin-bottom: 40px; margin-top: 50px;
-            position: relative; margin-left: auto; margin-right: auto;
+            width: 100%; 
+            height: 150px; 
+            display: flex; 
+            justify-content: center; /* Центрируем canvas по горизонтали */
+            align-items: center;
+            filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); 
+            overflow: hidden; 
+            margin-bottom: 40px; 
+            margin-top: 50px;
+            position: relative;
+        }
+        
+        /* Жестко задаем размер canvas, чтобы он не растягивался */
+        #3d-text-container canvas {
+            width: 800px !important;
+            height: 150px !important;
         }
 
         .demo-grid {
@@ -123,6 +136,7 @@
     </div>
 
     <div class="page-container">
+        <!-- Контейнер для 3D текста -->
         <div id="3d-text-container"></div>
         
         <div class="demo-grid">
@@ -153,8 +167,6 @@
                 </div>
             </div>
 
-            <!-- Если захочешь больше демо, просто копируй блок выше и меняй ID -->
-
         </div>
 
         <div class="back-container"><a href="welcome.html" class="back-btn">← BACK TO MENU</a></div>
@@ -167,7 +179,6 @@
             container.innerHTML = ''; 
             const iframe = document.createElement('iframe');
             
-            // Параметры для скрытия интерфейса YouTube
             iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3`;
             
             iframe.allow = "autoplay; encrypted-media";
@@ -188,7 +199,12 @@
         const camera = new THREE.PerspectiveCamera(45, 800 / 150, 0.1, 1000);
         camera.position.z = 18; 
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        // Жестко фиксируем размер рендерера
         renderer.setSize(800, 150); 
+        renderer.domElement.style.width = '800px';
+        renderer.domElement.style.height = '150px';
+        
         container.appendChild(renderer.domElement);
         const loader = new THREE.FontLoader();
         
