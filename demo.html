@@ -25,7 +25,6 @@
 
         .page-container { max-width: 1200px; margin: 0 auto; padding: 80px 20px 60px 20px; position: relative; z-index: 10; }
 
-        /* --- ФИКС ЦЕНТРОВКИ 3D ТЕКСТА --- */
         #3d-text-container {
             width: 100%; 
             height: 200px; 
@@ -35,17 +34,7 @@
             filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.7)); 
             overflow: hidden; 
             margin-bottom: 40px; 
-            position: relative; /* Важно для абсолютного позиционирования canvas */
-        }
-        
-        /* Жестко ставим холст по центру контейнера */
-        #3d-text-container canvas {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 800px !important;
-            height: 200px !important;
+            position: relative;
         }
 
         .demo-grid {
@@ -197,6 +186,7 @@
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
         
+        // Камера жестко под наш холст
         const camera = new THREE.PerspectiveCamera(45, 800 / 200, 0.1, 1000);
         camera.position.z = 18; 
 
@@ -219,6 +209,12 @@
             group.add(purpleText);
             group.add(whiteText);
             scene.add(group);
+            
+            // --- САМЫЙ ВАЖНЫЙ ФИКС ---
+            // Сдвигаем камеру влево, чтобы текст визуально оказался по центру
+            // Если текст улетел вправо, поменяй -8 на +8
+            camera.position.x = -8; 
+            
             function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
             animate();
         }, undefined, function(error) {
