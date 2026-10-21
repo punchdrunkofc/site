@@ -80,6 +80,7 @@
             margin: 0 auto;
         }
 
+        /* Контейнер для 3D текста (жесткие размеры для центровки) */
         #3d-text-container {
             width: 800px;
             height: 200px;
@@ -172,8 +173,9 @@
             <a href="plugins.html" class="nav-btn">Plugins</a>
             <a href="samplepacks.html" class="nav-btn">Sample Packs</a>
             <a href="gallery.html" class="nav-btn">Gallery</a>
-            <!-- НОВАЯ КНОПКА DEMO -->
             <a href="demo.html" class="nav-btn">Demo</a>
+            <!-- НОВАЯ КНОПКА TOUR -->
+            <a href="tickets.html" class="nav-btn">Tour</a>
         </div>
 
         <a href="index.html" class="back-link">← BACK TO HOME</a>
@@ -193,6 +195,7 @@
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
         
+        // Камера под жесткий контейнер 800x200
         const camera = new THREE.PerspectiveCamera(45, 800 / 200, 0.1, 1000);
         camera.position.z = 18; 
 
