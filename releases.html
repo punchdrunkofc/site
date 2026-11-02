@@ -122,6 +122,14 @@
         .release-desc { font-size: 0.95rem; line-height: 1.6; color: #dddddd; }
 
         /* --- ИНДИВИДУАЛЬНЫЕ СТИЛИ --- */
+        
+        /* НОВЫЙ РЕЛИЗ BREAK DOWN (Красный) */
+        .theme-breakdown { border-color: #ff0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.3); }
+        .theme-breakdown:hover { box-shadow: 0 0 30px rgba(255, 0, 0, 0.7); }
+        .theme-breakdown .release-title { color: #ff0000; text-shadow: 0 0 5px rgba(255, 0, 0, 0.5); }
+        .theme-breakdown .video-container { border-bottom-color: rgba(255, 0, 0, 0.5); }
+        .theme-breakdown .play-overlay { text-shadow: 0 0 20px #ff0000; }
+
         .theme-rixi { border-color: #39ff14; box-shadow: 0 0 15px rgba(57, 255, 20, 0.3); }
         .theme-rixi:hover { box-shadow: 0 0 30px rgba(57, 255, 20, 0.7); }
         .theme-rixi .release-title { color: #39ff14; text-shadow: 0 0 5px rgba(57, 255, 20, 0.5); }
@@ -189,6 +197,21 @@
         <div id="3d-text-container"></div>
         
         <div class="releases-grid">
+            
+            <!-- НОВЫЙ РЕЛИЗ: BREAK DOWN -->
+            <div class="release-card theme-breakdown">
+                <div class="video-container" id="video-new">
+                    <div class="video-placeholder" onclick="loadVideo('video-new', 'tzpvW6GbU_c')">
+                        <img src="https://img.youtube.com/vi/tzpvW6GbU_c/maxresdefault.jpg" alt="BREAK DOWN">
+                        <div class="play-overlay">▶</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">BREAK DOWN ft. emosl4t696</h2>
+                    <div class="release-desc">Official Digital Hardcore Music Video.</div>
+                </div>
+            </div>
+
             <!-- 1. rixi.org -->
             <div class="release-card theme-rixi">
                 <div class="video-container" id="video-0">
@@ -349,9 +372,8 @@
             group.add(whiteText);
             scene.add(group);
             
-            // --- СДВИГ ТЕКСТА ВПРАВО ---
-            // Увеличили с 8 до 14, чтобы сдвинуть сильнее
-            group.position.x = 14; 
+            // Сдвиг для центровки (если текст съехал, меняй это число)
+            group.position.x = 0; 
             
             function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
             animate();
