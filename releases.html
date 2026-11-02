@@ -372,8 +372,8 @@
             group.add(whiteText);
             scene.add(group);
             
-            // Сдвиг для центровки (если текст съехал, меняй это число)
-            group.position.x = 0; 
+            // СДВИГ ТЕКСТА ВПРАВО (вернул значение 14)
+            group.position.x = 14; 
             
             function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
             animate();
