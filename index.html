@@ -1,146 +1,430 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUNCHDRUNK</title>
-    
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.cdnfonts.com/css/home-video" rel="stylesheet">
-    
-    <style>
-        .lens-container { width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; overflow: hidden; }
-        #bg-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -3; filter: brightness(0.5) contrast(1.2) saturate(1.5); }
-        .vhs-blue-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0, 0, 255, 0.4) 0%, rgba(75, 0, 130, 0.5) 100%); mix-blend-mode: color; z-index: -2; pointer-events: none; }
-        .vhs-noise { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) 1px, transparent 1px, transparent 3px); opacity: 0.8; animation: flicker 0.1s infinite; }
-        .vhs-ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; padding: 20px 40px; color: #ffffff; font-family: 'Home Video', 'Courier New', Courier, monospace; font-weight: bold; font-size: 1.5rem; text-shadow: 2px 2px 0px rgba(0,0,0,0.5); letter-spacing: 1px; }
-        .vhs-ui .top-left { position: absolute; top: 20px; left: 40px; display: flex; align-items: center; gap: 10px; }
-        .play-icon { width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 15px solid #ffffff; }
-        .vhs-ui .top-right { position: absolute; top: 20px; right: 40px; }
-        .vhs-ui .bottom-right { position: absolute; bottom: 20px; right: 40px; text-align: right; font-size: 1.2rem; }
-        .vhs-ui .timecode { display: block; margin-top: 5px; }
-        @keyframes flicker { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
-
-        .main-container { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 1; }
-        
-        /* СТАТИЧНЫЙ ЛОГОТИП */
-        .logo-link { display: flex; justify-content: center; cursor: pointer; margin-bottom: 10px; text-decoration: none; }
-        .main-logo { width: clamp(150px, 20vw, 250px); height: auto; filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5)); }
-
-        /* 3D ТЕКСТ */
-        #3d-text-container {
-            width: 100%;
-            height: 150px; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.9)); 
-            overflow: hidden; 
-            position: relative;
-            z-index: 2;
-        }
-
-        /* КНОПКА КУПИТЬ БИЛЕТЫ */
-        .tickets-btn {
-            display: inline-block;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #8a2be2;
-            color: #ffffff;
-            padding: 12px 30px;
-            font-family: 'Home Video', 'Courier New', monospace;
-            font-size: 1.2rem;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            border-radius: 4px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            z-index: 10;
-            position: relative;
-        }
-
-        .tickets-btn:hover {
-            background: #8a2be2;
-            color: #000;
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.9);
-            transform: scale(1.05);
-        }
-
-        .email-text { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 0.85rem; letter-spacing: 0.1em; color: #cccccc; margin: 0; z-index: 2; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PUNCHDRUNK.WAV — DIGITAL HARDCORE</title>
+<meta name="description" content="PUNCHDRUNK.WAV — digital hardcore / gabber artist. New album QUESTIONS PART 2 OUT NOW.">
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="lens-container">
-        <video id="bg-video" autoplay muted playsinline preload="auto"><source src="bg.mp4" type="video/mp4"></video>
-        <div class="vhs-blue-overlay"></div>
-        <div class="vhs-noise"></div>
+<header class="header">
+  <div class="logo">
+    <img src="logo.png" alt="PUNCHDRUNK.WAV" class="logo-img">
+    <span class="logo-text">PUNCHDRUNK<span class="accent">.WAV</span></span>
+  </div>
+  <nav class="nav">
+    <a href="#crew">CREW</a>
+    <a href="#bio">BIO</a>
+    <a href="#videos">VIDEOS</a>
+    <a href="demo.html">DEMOS</a>
+    <a href="samples.html">SAMPLES</a>
+    <a href="merch.html">MERCH</a>
+  </nav>
+  <div class="header-cta">
+    <a href="https://punchdrunkofc.github.io/punchdrunksite/" target="_blank" rel="noopener" class="cta-btn cta-btn-arg" title="you were not supposed to find this">▶ THE WHEEL</a>
+    <a href="https://www.youtube.com/@PUNCHDRUNKwav/videos" target="_blank" rel="noopener" class="cta-btn">▶ YOUTUBE</a>
+  </div>
+</header>
 
-        <div class="vhs-ui">
-            <div class="top-left"><span>PLAY</span><div class="play-icon"></div></div>
-            <div class="top-right"><span>SP</span></div>
-            <div class="bottom-right"><span>--/--/--</span><span class="timecode" id="timecode">00:00:00</span></div>
-        </div>
+<section class="hero">
+  <div class="hero-inner">
 
-        <div class="main-container">
-            <a href="welcome.html" class="logo-link">
-                <img src="logo.png" alt="Logo" class="main-logo">
-            </a>
-
-            <div id="3d-text-container"></div>
-
-            <!-- КНОПКА BUY TICKETS -->
-            <a href="tickets.html" class="tickets-btn">Buy Tickets</a>
-            
-            <p class="email-text">punchdrunk69ofc@gmail.com</p>
-        </div>
+    <div class="hero-character kenny">
+      <div class="hero-char-tag">// CHARACTER 01</div>
+      <div class="hero-char-name">KENNY</div>
+      <div class="hero-char-desc">green fur · purple hair · no brakes</div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        const video = document.getElementById('bg-video');
-        video.addEventListener('loadeddata', () => { video.play(); });
-        video.addEventListener('timeupdate', () => { if (video.duration - video.currentTime < 0.2) { video.currentTime = 0; video.play(); } });
+    <div class="hero-center">
+      <div class="hero-tag">// NEW ALBUM // 2026</div>
+      <h1 class="hero-title">
+        <span class="glitch" data-text="QUESTIONS">QUESTIONS</span>
+      </h1>
+      <div class="hero-sub">PART 2 · FULL ALBUM</div>
+      <div class="hero-buttons">
+        <button class="btn btn-primary" data-video="jGtiMrqr_s4">▶ WATCH ALBUM</button>
+        <a href="#videos" class="btn btn-secondary">ALL VIDEOS</a>
+      </div>
+      <div class="hero-platforms">
+        <span>FIND US:</span>
+        <a href="https://www.youtube.com/@PUNCHDRUNKwav/videos" target="_blank" rel="noopener">YOUTUBE</a>
+        <a href="https://t.me/LONGTAILSTRAXX" target="_blank" rel="noopener">TELEGRAM</a>
+        <a href="https://discord.com/invite/Pcs42mGGD7" target="_blank" rel="noopener">DISCORD</a>
+        <a href="https://www.tiktok.com/@punchdrunk.wav" target="_blank" rel="noopener">TIKTOK</a>
+      </div>
+    </div>
 
-        const timecodeElement = document.getElementById('timecode');
-        let seconds = 0;
-        setInterval(() => { seconds++; timecodeElement.textContent = `${Math.floor(seconds / 3600).toString().padStart(2, '0')}:${Math.floor((seconds % 3600) / 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`; }, 1000);
+    <div class="hero-character maurice">
+      <div class="hero-char-tag">// CHARACTER 02</div>
+      <div class="hero-char-name">MAURICE</div>
+      <div class="hero-char-desc">orange hair · broken beats · chaos</div>
+    </div>
 
-        // --- 3D ТЕКСТ ---
-        window.addEventListener('load', () => {
-            const container = document.getElementById('3d-text-container');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(45, 800 / 150, 0.1, 1000);
-            camera.position.z = 18; 
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            renderer.setSize(800, 150); 
-            container.appendChild(renderer.domElement);
-            const loader = new THREE.FontLoader();
-            
-            loader.load('./home-video.typeface.json', function (font) {
-                const textOptions = { font: font, size: 2.8, height: 0.8, curveSegments: 12, bevelEnabled: false };
-                const geometry = new THREE.TextGeometry("punchdrunk", textOptions);
-                geometry.center(); 
-                const materialWhite = new THREE.MeshBasicMaterial({ color: 0xffffff });
-                const whiteText = new THREE.Mesh(geometry, materialWhite);
-                const materialPurple = new THREE.MeshBasicMaterial({ color: 0x8a2be2 });
-                const purpleText = new THREE.Mesh(geometry, materialPurple);
-                purpleText.scale.set(1.08, 1.08, 1.08); 
-                purpleText.position.z = -0.2; 
-                const group = new THREE.Group();
-                group.add(purpleText);
-                group.add(whiteText);
-                scene.add(group);
-                
-                // УБРАЛИ СДВИГ КАМЕРЫ, ТЕПЕРЬ ТЕКСТ ПО ЦЕНТРУ
-                
-                function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
-                animate();
-            }, undefined, function(error) {
-                console.error("ОШИБКА ЗАГРУЗКИ ШРИФТА:", error);
-            });
-        });
-    </script>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>★ QUESTIONS PART 2 OUT NOW ★ DIGITAL HARDCORE ★ GABBER ★ LOUDER ★ FASTER ★ HARDCORE ★ PUNCHDRUNK.WAV ★ QUESTIONS PART 2 OUT NOW ★ DIGITAL HARDCORE ★ GABBER ★ LOUDER ★ FASTER ★ HARDCORE ★ PUNCHDRUNK.WAV ★ </span>
+    <span>★ QUESTIONS PART 2 OUT NOW ★ DIGITAL HARDCORE ★ GABBER ★ LOUDER ★ FASTER ★ HARDCORE ★ PUNCHDRUNK.WAV ★ QUESTIONS PART 2 OUT NOW ★ DIGITAL HARDCORE ★ GABBER ★ LOUDER ★ FASTER ★ HARDCORE ★ PUNCHDRUNK.WAV ★ </span>
+  </div>
+</div>
+
+<section class="section" id="crew">
+  <div class="section-inner">
+    <div class="section-tag">// THE CREW</div>
+    <h2 class="section-title">WHO IS <span class="accent">PUNCHDRUNK.WAV?</span></h2>
+
+    <div class="crew-grid">
+
+      <article class="crew-card kenny">
+        <div class="crew-avatar kenny-avatar">
+          <img src="crew.jpg" alt="" class="crew-photo crew-photo-kenny">
+        </div>
+        <div class="crew-info">
+          <div class="crew-name">KENNY</div>
+          <div class="crew-role">// CHARACTER 01 · THE FACE</div>
+          <p class="crew-bio">
+            Green fur. Purple hair. Acid-green streaks. The one who screams loudest.
+            Kenny is the front of the project — the one who stares at you from every cover,
+            the one who shows you the finger and tells you to turn it up.
+          </p>
+          <div class="crew-tags">
+            <span class="tag kenny-tag">LOUD</span>
+            <span class="tag kenny-tag">ACID</span>
+            <span class="tag kenny-tag">NO BRAKES</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="crew-card maurice">
+        <div class="crew-avatar maurice-avatar">
+          <img src="crew.jpg" alt="" class="crew-photo crew-photo-maurice">
+        </div>
+        <div class="crew-info">
+          <div class="crew-name">MAURICE</div>
+          <div class="crew-role">// CHARACTER 02 · THE CHAOS</div>
+          <p class="crew-bio">
+            Orange hair. Twisted grin. The other half of the noise. Maurice breaks the
+            beats, wrecks the tempo, and laughs through it. If Kenny is the face,
+            Maurice is the fist.
+          </p>
+          <div class="crew-tags">
+            <span class="tag maurice-tag">BROKEN</span>
+            <span class="tag maurice-tag">CHAOS</span>
+            <span class="tag maurice-tag">FASTER</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ BIO ============ -->
+<section class="section section-dark" id="bio">
+  <div class="section-inner">
+    <div class="section-tag">// ABOUT</div>
+    <h2 class="section-title">THE <span class="accent">STORY</span></h2>
+
+    <div class="bio-grid">
+
+      <div class="bio-text">
+        <p class="bio-lead">
+          PUNCHDRUNK.WAV is a <strong>digital hardcore / gabber</strong> project born on
+          <strong>August 2, 2023</strong>. Blending digital hardcore, gabber, breakcore
+          and breakbeat, it exists at the intersection of warehouse rave aggression
+          and cartoon violence.
+        </p>
+
+        <p>
+          All artwork, characters and visual identity are crafted in-house, with covers
+          drawn by <strong>FUBAR</strong> (previously by the artist <strong>Licorice</strong>).
+          The project also releases free sample packs under the name
+          <a href="samples.html" class="bio-link">PunchDrunk OFFICIAL</a> —
+          noise textures, distorted kicks and glitch elements for producers in the
+          hardcore scene.
+        </p>
+      </div>
+
+      <aside class="bio-facts">
+        <div class="bio-fact">
+          <div class="bio-fact-label">// FOUNDED</div>
+          <div class="bio-fact-value">AUG 02, 2023</div>
+        </div>
+        <div class="bio-fact">
+          <div class="bio-fact-label">// GENRE</div>
+          <div class="bio-fact-value">DIGITAL HARDCORE<br>GABBER · BREAKCORE</div>
+        </div>
+        <div class="bio-fact">
+          <div class="bio-fact-label">// MEMBERS</div>
+          <div class="bio-fact-value">KENNY × MAURICE</div>
+        </div>
+        <div class="bio-fact">
+          <div class="bio-fact-label">// LATEST RELEASE</div>
+          <div class="bio-fact-value">QUESTIONS PART 2<br>2026</div>
+        </div>
+        <div class="bio-fact">
+          <div class="bio-fact-label">// SAMPLE PACKS</div>
+          <div class="bio-fact-value"><a href="samples.html" class="bio-link">OPEN LIBRARY →</a></div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="videos">
+  <div class="section-inner">
+    <div class="section-tag">// WATCH</div>
+    <h2 class="section-title">VIDEOS</h2>
+
+    <!-- === ВИДНЫЕ СРАЗУ (3) === -->
+    <div class="videos">
+
+      <!-- НОВЫЙ РЕЛИЗ -->
+      <div class="video-card" data-video="tzpvW6GbU_c">
+        <div class="video-thumb">
+          <img class="video-preview"
+               src="https://img.youtube.com/vi/tzpvW6GbU_c/maxresdefault.jpg"
+               alt="BREAK DOWN ft. emosl4t696"
+               loading="lazy"
+               onerror="this.src='https://img.youtube.com/vi/tzpvW6GbU_c/hqdefault.jpg'">
+          <div class="video-overlay"></div>
+          <div class="video-badge">NEW</div>
+          <div class="video-play">▶</div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">BREAK DOWN <span class="track-feat">ft. emosl4t696</span></div>
+          <div class="video-meta">OFFICIAL DIGITAL HARDCORE MUSIC VIDEO</div>
+        </div>
+      </div>
+
+      <div class="video-card" data-video="jGtiMrqr_s4">
+        <div class="video-thumb">
+          <img class="video-preview"
+               src="https://img.youtube.com/vi/jGtiMrqr_s4/maxresdefault.jpg"
+               alt="QUESTIONS PART 2"
+               loading="lazy"
+               onerror="this.src='https://img.youtube.com/vi/jGtiMrqr_s4/hqdefault.jpg'">
+          <div class="video-overlay"></div>
+          <div class="video-play">▶</div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">QUESTIONS PART 2</div>
+          <div class="video-meta">OFFICIAL FULL ALBUM MUSIC VIDEO</div>
+        </div>
+      </div>
+
+      <div class="video-card" data-video="5ygNimEywAM">
+        <div class="video-thumb">
+          <img class="video-preview"
+               src="https://img.youtube.com/vi/5ygNimEywAM/maxresdefault.jpg"
+               alt="GABOOM"
+               loading="lazy"
+               onerror="this.src='https://img.youtube.com/vi/5ygNimEywAM/hqdefault.jpg'">
+          <div class="video-overlay"></div>
+          <div class="video-play">▶</div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">GABOOM</div>
+          <div class="video-meta">OFFICIAL GABBER MUSIC VIDEO</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- === СКРЫТЫЕ, раскроются по кнопке === -->
+    <div class="videos-more" id="videos-more">
+      <div class="videos-inner">
+
+        <div class="video-card" data-video="U2wcmrzvpM8">
+          <div class="video-thumb">
+            <img class="video-preview"
+                 src="https://img.youtube.com/vi/U2wcmrzvpM8/maxresdefault.jpg"
+                 alt="BASSQUAKE ft. CYANBOY"
+                 loading="lazy"
+                 onerror="this.src='https://img.youtube.com/vi/U2wcmrzvpM8/hqdefault.jpg'">
+            <div class="video-overlay"></div>
+            <div class="video-play">▶</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">BASSQUAKE <span class="track-feat">ft. CYANBOY</span></div>
+            <div class="video-meta">OFFICIAL GABBER MUSIC VIDEO</div>
+          </div>
+        </div>
+
+        <div class="video-card" data-video="wLnAyywLTm8">
+          <div class="video-thumb">
+            <img class="video-preview"
+                 src="https://img.youtube.com/vi/wLnAyywLTm8/maxresdefault.jpg"
+                 alt="ATTENTION!"
+                 loading="lazy"
+                 onerror="this.src='https://img.youtube.com/vi/wLnAyywLTm8/hqdefault.jpg'">
+            <div class="video-overlay"></div>
+            <div class="video-play">▶</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">ATTENTION!</div>
+            <div class="video-meta">OFFICIAL GABBER MUSIC VIDEO</div>
+          </div>
+        </div>
+
+        <div class="video-card" data-video="7hDuMXJ2_mE">
+          <div class="video-thumb">
+            <img class="video-preview"
+                 src="https://img.youtube.com/vi/7hDuMXJ2_mE/maxresdefault.jpg"
+                 alt="OUT"
+                 loading="lazy"
+                 onerror="this.src='https://img.youtube.com/vi/7hDuMXJ2_mE/hqdefault.jpg'">
+            <div class="video-overlay"></div>
+            <div class="video-play">▶</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">OUT <span class="track-lyric">[LYRIC]</span></div>
+            <div class="video-meta">OFFICIAL DIGITAL HARDCORE MUSIC VIDEO</div>
+          </div>
+        </div>
+
+        <div class="video-card" data-video="VwmgCwhCXVc">
+          <div class="video-thumb">
+            <img class="video-preview"
+                 src="https://img.youtube.com/vi/VwmgCwhCXVc/maxresdefault.jpg"
+                 alt="MAGFEST"
+                 loading="lazy"
+                 onerror="this.src='https://img.youtube.com/vi/VwmgCwhCXVc/hqdefault.jpg'">
+            <div class="video-overlay"></div>
+            <div class="video-play">▶</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">MAGFEST <span class="track-lyric">[LYRIC]</span></div>
+            <div class="video-meta">OFFICIAL DIGITAL HARDCORE MUSIC VIDEO</div>
+          </div>
+        </div>
+
+        <div class="video-card" data-video="AwXC5GJocdY">
+          <div class="video-thumb">
+            <img class="video-preview"
+                 src="https://img.youtube.com/vi/AwXC5GJocdY/maxresdefault.jpg"
+                 alt="KICK"
+                 loading="lazy"
+                 onerror="this.src='https://img.youtube.com/vi/AwXC5GJocdY/hqdefault.jpg'">
+            <div class="video-overlay"></div>
+            <div class="video-play">▶</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">KICK</div>
+            <div class="video-meta">OFFICIAL GABBER MUSIC VIDEO</div>
+          </div>
+        </div>
+
+        <div class="video-card" data-video="YJW_O_so-4A">
+          <div class="video-thumb">
+            <img class="video-preview"
+                 src="https://img.youtube.com/vi/YJW_O_so-4A/maxresdefault.jpg"
+                 alt="PUSH THE TRIGGER"
+                 loading="lazy"
+                 onerror="this.src='https://img.youtube.com/vi/YJW_O_so-4A/hqdefault.jpg'">
+            <div class="video-overlay"></div>
+            <div class="video-play">▶</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">PUSH THE TRIGGER <span class="track-lyric">[LYRIC]</span></div>
+            <div class="video-meta">OFFICIAL HARD DANCE MUSIC VIDEO</div>
+          </div>
+        </div>
+
+        <div class="video-card" data-video="Y_q1twDbfx0">
+          <div class="video-thumb">
+            <img class="video-preview"
+                 src="https://img.youtube.com/vi/Y_q1twDbfx0/maxresdefault.jpg"
+                 alt="KEEP PREPARE FOR THE BATTLE"
+                 loading="lazy"
+                 onerror="this.src='https://img.youtube.com/vi/Y_q1twDbfx0/hqdefault.jpg'">
+            <div class="video-overlay"></div>
+            <div class="video-play">▶</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">KEEP PREPARE FOR THE BATTLE <span class="track-lyric">[LYRIC]</span></div>
+            <div class="video-meta">OFFICIAL EXPERIMENTAL MUSIC VIDEO</div>
+          </div>
+        </div>
+
+        <div class="video-card" data-video="ZhDe0N7wjNk">
+          <div class="video-thumb">
+            <img class="video-preview"
+                 src="https://img.youtube.com/vi/ZhDe0N7wjNk/maxresdefault.jpg"
+                 alt="PUSH THE TEMPO"
+                 loading="lazy"
+                 onerror="this.src='https://img.youtube.com/vi/ZhDe0N7wjNk/hqdefault.jpg'">
+            <div class="video-overlay"></div>
+            <div class="video-play">▶</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">PUSH THE TEMPO</div>
+            <div class="video-meta">OFFICIAL HARD DANCE MUSIC VIDEO</div>
+          </div>
+        </div>
+
+        <div class="video-card" data-video="BxEov8ArMUs">
+          <div class="video-thumb">
+            <img class="video-preview"
+                 src="https://img.youtube.com/vi/BxEov8ArMUs/maxresdefault.jpg"
+                 alt="SPECTRUM"
+                 loading="lazy"
+                 onerror="this.src='https://img.youtube.com/vi/BxEov8ArMUs/hqdefault.jpg'">
+            <div class="video-overlay"></div>
+            <div class="video-play">▶</div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">SPECTRUM</div>
+            <div class="video-meta">OFFICIAL EXPERIMENTAL MUSIC VIDEO</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- === КНОПКА === -->
+    <div class="show-more-wrap">
+      <button class="show-more-btn" id="show-more-btn" aria-expanded="false">
+        <span class="btn-arrow">▼</span>
+        <span class="btn-text">SHOW ALL VIDEOS</span>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>© 2026 PUNCHDRUNK.WAV</div>
+    <div class="footer-links">
+      <a href="https://www.youtube.com/@PUNCHDRUNKwav/videos" target="_blank" rel="noopener">YOUTUBE</a>
+      <a href="https://t.me/LONGTAILSTRAXX" target="_blank" rel="noopener">TELEGRAM</a>
+      <a href="https://discord.com/invite/Pcs42mGGD7" target="_blank" rel="noopener">DISCORD</a>
+      <a href="https://www.tiktok.com/@punchdrunk.wav" target="_blank" rel="noopener">TIKTOK</a>
+    </div>
+    <div>KENNY × MAURICE</div>
+  </div>
+</footer>
+
+<!-- ============ VIDEO WINDOW (draggable + resizable) ============ -->
+<div class="video-window" id="video-window">
+  <div class="video-window-bar" id="video-window-bar">
+    <span class="video-window-title" id="video-window-title">NOW PLAYING</span>
+    <button class="video-window-close" id="video-window-close" aria-label="Close">✕</button>
+  </div>
+  <div class="video-window-frame" id="video-window-frame"></div>
+  <div class="video-window-resize" id="video-window-resize"></div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
