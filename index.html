@@ -41,8 +41,17 @@
             z-index: 2;
         }
 
-        /* КНОПКА КУПИТЬ БИЛЕТЫ */
-        .tickets-btn {
+        /* КНОПКИ */
+        .buttons-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .action-btn {
             display: inline-block;
             background: rgba(0, 0, 0, 0.8);
             border: 2px solid #8a2be2;
@@ -54,13 +63,9 @@
             text-transform: uppercase;
             transition: all 0.3s ease;
             border-radius: 4px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            z-index: 10;
-            position: relative;
         }
 
-        .tickets-btn:hover {
+        .action-btn:hover {
             background: #8a2be2;
             color: #000;
             box-shadow: 0 0 20px rgba(138, 43, 226, 0.9);
@@ -90,8 +95,11 @@
 
             <div id="3d-text-container"></div>
 
-            <!-- КНОПКА BUY TICKETS -->
-            <a href="tickets.html" class="tickets-btn">Buy Tickets</a>
+            <!-- БЛОК С КНОПКАМИ -->
+            <div class="buttons-container">
+                <a href="tickets.html" class="action-btn">Buy Tickets</a>
+                <a href="https://4oom-clean.punchdrunk69ofc.workers.dev/" target="_blank" class="action-btn">Forum</a>
+            </div>
             
             <p class="email-text">punchdrunk69ofc@gmail.com</p>
         </div>
@@ -132,6 +140,9 @@
                 group.add(purpleText);
                 group.add(whiteText);
                 scene.add(group);
+                
+                // Текст стоит ровно по центру (без сдвига)
+                group.position.x = 0; 
                 
                 function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
                 animate();
