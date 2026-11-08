@@ -123,7 +123,14 @@
 
         /* --- ИНДИВИДУАЛЬНЫЕ СТИЛИ --- */
         
-        /* НОВЫЙ РЕЛИЗ BREAK DOWN (Красный) */
+        /* НОВЫЙ РЕЛИЗ (Киберпанк-желтый) */
+        .theme-new { border-color: #fcee0a; box-shadow: 0 0 15px rgba(252, 238, 10, 0.3); }
+        .theme-new:hover { box-shadow: 0 0 30px rgba(252, 238, 10, 0.7); }
+        .theme-new .release-title { color: #fcee0a; text-shadow: 0 0 5px rgba(252, 238, 10, 0.5); }
+        .theme-new .video-container { border-bottom-color: rgba(252, 238, 10, 0.5); }
+        .theme-new .play-overlay { text-shadow: 0 0 20px #fcee0a; }
+
+        /* BREAK DOWN (Красный) */
         .theme-breakdown { border-color: #ff0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.3); }
         .theme-breakdown:hover { box-shadow: 0 0 30px rgba(255, 0, 0, 0.7); }
         .theme-breakdown .release-title { color: #ff0000; text-shadow: 0 0 5px rgba(255, 0, 0, 0.5); }
@@ -198,10 +205,24 @@
         
         <div class="releases-grid">
             
-            <!-- НОВЫЙ РЕЛИЗ: BREAK DOWN -->
+            <!-- САМЫЙ НОВЫЙ РЕЛИЗ -->
+            <div class="release-card theme-new">
+                <div class="video-container" id="video-newest">
+                    <div class="video-placeholder" onclick="loadVideo('video-newest', 'qUZ0YonUdw4')">
+                        <img src="https://img.youtube.com/vi/qUZ0YonUdw4/maxresdefault.jpg" alt="New Release">
+                        <div class="play-overlay">▶</div>
+                    </div>
+                </div>
+                <div class="release-info">
+                    <h2 class="release-title">GET UP</h2>
+                    <div class="release-desc">Official Music Video.</div>
+                </div>
+            </div>
+
+            <!-- BREAK DOWN -->
             <div class="release-card theme-breakdown">
-                <div class="video-container" id="video-new">
-                    <div class="video-placeholder" onclick="loadVideo('video-new', 'tzpvW6GbU_c')">
+                <div class="video-container" id="video-breakdown">
+                    <div class="video-placeholder" onclick="loadVideo('video-breakdown', 'tzpvW6GbU_c')">
                         <img src="https://img.youtube.com/vi/tzpvW6GbU_c/maxresdefault.jpg" alt="BREAK DOWN">
                         <div class="play-overlay">▶</div>
                     </div>
@@ -372,7 +393,6 @@
             group.add(whiteText);
             scene.add(group);
             
-            // СДВИГ ТЕКСТА ВПРАВО (вернул значение 14)
             group.position.x = 14; 
             
             function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
