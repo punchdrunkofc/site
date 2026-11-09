@@ -132,32 +132,7 @@
         
         <div class="demo-grid">
             
-            <!-- НОВОЕ ДЕМО (DEMO 04) -->
-            <div class="demo-card">
-                <div class="video-container" id="demo-4">
-                    <div class="video-placeholder" onclick="loadVideo('demo-4', '5ZfPQEqwRaw')">
-                        <img src="https://img.youtube.com/vi/5ZfPQEqwRaw/maxresdefault.jpg" alt="Demo 4">
-                        <div class="play-overlay">▶</div>
-                    </div>
-                </div>
-                <div class="demo-info">
-                    <h2 class="demo-title">DEMO 04</h2>
-                </div>
-            </div>
-
-            <!-- ТРЕК ИЗ ПРОШЛОГО РАЗА -->
-            <div class="demo-card">
-                <div class="video-container" id="demo-new">
-                    <div class="video-placeholder" onclick="loadVideo('demo-new', 'C3hJ1seqccQ')">
-                        <img src="https://img.youtube.com/vi/C3hJ1seqccQ/maxresdefault.jpg" alt="Demo 3">
-                        <div class="play-overlay">▶</div>
-                    </div>
-                </div>
-                <div class="demo-info">
-                    <h2 class="demo-title">DEMO 03</h2>
-                </div>
-            </div>
-
+            <!-- Демо 1 -->
             <div class="demo-card">
                 <div class="video-container" id="demo-1">
                     <div class="video-placeholder" onclick="loadVideo('demo-1', 'Vb8knhx6OtE')">
@@ -170,6 +145,7 @@
                 </div>
             </div>
 
+            <!-- Демо 2 -->
             <div class="demo-card">
                 <div class="video-container" id="demo-2">
                     <div class="video-placeholder" onclick="loadVideo('demo-2', 'FXzDlbBqYHM')">
@@ -179,6 +155,19 @@
                 </div>
                 <div class="demo-info">
                     <h2 class="demo-title">DEMO 02</h2>
+                </div>
+            </div>
+
+            <!-- Демо 3 (НОВОЕ) -->
+            <div class="demo-card">
+                <div class="video-container" id="demo-3">
+                    <div class="video-placeholder" onclick="loadVideo('demo-3', 'QJOORaHs39g')">
+                        <img src="https://img.youtube.com/vi/QJOORaHs39g/maxresdefault.jpg" alt="I WANNA SLEEP">
+                        <div class="play-overlay">▶</div>
+                    </div>
+                </div>
+                <div class="demo-info">
+                    <h2 class="demo-title">DEMO 03</h2>
                 </div>
             </div>
 
@@ -211,10 +200,8 @@
 
         const container = document.getElementById('3d-text-container');
         const scene = new THREE.Scene();
-        
         const camera = new THREE.PerspectiveCamera(45, 800 / 200, 0.1, 1000);
         camera.position.z = 18; 
-
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setSize(800, 200); 
         container.appendChild(renderer.domElement);
@@ -235,7 +222,7 @@
             group.add(whiteText);
             scene.add(group);
             
-            camera.position.x = -14; 
+            group.position.x = 0; 
             
             function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
             animate();
