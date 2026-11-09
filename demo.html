@@ -132,20 +132,20 @@
         
         <div class="demo-grid">
             
-            <!-- Демо 1 -->
+            <!-- НОВОЕ ДЕМО 3 (I WANNA SLEEP) - ТЕПЕРЬ ПЕРВОЕ -->
             <div class="demo-card">
-                <div class="video-container" id="demo-1">
-                    <div class="video-placeholder" onclick="loadVideo('demo-1', 'Vb8knhx6OtE')">
-                        <img src="https://img.youtube.com/vi/Vb8knhx6OtE/maxresdefault.jpg" alt="Demo 1">
+                <div class="video-container" id="demo-3">
+                    <div class="video-placeholder" onclick="loadVideo('demo-3', 'QJOORaHs39g')">
+                        <img src="https://img.youtube.com/vi/QJOORaHs39g/maxresdefault.jpg" alt="I WANNA SLEEP">
                         <div class="play-overlay">▶</div>
                     </div>
                 </div>
                 <div class="demo-info">
-                    <h2 class="demo-title">DEMO 01</h2>
+                    <h2 class="demo-title">DEMO 03</h2>
                 </div>
             </div>
 
-            <!-- Демо 2 -->
+            <!-- СТАРОЕ ДЕМО 2 - ТЕПЕРЬ ВТОРОЕ -->
             <div class="demo-card">
                 <div class="video-container" id="demo-2">
                     <div class="video-placeholder" onclick="loadVideo('demo-2', 'FXzDlbBqYHM')">
@@ -158,16 +158,16 @@
                 </div>
             </div>
 
-            <!-- Демо 3 (I WANNA SLEEP) -->
+            <!-- СТАРОЕ ДЕМО 1 - ТЕПЕРЬ ТРЕТЬЕ -->
             <div class="demo-card">
-                <div class="video-container" id="demo-3">
-                    <div class="video-placeholder" onclick="loadVideo('demo-3', 'QJOORaHs39g')">
-                        <img src="https://img.youtube.com/vi/QJOORaHs39g/maxresdefault.jpg" alt="I WANNA SLEEP">
+                <div class="video-container" id="demo-1">
+                    <div class="video-placeholder" onclick="loadVideo('demo-1', 'Vb8knhx6OtE')">
+                        <img src="https://img.youtube.com/vi/Vb8knhx6OtE/maxresdefault.jpg" alt="Demo 1">
                         <div class="play-overlay">▶</div>
                     </div>
                 </div>
                 <div class="demo-info">
-                    <h2 class="demo-title">DEMO 03</h2>
+                    <h2 class="demo-title">DEMO 01</h2>
                 </div>
             </div>
 
@@ -222,7 +222,8 @@
             group.add(whiteText);
             scene.add(group);
             
-            group.position.x = 0; 
+            // ВОЗВРАЩАЕМ СДВИГ 14, ЧТОБЫ ТЕКСТ ВСТАЛ ПО ЦЕНТРУ
+            group.position.x = 14; 
             
             function animate() { requestAnimationFrame(animate); group.rotation.y += 0.015; renderer.render(scene, camera); }
             animate();
